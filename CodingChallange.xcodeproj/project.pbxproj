@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A3BF71DC267268AA00C55B29 /* ShiftDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */; };
+		A3BF71DE267279A900C55B29 /* ShiftDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71DD267279A900C55B29 /* ShiftDetails.swift */; };
 		A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */; };
 		A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A05267163A600B26AF2 /* ShiftsListView.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDetailsView.swift; sourceTree = "<group>"; };
+		A3BF71DD267279A900C55B29 /* ShiftDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDetails.swift; sourceTree = "<group>"; };
 		A3D67A00267163A600B26AF2 /* CodingChallange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeApp.swift; sourceTree = "<group>"; };
 		A3D67A05267163A600B26AF2 /* ShiftsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsListView.swift; sourceTree = "<group>"; };
@@ -78,6 +82,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3BF71D82672687B00C55B29 /* ShiftDetails */ = {
+			isa = PBXGroup;
+			children = (
+				A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */,
+				A3BF71DD267279A900C55B29 /* ShiftDetails.swift */,
+			);
+			path = ShiftDetails;
+			sourceTree = "<group>";
+		};
 		A3D679F7267163A600B26AF2 = {
 			isa = PBXGroup;
 			children = (
@@ -140,6 +153,7 @@
 		A3D67A2E2672331F00B26AF2 /* Shifts */ = {
 			isa = PBXGroup;
 			children = (
+				A3BF71D82672687B00C55B29 /* ShiftDetails */,
 				A3D67A332672353B00B26AF2 /* ShiftsList */,
 			);
 			path = Shifts;
@@ -316,6 +330,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3BF71DE267279A900C55B29 /* ShiftDetails.swift in Sources */,
+				A3BF71DC267268AA00C55B29 /* ShiftDetailsView.swift in Sources */,
 				A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */,
 				A3D67A3926725C4A00B26AF2 /* Fakeable.swift in Sources */,
 				A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */,
