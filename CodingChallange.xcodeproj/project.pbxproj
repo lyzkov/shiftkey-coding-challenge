@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */; };
-		A3D67A06267163A600B26AF2 /* ShiftsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A05267163A600B26AF2 /* ShiftsView.swift */; };
-		A3D67A08267163A700B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
+		A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A05267163A600B26AF2 /* ShiftsListView.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
 		A3D67A16267163A800B26AF2 /* CodingChallangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A15267163A800B26AF2 /* CodingChallangeTests.swift */; };
 		A3D67A21267163A800B26AF2 /* CodingChallangeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A20267163A800B26AF2 /* CodingChallangeUITests.swift */; };
+		A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
+		A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A342672360900B26AF2 /* ShiftItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,7 +36,7 @@
 /* Begin PBXFileReference section */
 		A3D67A00267163A600B26AF2 /* CodingChallange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeApp.swift; sourceTree = "<group>"; };
-		A3D67A05267163A600B26AF2 /* ShiftsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsView.swift; sourceTree = "<group>"; };
+		A3D67A05267163A600B26AF2 /* ShiftsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsListView.swift; sourceTree = "<group>"; };
 		A3D67A07267163A700B26AF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		A3D67A0C267163A700B26AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -45,6 +46,7 @@
 		A3D67A1C267163A800B26AF2 /* CodingChallangeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodingChallangeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A20267163A800B26AF2 /* CodingChallangeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeUITests.swift; sourceTree = "<group>"; };
 		A3D67A22267163A800B26AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3D67A342672360900B26AF2 /* ShiftItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,9 +98,10 @@
 			isa = PBXGroup;
 			children = (
 				A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */,
-				A3D67A05267163A600B26AF2 /* ShiftsView.swift */,
-				A3D67A07267163A700B26AF2 /* Assets.xcassets */,
-				A3D67A0C267163A700B26AF2 /* Info.plist */,
+				A3D67A2F2672334700B26AF2 /* Common */,
+				A3D67A312672344500B26AF2 /* Config */,
+				A3D67A322672347000B26AF2 /* Resource */,
+				A3D67A2E2672331F00B26AF2 /* Shifts */,
 				A3D67A09267163A700B26AF2 /* Preview Content */,
 			);
 			path = CodingChallange;
@@ -128,6 +131,46 @@
 				A3D67A22267163A800B26AF2 /* Info.plist */,
 			);
 			path = CodingChallangeUITests;
+			sourceTree = "<group>";
+		};
+		A3D67A2E2672331F00B26AF2 /* Shifts */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A332672353B00B26AF2 /* ShiftsList */,
+			);
+			path = Shifts;
+			sourceTree = "<group>";
+		};
+		A3D67A2F2672334700B26AF2 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		A3D67A312672344500B26AF2 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A0C267163A700B26AF2 /* Info.plist */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		A3D67A322672347000B26AF2 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A07267163A700B26AF2 /* Assets.xcassets */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		A3D67A332672353B00B26AF2 /* ShiftsList */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A05267163A600B26AF2 /* ShiftsListView.swift */,
+				A3D67A342672360900B26AF2 /* ShiftItem.swift */,
+			);
+			path = ShiftsList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -234,7 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */,
-				A3D67A08267163A700B26AF2 /* Assets.xcassets in Resources */,
+				A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +302,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D67A06267163A600B26AF2 /* ShiftsView.swift in Sources */,
+				A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */,
+				A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */,
 				A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,7 +465,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CodingChallange/Preview Content\"";
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = CodingChallange/Info.plist;
+				INFOPLIST_FILE = CodingChallange/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -443,7 +487,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"CodingChallange/Preview Content\"";
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = CodingChallange/Info.plist;
+				INFOPLIST_FILE = CodingChallange/Config/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
