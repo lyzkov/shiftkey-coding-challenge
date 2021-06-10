@@ -9,12 +9,19 @@ import SwiftUI
 
 struct ShiftsListView: View {
     let items: [ShiftItem]
+    @State var selectedItem: ShiftItem?
     
     var body: some View {
         NavigationView {
             Group {
-                List(items) {
-                    ShiftItemView(item: $0)
+                List(items) { item in
+                    ShiftItemView(item: item)
+                        .onTapGesture {
+                            selectedItem = item
+                        }
+                }
+                .sheet(item: $selectedItem) { item in
+                    ShiftDetailsView(details: ShiftDetails.fake())
                 }
             }
             .navigationTitle("Shifts")
