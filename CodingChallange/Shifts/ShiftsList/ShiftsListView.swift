@@ -8,11 +8,13 @@
 import SwiftUI
 
 struct ShiftsListView: View {
+    let items: [ShiftItem]
+    
     var body: some View {
         NavigationView {
             Group {
-                List((3...60).map { _ in ShiftItem() }) {
-                    Text("Shift ID: \($0.id.uuidString)")
+                List(items) {
+                    ShiftItemView(item: $0)
                 }
             }
             .navigationTitle("Shifts")
@@ -22,6 +24,6 @@ struct ShiftsListView: View {
 
 struct ShiftsView_Previews: PreviewProvider {
     static var previews: some View {
-        ShiftsListView()
+        ShiftsListView(items: (3...60).map { _ in .fake() })
     }
 }

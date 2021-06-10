@@ -11,7 +11,9 @@ import SwiftUI
 struct CodingChallangeApp: App {
     var body: some Scene {
         WindowGroup {
-            ShiftsListView()
+            ShiftsListView(items: shiftItems)
         }
     }
 }
+
+let shiftItems = (3...60).map { _ in ShiftItem.fake() }

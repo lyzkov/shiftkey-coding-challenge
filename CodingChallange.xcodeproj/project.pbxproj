@@ -14,6 +14,8 @@
 		A3D67A21267163A800B26AF2 /* CodingChallangeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A20267163A800B26AF2 /* CodingChallangeUITests.swift */; };
 		A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
 		A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A342672360900B26AF2 /* ShiftItem.swift */; };
+		A3D67A3726723B5600B26AF2 /* ShiftItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A3626723B5600B26AF2 /* ShiftItemView.swift */; };
+		A3D67A3926725C4A00B26AF2 /* Fakeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A3826725C4A00B26AF2 /* Fakeable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		A3D67A20267163A800B26AF2 /* CodingChallangeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeUITests.swift; sourceTree = "<group>"; };
 		A3D67A22267163A800B26AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3D67A342672360900B26AF2 /* ShiftItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftItem.swift; sourceTree = "<group>"; };
+		A3D67A3626723B5600B26AF2 /* ShiftItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftItemView.swift; sourceTree = "<group>"; };
+		A3D67A3826725C4A00B26AF2 /* Fakeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fakeable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,6 +148,7 @@
 		A3D67A2F2672334700B26AF2 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				A3D67A3A26725D2600B26AF2 /* Fakery */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -168,9 +173,18 @@
 			isa = PBXGroup;
 			children = (
 				A3D67A05267163A600B26AF2 /* ShiftsListView.swift */,
+				A3D67A3626723B5600B26AF2 /* ShiftItemView.swift */,
 				A3D67A342672360900B26AF2 /* ShiftItem.swift */,
 			);
 			path = ShiftsList;
+			sourceTree = "<group>";
+		};
+		A3D67A3A26725D2600B26AF2 /* Fakery */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A3826725C4A00B26AF2 /* Fakeable.swift */,
+			);
+			path = Fakery;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -303,7 +317,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */,
+				A3D67A3926725C4A00B26AF2 /* Fakeable.swift in Sources */,
 				A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */,
+				A3D67A3726723B5600B26AF2 /* ShiftItemView.swift in Sources */,
 				A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
