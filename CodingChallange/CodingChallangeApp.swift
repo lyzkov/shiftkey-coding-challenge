@@ -11,7 +11,7 @@ import SwiftUI
 struct CodingChallangeApp: App {
     var body: some Scene {
         WindowGroup {
-            ShiftsView()
+            ShiftsListView()
         }
     }
 }
