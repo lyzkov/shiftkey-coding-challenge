@@ -12,7 +12,7 @@ struct ShiftItemView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Shift ID: \n\t\(item.id.uuidString)")
+            Text("Shift ID: \n\t\(item.id)")
             Text("Facility: \n\t\(item.facility)")
             HStack {
                 Text(item.start, style: .date)
