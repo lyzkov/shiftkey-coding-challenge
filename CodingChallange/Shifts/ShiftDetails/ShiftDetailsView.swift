@@ -14,7 +14,7 @@ struct ShiftDetailsView: View {
         NavigationView {
             Group {
                 VStack(alignment: .leading) {
-                    Text("Shift ID: \(details.id.uuidString)")
+                    Text("Shift ID: \(details.id)")
                     Text("Facility: \(details.facility)")
                     Text("Skill: \(details.skill)")
                     Text("Specialty: \(details.specialty)")

@@ -3,12 +3,22 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		A3BF71DC267268AA00C55B29 /* ShiftDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */; };
 		A3BF71DE267279A900C55B29 /* ShiftDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71DD267279A900C55B29 /* ShiftDetails.swift */; };
+		A3BF71E1267290F600C55B29 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = A3BF71E0267290F600C55B29 /* ComposableArchitecture */; };
+		A3BF71E42672D01E00C55B29 /* ShiftsAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71E32672D01E00C55B29 /* ShiftsAction.swift */; };
+		A3BF71E62672D03300C55B29 /* ShiftsReducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71E52672D03300C55B29 /* ShiftsReducer.swift */; };
+		A3BF71E82672D04700C55B29 /* ShiftsState.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71E72672D04700C55B29 /* ShiftsState.swift */; };
+		A3BF71EA2672D05300C55B29 /* ShiftsEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71E92672D05300C55B29 /* ShiftsEnvironment.swift */; };
+		A3BF71ED26737A5B00C55B29 /* Shift.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71EC26737A5B00C55B29 /* Shift.swift */; };
+		A3BF71EF26737C2100C55B29 /* Specialty.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71EE26737C2100C55B29 /* Specialty.swift */; };
+		A3BF71F126737C2A00C55B29 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71F026737C2A00C55B29 /* Facility.swift */; };
+		A3BF71F326737C4300C55B29 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71F226737C4300C55B29 /* Skill.swift */; };
+		A3C2C6EF267B6586009E64EA /* Viewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C2C6EE267B6586009E64EA /* Viewable.swift */; };
 		A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */; };
 		A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A05267163A600B26AF2 /* ShiftsListView.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
@@ -40,6 +50,15 @@
 /* Begin PBXFileReference section */
 		A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDetailsView.swift; sourceTree = "<group>"; };
 		A3BF71DD267279A900C55B29 /* ShiftDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftDetails.swift; sourceTree = "<group>"; };
+		A3BF71E32672D01E00C55B29 /* ShiftsAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsAction.swift; sourceTree = "<group>"; };
+		A3BF71E52672D03300C55B29 /* ShiftsReducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsReducer.swift; sourceTree = "<group>"; };
+		A3BF71E72672D04700C55B29 /* ShiftsState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsState.swift; sourceTree = "<group>"; };
+		A3BF71E92672D05300C55B29 /* ShiftsEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsEnvironment.swift; sourceTree = "<group>"; };
+		A3BF71EC26737A5B00C55B29 /* Shift.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shift.swift; sourceTree = "<group>"; };
+		A3BF71EE26737C2100C55B29 /* Specialty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Specialty.swift; sourceTree = "<group>"; };
+		A3BF71F026737C2A00C55B29 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
+		A3BF71F226737C4300C55B29 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
+		A3C2C6EE267B6586009E64EA /* Viewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewable.swift; sourceTree = "<group>"; };
 		A3D67A00267163A600B26AF2 /* CodingChallange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeApp.swift; sourceTree = "<group>"; };
 		A3D67A05267163A600B26AF2 /* ShiftsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsListView.swift; sourceTree = "<group>"; };
@@ -62,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3BF71E1267290F600C55B29 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -89,6 +109,29 @@
 				A3BF71DD267279A900C55B29 /* ShiftDetails.swift */,
 			);
 			path = ShiftDetails;
+			sourceTree = "<group>";
+		};
+		A3BF71E22672CDF700C55B29 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				A3BF71EB26737A2D00C55B29 /* Model */,
+				A3BF71E32672D01E00C55B29 /* ShiftsAction.swift */,
+				A3BF71E52672D03300C55B29 /* ShiftsReducer.swift */,
+				A3BF71E72672D04700C55B29 /* ShiftsState.swift */,
+				A3BF71E92672D05300C55B29 /* ShiftsEnvironment.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		A3BF71EB26737A2D00C55B29 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				A3BF71EC26737A5B00C55B29 /* Shift.swift */,
+				A3BF71EE26737C2100C55B29 /* Specialty.swift */,
+				A3BF71F026737C2A00C55B29 /* Facility.swift */,
+				A3BF71F226737C4300C55B29 /* Skill.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		A3D679F7267163A600B26AF2 = {
@@ -153,6 +196,7 @@
 		A3D67A2E2672331F00B26AF2 /* Shifts */ = {
 			isa = PBXGroup;
 			children = (
+				A3BF71E22672CDF700C55B29 /* Core */,
 				A3BF71D82672687B00C55B29 /* ShiftDetails */,
 				A3D67A332672353B00B26AF2 /* ShiftsList */,
 			);
@@ -163,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				A3D67A3A26725D2600B26AF2 /* Fakery */,
+				A3C2C6EE267B6586009E64EA /* Viewable.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -217,6 +262,9 @@
 			dependencies = (
 			);
 			name = CodingChallange;
+			packageProductDependencies = (
+				A3BF71E0267290F600C55B29 /* ComposableArchitecture */,
+			);
 			productName = CodingChallange;
 			productReference = A3D67A00267163A600B26AF2 /* CodingChallange.app */;
 			productType = "com.apple.product-type.application";
@@ -288,6 +336,9 @@
 				Base,
 			);
 			mainGroup = A3D679F7267163A600B26AF2;
+			packageReferences = (
+				A3BF71DF267290F600C55B29 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
+			);
 			productRefGroup = A3D67A01267163A600B26AF2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -330,12 +381,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3BF71E42672D01E00C55B29 /* ShiftsAction.swift in Sources */,
 				A3BF71DE267279A900C55B29 /* ShiftDetails.swift in Sources */,
+				A3BF71E82672D04700C55B29 /* ShiftsState.swift in Sources */,
 				A3BF71DC267268AA00C55B29 /* ShiftDetailsView.swift in Sources */,
+				A3BF71ED26737A5B00C55B29 /* Shift.swift in Sources */,
 				A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */,
+				A3BF71EF26737C2100C55B29 /* Specialty.swift in Sources */,
 				A3D67A3926725C4A00B26AF2 /* Fakeable.swift in Sources */,
+				A3C2C6EF267B6586009E64EA /* Viewable.swift in Sources */,
+				A3BF71E62672D03300C55B29 /* ShiftsReducer.swift in Sources */,
+				A3BF71EA2672D05300C55B29 /* ShiftsEnvironment.swift in Sources */,
 				A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */,
 				A3D67A3726723B5600B26AF2 /* ShiftItemView.swift in Sources */,
+				A3BF71F326737C4300C55B29 /* Skill.swift in Sources */,
+				A3BF71F126737C2A00C55B29 /* Facility.swift in Sources */,
 				A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -656,6 +716,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		A3BF71DF267290F600C55B29 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.18.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		A3BF71E0267290F600C55B29 /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3BF71DF267290F600C55B29 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = A3D679F8267163A600B26AF2 /* Project object */;
 }
