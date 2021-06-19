@@ -88,3 +88,13 @@ fastlane/test_output
 # https://github.com/johnno1962/injectionforxcode
 
 iOSInjectionProject/
+
+# Weaver
+#
+# Dependency containers are generated in Buiid Phase Script execution.
+# Since that they are excluded from repo.
+Generated/*.swift
+**/Generated/*.swift
+
+# Cache files
+**/.weaver_cache.json

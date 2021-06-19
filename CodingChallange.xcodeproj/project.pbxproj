@@ -19,6 +19,7 @@
 		A3BF71F126737C2A00C55B29 /* Facility.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71F026737C2A00C55B29 /* Facility.swift */; };
 		A3BF71F326737C4300C55B29 /* Skill.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3BF71F226737C4300C55B29 /* Skill.swift */; };
 		A3C2C6EF267B6586009E64EA /* Viewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C2C6EE267B6586009E64EA /* Viewable.swift */; };
+		A3C2C6FB267D2D7B009E64EA /* Weaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3C2C6FA267D2D7B009E64EA /* Weaver.swift */; };
 		A3D67A04267163A600B26AF2 /* CodingChallangeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */; };
 		A3D67A06267163A600B26AF2 /* ShiftsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A05267163A600B26AF2 /* ShiftsListView.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
@@ -59,6 +60,7 @@
 		A3BF71F026737C2A00C55B29 /* Facility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Facility.swift; sourceTree = "<group>"; };
 		A3BF71F226737C4300C55B29 /* Skill.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skill.swift; sourceTree = "<group>"; };
 		A3C2C6EE267B6586009E64EA /* Viewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewable.swift; sourceTree = "<group>"; };
+		A3C2C6FA267D2D7B009E64EA /* Weaver.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weaver.swift; sourceTree = "<group>"; };
 		A3D67A00267163A600B26AF2 /* CodingChallange.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallange.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodingChallangeApp.swift; sourceTree = "<group>"; };
 		A3D67A05267163A600B26AF2 /* ShiftsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShiftsListView.swift; sourceTree = "<group>"; };
@@ -102,13 +104,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		A3BF71D82672687B00C55B29 /* ShiftDetails */ = {
+		A351AC052680A61800385F50 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				A3D67A332672353B00B26AF2 /* ShiftsList */,
+				A3BF71D82672687B00C55B29 /* ShiftsDetails */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		A3BF71D82672687B00C55B29 /* ShiftsDetails */ = {
 			isa = PBXGroup;
 			children = (
 				A3BF71DB267268AA00C55B29 /* ShiftDetailsView.swift */,
 				A3BF71DD267279A900C55B29 /* ShiftDetails.swift */,
 			);
-			path = ShiftDetails;
+			path = ShiftsDetails;
 			sourceTree = "<group>";
 		};
 		A3BF71E22672CDF700C55B29 /* Core */ = {
@@ -132,6 +143,14 @@
 				A3BF71F226737C4300C55B29 /* Skill.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		A3C2C6F1267BB93C009E64EA /* Generated */ = {
+			isa = PBXGroup;
+			children = (
+				A3C2C6FA267D2D7B009E64EA /* Weaver.swift */,
+			);
+			path = Generated;
 			sourceTree = "<group>";
 		};
 		A3D679F7267163A600B26AF2 = {
@@ -158,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				A3D67A03267163A600B26AF2 /* CodingChallangeApp.swift */,
+				A3C2C6F1267BB93C009E64EA /* Generated */,
 				A3D67A2F2672334700B26AF2 /* Common */,
 				A3D67A312672344500B26AF2 /* Config */,
 				A3D67A322672347000B26AF2 /* Resource */,
@@ -196,9 +216,8 @@
 		A3D67A2E2672331F00B26AF2 /* Shifts */ = {
 			isa = PBXGroup;
 			children = (
+				A351AC052680A61800385F50 /* View */,
 				A3BF71E22672CDF700C55B29 /* Core */,
-				A3BF71D82672687B00C55B29 /* ShiftDetails */,
-				A3D67A332672353B00B26AF2 /* ShiftsList */,
 			);
 			path = Shifts;
 			sourceTree = "<group>";
@@ -253,6 +272,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A3D67A25267163A800B26AF2 /* Build configuration list for PBXNativeTarget "CodingChallange" */;
 			buildPhases = (
+				A3C2C6F0267BB86F009E64EA /* Weaver */,
 				A3D679FC267163A600B26AF2 /* Sources */,
 				A3D679FD267163A600B26AF2 /* Frameworks */,
 				A3D679FE267163A600B26AF2 /* Resources */,
@@ -376,6 +396,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A3C2C6F0267BB86F009E64EA /* Weaver */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Weaver;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$PROJECT_DIR/bin/weaver clean\nweaver swift --config-path config/weaver.yaml\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A3D679FC267163A600B26AF2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -392,6 +433,7 @@
 				A3C2C6EF267B6586009E64EA /* Viewable.swift in Sources */,
 				A3BF71E62672D03300C55B29 /* ShiftsReducer.swift in Sources */,
 				A3BF71EA2672D05300C55B29 /* ShiftsEnvironment.swift in Sources */,
+				A3C2C6FB267D2D7B009E64EA /* Weaver.swift in Sources */,
 				A3D67A352672360900B26AF2 /* ShiftItem.swift in Sources */,
 				A3D67A3726723B5600B26AF2 /* ShiftItemView.swift in Sources */,
 				A3BF71F326737C4300C55B29 /* Skill.swift in Sources */,

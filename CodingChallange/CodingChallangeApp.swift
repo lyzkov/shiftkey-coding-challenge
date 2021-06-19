@@ -7,11 +7,28 @@
 
 import SwiftUI
 
+import ComposableArchitecture
+
 @main
 struct CodingChallangeApp: App {
+    
+    private let dependencies = MainDependencyContainer.codingChallangeAppDependencyResolver()
+    
+    @Weaver(.registration)
+    var shiftsStore: Store<ShiftsState, ShiftsAction>
+    
     var body: some Scene {
         WindowGroup {
-            ShiftsListView()
+            ShiftsListView(injecting: dependencies)
         }
     }
+    
+}
+
+extension Store where State == ShiftsState, Action == ShiftsAction {
+    
+    convenience init() {
+        self.init(initialState: ShiftsState(), reducer: shiftsReducer, environment: ShiftsEnvironment())
+    }
+    
 }
