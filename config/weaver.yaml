@@ -1,6 +1,0 @@
-main_output_path: CodingChallange/Generated/
-input_paths:
-  - CodingChallange
-ignored_paths:
-  - CodingChallange/Generated
-
