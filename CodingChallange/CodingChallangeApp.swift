@@ -2,7 +2,7 @@
 //  CodingChallangeApp.swift
 //  CodingChallange
 //
-//  Created by Piotr Bogusław Łyczba on 09/06/2021.
+//  Created by lyzkov on 09/06/2021.
 //
 
 import SwiftUI
@@ -12,23 +12,17 @@ import ComposableArchitecture
 @main
 struct CodingChallangeApp: App {
     
-    private let dependencies = MainDependencyContainer.codingChallangeAppDependencyResolver()
-    
-    @Weaver(.registration)
-    var shiftsStore: Store<ShiftsState, ShiftsAction>
+    @Register
+    var store: Store<Main.State, Main.Action> = .init(
+        initialState: Main.State(),
+        reducer: Main.reducer,
+        environment: Main.Environment()
+    )
     
     var body: some Scene {
         WindowGroup {
-            ShiftsListView(injecting: dependencies)
+            List.View()
         }
-    }
-    
-}
-
-extension Store where State == ShiftsState, Action == ShiftsAction {
-    
-    convenience init() {
-        self.init(initialState: ShiftsState(), reducer: shiftsReducer, environment: ShiftsEnvironment())
     }
     
 }
