@@ -9,20 +9,21 @@ import Foundation
 
 import CasePaths
 
-enum LoadableState<Item: Equatable, Error: Swift.Error & Equatable>: Equatable {
+public enum LoadableState<Item: Equatable, Error: Swift.Error & Equatable>: Equatable {
+    case idle
     case loading
     case completed(Item)
     case failed(Error)
     
-    var isLoading: Bool {
+    public var isLoading: Bool {
         return self == .loading
     }
     
-    var item: Item? {
+    public var item: Item? {
         return (/Self.completed).extract(from: self)
     }
     
-    var error: Error? {
+    public var error: Error? {
         return (/Self.failed).extract(from: self)
     }
     

@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Common
+
 extension Details {
     
     struct Item: Identifiable, Equatable {

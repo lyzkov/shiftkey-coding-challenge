@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol Fakeable {
+public protocol Fakeable {
     static func fake() -> Self
 }
