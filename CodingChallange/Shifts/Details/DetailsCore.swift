@@ -7,18 +7,20 @@
 
 import Foundation
 
+import Common
+
 import ComposableArchitecture
 
-enum Details {
+public enum Details {
     
-    typealias State = LoadableState<Shift, Main.Error>
+    public typealias State = LoadableState<Shift, Never>
 
-    enum Action {
+    public enum Action {
         case load(id: Shift.ID)
         case show(shift: Shift)
     }
     
-    typealias Reducer = ComposableArchitecture.Reducer<State?, Action, Main.Environment>
+    typealias Reducer = ComposableArchitecture.Reducer<State, Action, Main.Environment>
 
     static let reducer = Reducer
         .effectless { state, action, environment in
@@ -29,6 +31,5 @@ enum Details {
                 break
             }
         }
-        .pullback(state: \Main.State.details, action: /Main.Action.details, environment: { $0 })
     
 }
