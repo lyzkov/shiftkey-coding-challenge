@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct Shift: Identifiable, Equatable {
-    let id: UUID
-    let kind: Kind
-    let start: Date
-    let end: Date
-    let facility: Facility
-    let skill: Skill
-    let specialty: Specialty
+public struct Shift: Identifiable, Equatable {
+    public let id: UUID
+    public let kind: Kind
+    public let start: Date
+    public let end: Date
+    public let facility: Facility
+    public let skill: Skill
+    public let specialty: Specialty
 }
 
 extension Shift {
-    enum Kind: String {
+    public enum Kind: String {
         case day = "Day Shift"
         case night = "Night Shift"
     }
@@ -26,7 +26,7 @@ extension Shift {
 
 extension Shift: Fakeable {
     
-    static func fake() -> Shift {
+    public static func fake() -> Shift {
         Shift(
             id: UUID(),
             kind: Kind.day,
