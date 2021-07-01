@@ -7,27 +7,41 @@
 
 import Foundation
 
+import Common
+
 import ComposableArchitecture
 
-enum Main {
+public class Main {
     
-    struct State: Equatable {
-        var list: List.State? = nil
-        var details: Details.State? = nil
+    public struct State: MainState, Equatable {
+        public var list: List.State = .idle
+        public var details: Details.State = .idle
+        
+        public init() {
+        }
     }
     
-    enum Action {
+    public enum Action: MainAction {
         case list(List.Action)
         case details(Details.Action)
     }
     
-    typealias Reducer = ComposableArchitecture.Reducer<State, Action, Environment>
+    public typealias Reducer = ComposableArchitecture.Reducer<State, Action, Environment>
 
-    static let reducer = Reducer.combine(
+    @Register
+    public var reducer = Reducer.combine(
         [
             effectsReducer,
-            List.reducer,
-            Details.reducer
+            List.reducer.pullback(
+                state: \State.list,
+                action: /Action.list,
+                environment: { $0 }
+            ),
+            Details.reducer.pullback(
+                state: \State.details,
+                action: /Action.details,
+                environment: { $0 }
+            )
         ]
     )
 
@@ -38,7 +52,7 @@ enum Main {
             return .init(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
         case .details(.load(let id)):
             state.details = .loading
-            if let selected = state.list?.items?.first(by: id) {
+            if let selected = state.list.items?.first(by: id) {
                 return .init(value: .details(.show(shift: selected)))
             }
         default:
@@ -48,13 +62,13 @@ enum Main {
         return .none
     }
     
-    struct Environment {
+    public struct Environment: MainEnvironemnt {
+        public init() {
+        }
     }
     
-    enum Error: Swift.Error, Equatable {
-        case custom(message: String)
+    public init() {
     }
     
 }
-
 

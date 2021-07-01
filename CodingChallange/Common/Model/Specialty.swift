@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Specialty: Equatable {
-    let name: String
+public struct Specialty: Equatable {
+    public let name: String
 }

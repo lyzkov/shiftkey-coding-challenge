@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Facility: Equatable {
-    let name: String
+public struct Facility: Equatable {
+    public let name: String
 }
