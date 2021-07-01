@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 extension Reducer {
     
-    static func effectless(
+    public static func effectless(
         _ reducer: @escaping (inout State, Action, Environment) -> Void
     ) -> Self {
         return .init { state, action, environment in

@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct Skill: Equatable {
-    let name: String
+public struct Skill: Equatable {
+    public let name: String
 }

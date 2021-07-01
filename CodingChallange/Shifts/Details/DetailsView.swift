@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Common
+
 import ComposableArchitecture
 
 extension Details {
@@ -38,11 +40,15 @@ extension Details {
         
         let id: Shift.ID
         
-        @ViewStore(state: \Main.State.details, action: Main.Action.details)
-        var store: Store<State, Action>
+        @Resolve(state: \Main.State.details, action: Main.Action.details)
+        var store: Store<Details.State, Details.Action>
+        
+        var viewableStore: Store<State, Action> {
+            store.scope(state: State.init(from:), action: \.coreAction)
+        }
         
         var body: some SwiftUI.View {
-            WithViewStore(store) { store in
+            WithViewStore(viewableStore) { store in
                 NavigationView {
                     Group {
                         VStack(alignment: .leading) {

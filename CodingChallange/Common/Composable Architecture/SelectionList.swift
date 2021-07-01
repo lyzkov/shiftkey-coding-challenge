@@ -7,35 +7,29 @@
 
 import Foundation
 
-protocol SelectiveList: Equatable {
+public protocol SelectiveList: Equatable {
     associatedtype Item: Equatable, Identifiable
     
     var items: [Item] { get }
     var selected: Item? { get }
 }
 
-struct SelectionList<Item: Equatable & Identifiable>: SelectiveList {
-    
-    let items: [Item]
-    var selected: Item?
-}
-
-extension SelectionList {
-    
-    init(items: [Item]) {
+public struct SelectionList<Item: Equatable & Identifiable>: SelectiveList {
+    public let items: [Item]
+    public var selected: Item?
+    public init(items: [Item], selected: Item? = nil) {
         self.items = items
-        selected = nil
+        self.selected = selected
     }
-    
 }
 
 extension LoadableState where Item: SelectiveList {
     
-    var items: [Item.Item]? {
+    public var items: [Item.Item]? {
         return item?.items
     }
     
-    var selected: Item.Item? {
+    public var selected: Item.Item? {
         return item?.selected
     }
     
