@@ -11,11 +11,11 @@ import Common
 
 import ComposableArchitecture
 
-public enum List {
+enum List {
     
-    public typealias State = LoadableState<SelectionList<Shift>, Never>
+    typealias State = LoadableState<SelectionList<Shift>, Never>
     
-    public enum Action {
+    enum Action {
         case load
         case show(shifts: [Shift])
         case select(id: Shift.ID)
