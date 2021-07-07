@@ -12,7 +12,7 @@ import Shifts
 @main
 struct App: SwiftUI.App {
     
-    let modules: [Any] = [Shifts.Main()]
+    let modules = [Shifts.Main()]
     
     var body: some Scene {
         WindowGroup {
