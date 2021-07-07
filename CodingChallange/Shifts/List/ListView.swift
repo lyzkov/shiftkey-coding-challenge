@@ -13,7 +13,7 @@ import ComposableArchitecture
 
 extension List {
     
-    public struct View: SwiftUI.View {
+    struct View: SwiftUI.View {
         
         struct State: ViewableState {
             let items: [Item]
@@ -54,7 +54,7 @@ extension List {
             store.scope(state: State.init, action: \.coreAction)
         }
         
-        public var body: some SwiftUI.View {
+        var body: some SwiftUI.View {
             WithViewStore(viewableStore) { store in
                 NavigationView {
                     SwiftUI.List(store.items) { item in
@@ -72,9 +72,6 @@ extension List {
                     store.send(.load)
                 }
             }
-        }
-        
-        public init() {
         }
         
     }
