@@ -12,27 +12,51 @@ import Common
 
 import ComposableArchitecture
 
-public struct Main: Module {
-
-    @Register
-    var reducer = Reducer.combine(
-        [
-            Reducer { state, action, environment in
-                switch action {
-                case .list(.load):
-                    state.list = .loading
-                    return .init(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
-                case .details(.load(let id)):
-                    state.details = .loading
-                    if let selected = state.list.items?.first(by: id) {
-                        return .init(value: .details(.show(shift: selected)))
-                    }
-                default:
-                    break
+public struct Main: Core {
+    
+    public struct State: BranchState, Equatable {
+        var list: List.State = .idle
+        var details: Details.State = .idle
+        public init() {
+        }
+    }
+    
+    public enum Action: BranchAction {
+        case list(List.Action)
+        case details(Details.Action)
+    }
+    
+    public struct Environment: BranchEnvironemnt {
+        public init() {
+        }
+    }
+    
+    public static var reducer: Main.Reducer {
+        .init { state, action, environment in
+            switch action {
+            case .list(.load):
+                state.list = .loading
+                return .init(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
+            case .details(.load(let id)):
+                state.details = .loading
+                if let selected = state.list.items?.first(by: id) {
+                    return .init(value: .details(.show(shift: selected)))
                 }
-                
-                return .none
-            },
+            default:
+                break
+            }
+            
+            return .none
+        }
+    }
+    
+}
+
+extension Main: ModuleViewable {
+    
+    public static func register() {
+        StoreResolver.register(reducer: Reducer.combine(
+            Main.reducer,
             List.reducer.pullback(
                 state: \State.list,
                 action: /Action.list,
@@ -43,31 +67,11 @@ public struct Main: Module {
                 action: /Action.details,
                 environment: { $0 }
             )
-        ]
-    )
-    
-    public var view: some View = List.View()
-    
-    public init() {
+        ))
     }
     
-}
-
-extension Main {
-    
-    struct State: MainState, Equatable {
-        var list: List.State = .idle
-        var details: Details.State = .idle
+    static public func trunkView() -> some View {
+        List.View()
     }
-    
-    enum Action: MainAction {
-        case list(List.Action)
-        case details(Details.Action)
-    }
-    
-    struct Environment: MainEnvironemnt {
-    }
-    
-    typealias Reducer = ComposableArchitecture.Reducer<State, Action, Environment>
     
 }

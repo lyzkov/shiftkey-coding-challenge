@@ -18,37 +18,18 @@ extension Details {
         struct State: ViewableState {
             let detailed: Item?
             
-            init(from coreState: Details.State?) {
-                if case .completed(let shift) = coreState {
-                    detailed = .init(from: shift)
-                } else {
-                    detailed = nil
-                }
-            }
-        }
-        
-        enum Action: ViewableAction {
-            case load(id: Shift.ID)
-            
-            var coreAction: Details.Action {
-                switch self {
-                case .load(let id):
-                    return .load(id: id)
-                }
+            init(from coreState: Details.State) {
+                detailed = coreState.item.map(Item.init(from:))
             }
         }
         
         let id: Shift.ID
         
         @Resolve(state: \Main.State.details, action: Main.Action.details)
-        var store: Store<Details.State, Details.Action>
-        
-        var viewableStore: Store<State, Action> {
-            store.scope(state: State.init(from:), action: \.coreAction)
-        }
+        var store: Store
         
         var body: some SwiftUI.View {
-            WithViewStore(viewableStore) { store in
+            WithViewStore(store.scope(state: State.init(from:))) { store in
                 NavigationView {
                     Group {
                         VStack(alignment: .leading) {
@@ -68,7 +49,7 @@ extension Details {
                             }
                         }
                     }
-                    .navigationTitle(/*@START_MENU_TOKEN@*/"Shift details"/*@END_MENU_TOKEN@*/)
+                    .navigationTitle("Shift details")
                 }
                 .onAppear {
                     store.send(.load(id: id))
@@ -79,8 +60,15 @@ extension Details {
     
 }
 
-struct DetailsView_Previews: PreviewProvider {
-    static var previews: some SwiftUI.View {
-        Details.View(id: List.Item.fake().id)
-    }
-}
+//struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
+//    
+//    static var previews: some SwiftUI.View {
+//        func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
+//            viewStore.send(.list(.load))
+//            return viewStore.list.items?.first?.id ?? UUID()
+//        }
+//        
+//        return Details.View(id: firstItemID(viewStore: viewStore))
+//    }
+//    
+//}

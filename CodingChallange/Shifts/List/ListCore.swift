@@ -9,27 +9,27 @@ import Foundation
 
 import Common
 
-import ComposableArchitecture
+//import ComposableArchitecture
 
-enum List {
+public enum List: Core {
     
-    typealias State = LoadableState<SelectionList<Shift>, Never>
+    public typealias State = LoadableState<SelectionList<Shift>, Never>
     
-    enum Action {
+    public enum Action {
         case load
         case show(shifts: [Shift])
         case select(id: Shift.ID)
         case deselect
     }
     
-    typealias Reducer = ComposableArchitecture.Reducer<State, Action, Main.Environment>
+    public typealias Environment = Main.Environment
     
-    static let reducer = Reducer
+    public static var reducer: List.Reducer {
         .effectless { state, action, environment in
             switch (action, state) {
             case (.show(let shifts), .loading):
                 state = .completed(.init(items: shifts))
-            case (.select(let id), .completed(var list)):
+            case (.select(let id), .completed(let list)):
                 state = .completed(.init(items: list.items, selected: list.items.first(by: id)))
             case (.deselect, .completed(let list)):
                 state = .completed(.init(items: list.items, selected: nil))
@@ -37,5 +37,6 @@ enum List {
                 break
             }
         }
+    }
     
 }

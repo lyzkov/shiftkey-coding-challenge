@@ -11,15 +11,15 @@ import ComposableArchitecture
 
 public final class StoreResolver {
     
-    private static var reducer: Reducer<AppState, AppAction, AppEnvironment> = .empty
+    private static var reducer: RootReducer = .empty
     
-    private static var appState: AppState = .init()
+    private static var appState: RootState = .init()
     
-    private static var appEnvironment: AppEnvironment = .init()
+    private static var appEnvironment: RootEnvironment = .init()
     
     public static var shared = StoreResolver()
     
-    private let appStore: Store<AppState, AppAction>
+    private let appStore: RootStore
     
     public init() {
         appStore = .init(
@@ -29,7 +29,7 @@ public final class StoreResolver {
         )
     }
     
-    public static func register<State: MainState, Action: MainAction, Environment: MainEnvironemnt>(
+    public static func register<State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt>(
         reducer: Reducer<State, Action, Environment>
     ) {
         appState.register(State.self)
@@ -37,14 +37,14 @@ public final class StoreResolver {
         Self.reducer = Self.reducer.combined(with: reducer.pullbackToRoot())
     }
     
-    public func resolve<State: MainState, Action: MainAction>() -> Store<State, Action> {
+    public func resolve<State: BranchState, Action: BranchAction>() -> Store<State, Action> {
         appStore.subscope()
     }
     
 }
 
 @propertyWrapper
-public struct Register<State: MainState, Action: MainAction, Environment: MainEnvironemnt> {
+public struct Register<State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt> {
     public var wrappedValue: Reducer<State, Action, Environment>
     
     public init(wrappedValue reducer: Reducer<State, Action, Environment>) {
@@ -59,7 +59,7 @@ public struct Resolve<ScopedState, ScopedAction> {
     
     public var wrappedValue: Store<ScopedState, ScopedAction>
     
-    public init<State: MainState, Action: MainAction>(
+    public init<State: BranchState, Action: BranchAction>(
         state: @escaping (State) -> ScopedState,
         action: @escaping (ScopedAction) -> Action
     ) {
@@ -67,7 +67,7 @@ public struct Resolve<ScopedState, ScopedAction> {
             .scope(state: state, action: action)
     }
     
-    public init() where ScopedState: MainState, ScopedAction: MainAction {
+    public init() where ScopedState: BranchState, ScopedAction: BranchAction {
         wrappedValue = StoreResolver.shared.resolve()
     }
     
