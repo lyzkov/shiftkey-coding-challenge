@@ -7,8 +7,6 @@
 
 import Foundation
 
-import ComposableArchitecture
-
 public protocol Viewable {
     associatedtype Entity: Identifiable
     
