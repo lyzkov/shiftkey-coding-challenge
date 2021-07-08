@@ -14,8 +14,12 @@ struct App: SwiftUI.App {
     
     var body: some Scene {
         WindowGroup {
-            Main().view
+            Shifts.Main.trunkView()
         }
+    }
+    
+    init() {
+        Shifts.Main.register()
     }
     
 }

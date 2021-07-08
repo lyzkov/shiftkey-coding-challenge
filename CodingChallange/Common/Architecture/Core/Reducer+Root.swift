@@ -9,12 +9,12 @@ import Foundation
 
 import ComposableArchitecture
 
-extension Reducer where State: MainState, Action: MainAction, Environment: MainEnvironemnt {
+extension Reducer where State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt {
     
-    func pullbackToRoot() -> Reducer<AppState, AppAction, AppEnvironment> {
+    func pullbackToRoot() -> Reducer<RootState, RootAction, RootEnvironment> {
         .init { state, action, environment in
             guard var subState: State = state.resolve(),
-                  let subAction: Action = (/AppAction.main)
+                  let subAction: Action = (/RootAction.node)
                     .extract(from: action),
                   let subEnvironment: Environment = environment.resolve()
             else {
@@ -25,16 +25,16 @@ extension Reducer where State: MainState, Action: MainAction, Environment: MainE
             }
             
             return run(&subState, subAction, subEnvironment)
-                .map(AppAction.main)
+                .map(RootAction.node)
         }
     }
     
 }
 
-extension Store where State == AppState, Action == AppAction {
+extension Store where State == RootState, Action == RootAction {
     
-    func subscope<LocalState: MainState, LocalAction: MainAction>() -> Store<LocalState, LocalAction> {
-        scope(state: { $0.resolve() ?? .init() }, action: AppAction.main)
+    func subscope<LocalState: BranchState, LocalAction: BranchAction>() -> Store<LocalState, LocalAction> {
+        scope(state: { $0.resolve() ?? .init() }, action: RootAction.node)
     }
     
 }

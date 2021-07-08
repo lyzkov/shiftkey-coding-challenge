@@ -11,18 +11,18 @@ import Common
 
 import ComposableArchitecture
 
-enum Details {
+public enum Details: Core {
     
-    typealias State = LoadableState<Shift, Never>
+    public typealias State = LoadableState<Shift, Never>
 
-    enum Action {
+    public enum Action {
         case load(id: Shift.ID)
         case show(shift: Shift)
     }
     
-    typealias Reducer = ComposableArchitecture.Reducer<State, Action, Main.Environment>
+    public typealias Environment = Main.Environment
 
-    static let reducer = Reducer
+    public static var reducer: Details.Reducer {
         .effectless { state, action, environment in
             switch (action, state) {
             case (.show(let shift), .loading):
@@ -31,5 +31,6 @@ enum Details {
                 break
             }
         }
+    }
     
 }

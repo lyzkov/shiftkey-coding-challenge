@@ -19,48 +19,22 @@ extension List {
             let items: [Item]
             let selected: Item?
 
-            init(from coreState: List.State?) {
-                if case .completed(let list) = coreState {
-                    items = list.items.map(Item.init(from:))
-                    selected = list.selected.map(Item.init(from:))
-                } else {
-                    items = []
-                    selected = nil
-                }
-            }
-        }
-        
-        enum Action: ViewableAction {
-            case load
-            case select(Item)
-            case deselect
-            
-            var coreAction: List.Action {
-                switch self {
-                case .load:
-                    return .load
-                case .select(let item):
-                    return .select(id: item.id)
-                case .deselect:
-                    return .deselect
-                }
+            init(from coreState: List.State) {
+                items = coreState.items?.map(Item.init(from:)) ?? []
+                selected = coreState.selected.map(Item.init(from:))
             }
         }
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
-        var store: Store<List.State, List.Action>
-        
-        private var viewableStore: Store<State, Action> {
-            store.scope(state: State.init, action: \.coreAction)
-        }
+        var store: Store
         
         var body: some SwiftUI.View {
-            WithViewStore(viewableStore) { store in
+            WithViewStore(store.scope(state: State.init)) { store in
                 NavigationView {
                     SwiftUI.List(store.items) { item in
-                        ItemView(item: item)
+                        List.ItemView(item: item)
                             .onTapGesture {
-                                store.send(.select(item))
+                                store.send(.select(id: item.id))
                             }
                     }
                     .sheet(item: store.binding(get: \.selected, send: .deselect)) { item in
@@ -78,8 +52,11 @@ extension List {
     
 }
 
-struct ListView_Previews: PreviewProvider {
-    static var previews: some SwiftUI.View {
-        List.View()
-    }
-}
+//struct ListView_Previews: PreviewProvider {
+//    
+//    static var previews: some SwiftUI.View {
+//        Main.register()
+//        return List.View()
+//    }
+//    
+//}
