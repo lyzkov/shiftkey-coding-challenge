@@ -52,11 +52,11 @@ extension List {
     
 }
 
-//struct ListView_Previews: PreviewProvider {
-//    
-//    static var previews: some SwiftUI.View {
-//        Main.register()
-//        return List.View()
-//    }
-//    
-//}
+struct ListView_Previews: PreviewProvider {
+    
+    static var previews: some SwiftUI.View {
+        Main.register()
+        return List.View()
+    }
+    
+}
