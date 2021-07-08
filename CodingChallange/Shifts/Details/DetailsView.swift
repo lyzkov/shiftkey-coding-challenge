@@ -60,15 +60,15 @@ extension Details {
     
 }
 
-//struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
-//    
-//    static var previews: some SwiftUI.View {
-//        func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
-//            viewStore.send(.list(.load))
-//            return viewStore.list.items?.first?.id ?? UUID()
-//        }
-//        
-//        return Details.View(id: firstItemID(viewStore: viewStore))
-//    }
-//    
-//}
+struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
+    
+    static var previews: some SwiftUI.View {
+        func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
+            viewStore.send(.list(.load))
+            return viewStore.list.items?.first?.id ?? UUID()
+        }
+        
+        return Details.View(id: firstItemID(viewStore: viewStore))
+    }
+    
+}
