@@ -33,8 +33,20 @@ extension Reducer where State: BranchState, Action: BranchAction, Environment: B
 
 extension Store where State == RootState, Action == RootAction {
     
-    func subscope<LocalState: BranchState, LocalAction: BranchAction>() -> Store<LocalState, LocalAction> {
+    func subscope<State: BranchState, Action: BranchAction>() -> Store<State, Action> {
         scope(state: { $0.resolve() ?? .init() }, action: RootAction.node)
+    }
+    
+}
+
+extension Reducer {
+    
+    func receive(on scheduler: AnySchedulerOf<DispatchQueue>) -> Self {
+        Self { state, action, environment in
+            self(&state, action, environment)
+                .receive(on: scheduler)
+                .eraseToEffect()
+        }
     }
     
 }

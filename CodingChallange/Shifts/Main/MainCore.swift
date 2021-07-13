@@ -35,13 +35,21 @@ public struct Main: Core {
         .init { state, action, environment in
             switch action {
             case .list(.load):
-                state.list = .loading
-                return .init(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
+                state.list = .pending()
+                // TODO: use fake data pool
+                return Effect(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
+            case .list(.deselect):
+                state.details = .idle
             case .details(.load(let id)):
-                state.details = .loading
-                if let selected = state.list.items?.first(by: id) {
-                    return .init(value: .details(.show(shift: selected)))
+                state.details = .pending(0.60)
+                if let selected = try? state.list.get()?.get().items.first(by: id) {
+                    // TODO: use fake data pool
+                    return Effect(value: .details(.show(shift: selected)))
+                        .delay(for: 5, scheduler: AnySchedulerOf<DispatchQueue>.main)
+                        .eraseToEffect()
                 }
+            case .details(.unload):
+                return Effect(value: .list(.deselect))
             default:
                 break
             }
@@ -70,8 +78,10 @@ extension Main: ModuleViewable {
         ))
     }
     
-    static public func trunkView() -> some View {
+    static public func trunkView() -> some SwiftUI.View {
         List.View()
     }
+    
+    public typealias View = TransparentView<Main.State>
     
 }

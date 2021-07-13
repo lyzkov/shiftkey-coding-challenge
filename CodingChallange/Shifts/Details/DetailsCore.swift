@@ -13,11 +13,28 @@ import ComposableArchitecture
 
 public enum Details: Core {
     
-    public typealias State = LoadableState<Shift, Never>
+    public enum Error: ViewableError {
+        case unknown(reason: String)
+        
+        public init(from error: Swift.Error) {
+            self = .unknown(reason: error.localizedDescription)
+        }
+        
+        var localizedDescription: String {
+            switch self {
+            case .unknown(let reason):
+                return reason
+            }
+        }
+        
+    }
+    
+    public typealias State = Status<Result<Shift, Error>>
 
     public enum Action {
         case load(id: Shift.ID)
         case show(shift: Shift)
+        case unload
     }
     
     public typealias Environment = Main.Environment
@@ -25,8 +42,12 @@ public enum Details: Core {
     public static var reducer: Details.Reducer {
         .effectless { state, action, environment in
             switch (action, state) {
-            case (.show(let shift), .loading):
-                state = .completed(shift)
+//            case (.show(let shift), .pending):
+//                state = .completed(shift)
+            case (.show, .pending):
+                state = .completed(.failure(.unknown(reason: "Operation couldn't be completed.")))
+            case (.unload, _):
+                state = .idle
             default:
                 break
             }

@@ -15,7 +15,7 @@ public protocol SelectiveList: Equatable {
 }
 
 public struct SelectionList<Item: Equatable & Identifiable>: SelectiveList {
-    public let items: [Item]
+    public let items: [Item] // TODO: IdentifiedArrayOf
     public var selected: Item?
     public init(items: [Item], selected: Item? = nil) {
         self.items = items
@@ -23,14 +23,25 @@ public struct SelectionList<Item: Equatable & Identifiable>: SelectiveList {
     }
 }
 
-extension LoadableState where Item: SelectiveList {
+extension SelectionList: Viewable where Item: Viewable, Item.Core: Equatable & Identifiable {
     
-    public var items: [Item.Item]? {
-        return item?.items
+    public init(from entity: SelectionList<Item.Core>) {
+        self.init(
+            items: entity.items.map(Item.init(from:)),
+            selected: entity.selected.map(Item.init(from:))
+        )
     }
     
-    public var selected: Item.Item? {
-        return item?.selected
+}
+
+extension Status where Completed: SelectiveList {
+    
+    public var items: [Completed.Item]? {
+        return map(\.items).get()
+    }
+    
+    public var selected: Completed.Item?? {
+        return map(\.selected).get()
     }
     
 }

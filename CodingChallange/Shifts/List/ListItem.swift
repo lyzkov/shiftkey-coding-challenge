@@ -11,18 +11,29 @@ import Common
 
 extension List {
     
-    struct Item: Identifiable, Equatable {
-        let id: UUID
-        let start: Date
-        let end: Date
-        let facility: String
+    public struct Item: Identifiable {
+        public let id: UUID
+        public let start: Date
+        public let end: Date
+        public let facility: String
+    }
+    
+}
+
+extension List.Item: Viewable {
+    
+    public init(from entity: Shift) {
+        id = entity.id
+        start = entity.start
+        end = entity.end
+        facility = entity.facility.name
     }
     
 }
 
 extension List.Item: Fakeable {
     
-    static func fake() -> Self {
+    public static func fake() -> Self {
         Self(
             id: UUID(),
             start: Date(),
@@ -31,16 +42,5 @@ extension List.Item: Fakeable {
         )
     }
     
-}
-
-extension List.Item: Viewable {
-    typealias Entity = Shift
-    
-    init(from entity: Shift) {
-        id = entity.id
-        start = entity.start
-        end = entity.end
-        facility = entity.facility.name
-    }
 }
 

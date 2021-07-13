@@ -9,11 +9,9 @@ import Foundation
 
 import Common
 
-//import ComposableArchitecture
-
 public enum List: Core {
     
-    public typealias State = LoadableState<SelectionList<Shift>, Never>
+    public typealias State = Status<Result<SelectionList<Shift>, Never>>
     
     public enum Action {
         case load
@@ -27,12 +25,12 @@ public enum List: Core {
     public static var reducer: List.Reducer {
         .effectless { state, action, environment in
             switch (action, state) {
-            case (.show(let shifts), .loading):
-                state = .completed(.init(items: shifts))
-            case (.select(let id), .completed(let list)):
-                state = .completed(.init(items: list.items, selected: list.items.first(by: id)))
-            case (.deselect, .completed(let list)):
-                state = .completed(.init(items: list.items, selected: nil))
+            case (.show(let shifts), .pending):
+                state = .completed(.success(.init(items: shifts)))
+            case (.select(let id), .completed(.success(let list))):
+                state = .completed(.success(.init(items: list.items, selected: list.items.first(by: id))))
+            case (.deselect, .completed(.success(let list))):
+                state = .completed(.success(.init(items: list.items, selected: nil)))
             default:
                 break
             }
