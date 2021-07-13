@@ -7,20 +7,17 @@
 
 import Foundation
 
-public protocol Viewable {
-    associatedtype Entity: Identifiable
+import SwiftUI
+
+public protocol Viewable: Equatable {
+    associatedtype Core
     
-    init(from entity: Entity)
+    init(from entity: Core)
 }
 
-public protocol ViewableState: Equatable {
-    associatedtype CoreState
-    
-    init(from coreState: CoreState)
+public protocol ViewableError: Viewable, Error {
 }
 
-public protocol ViewableAction: Equatable {
-    associatedtype CoreAction
-    
-    var coreAction: CoreAction { get }
+public protocol ComposableView: View {
+    associatedtype State: Viewable
 }

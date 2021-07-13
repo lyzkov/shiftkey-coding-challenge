@@ -12,10 +12,10 @@ import Common
 import ComposableArchitecture
 
 extension ViewStoreProvider where State == Main.State, Action == Main.Action {
-    
+
     public static var viewStore: ViewStore<State, Action> {
         Main.register()
         return ViewStore(StoreResolver.shared.resolve())
     }
-    
+
 }

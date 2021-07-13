@@ -11,8 +11,8 @@ import Common
 
 extension Details {
     
-    struct Item: Identifiable, Equatable {
-        let id: UUID
+    public struct Item: Identifiable, Equatable {
+        public let id: UUID
         let facility: String
         let skill: String
         let specialty: String
@@ -25,7 +25,7 @@ extension Details {
 
 extension Details.Item: Fakeable {
     
-    static func fake() -> Self {
+    public static func fake() -> Self {
         Self(
             id: UUID(),
             facility: "Skilled Nursing Facility",
@@ -40,9 +40,8 @@ extension Details.Item: Fakeable {
 }
 
 extension Details.Item: Viewable {
-    typealias Entity = Shift
     
-    init(from entity: Shift) {
+    public init(from entity: Shift) {
         id = entity.id
         facility = entity.facility.name
         skill = entity.skill.name
@@ -51,4 +50,5 @@ extension Details.Item: Viewable {
         start = entity.start
         end = entity.end
     }
+    
 }
