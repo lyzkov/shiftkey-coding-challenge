@@ -11,6 +11,7 @@ import ComposableArchitecture
 
 public protocol Core {
     associatedtype State: Equatable
+    associatedtype View: ComposableView where View.State.Core == State
     associatedtype Action
     associatedtype Environment
     

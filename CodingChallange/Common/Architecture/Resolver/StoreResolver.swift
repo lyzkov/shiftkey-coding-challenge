@@ -24,14 +24,14 @@ public final class StoreResolver {
     public init() {
         appStore = .init(
             initialState: Self.appState,
-            reducer: StoreResolver.reducer,
+            reducer: StoreResolver.reducer.receive(on: .main),
             environment: Self.appEnvironment
         )
     }
     
-    public static func register<State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt>(
+    public static func register<State, Action, Environment>(
         reducer: Reducer<State, Action, Environment>
-    ) {
+    ) where State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt {
         appState.register(State.self)
         appEnvironment.register(Environment.self)
         Self.reducer = Self.reducer.combined(with: reducer.pullbackToRoot())
@@ -59,16 +59,21 @@ public struct Resolve<ScopedState, ScopedAction> {
     
     public var wrappedValue: Store<ScopedState, ScopedAction>
     
-    public init<State: BranchState, Action: BranchAction>(
-        state: @escaping (State) -> ScopedState,
-        action: @escaping (ScopedAction) -> Action
-    ) {
-        wrappedValue = StoreResolver.shared.resolve()
-            .scope(state: state, action: action)
-    }
-    
     public init() where ScopedState: BranchState, ScopedAction: BranchAction {
         wrappedValue = StoreResolver.shared.resolve()
+    }
+    
+}
+
+extension Resolve where ScopedState: Viewable {
+    
+    public init<State: BranchState, Action: BranchAction>(
+        state toState: @escaping (State) -> ScopedState.Core,
+        action toAction: @escaping (ScopedAction) -> Action
+    ) {
+        wrappedValue = StoreResolver.shared.resolve()
+            .scope(state: toState, action: toAction)
+            .scopeToView()
     }
     
 }

@@ -13,23 +13,15 @@ import ComposableArchitecture
 
 extension List {
     
-    struct View: SwiftUI.View {
+    public struct View: ComposableView {
         
-        struct State: ViewableState {
-            let items: [Item]
-            let selected: Item?
-
-            init(from coreState: List.State) {
-                items = coreState.items?.map(Item.init(from:)) ?? []
-                selected = coreState.selected.map(Item.init(from:))
-            }
-        }
+        public typealias State = Status<Result<SelectionList<Item>, Never>>
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
-        var store: Store
+        var store: Store<State, Action>
         
-        var body: some SwiftUI.View {
-            WithViewStore(store.scope(state: State.init)) { store in
+        public var body: some SwiftUI.View {
+            Load(store, action: .load) { store in
                 NavigationView {
                     SwiftUI.List(store.items) { item in
                         List.ItemView(item: item)
@@ -42,9 +34,10 @@ extension List {
                     }
                     .navigationTitle("Shifts")
                 }
-                .onAppear {
-                    store.send(.load)
-                }
+            } progress: { store in
+                ProgressView(value: store.state?.value)
+            } recovery: { _ in
+                Text("Ooops")
             }
         }
         

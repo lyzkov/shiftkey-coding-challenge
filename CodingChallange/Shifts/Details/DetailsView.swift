@@ -13,47 +13,42 @@ import ComposableArchitecture
 
 extension Details {
     
-    struct View: SwiftUI.View {
+    public struct View: ComposableView {
+        public typealias State = Status<Result<Item, Error>>
         
-        struct State: ViewableState {
-            let detailed: Item?
-            
-            init(from coreState: Details.State) {
-                detailed = coreState.item.map(Item.init(from:))
-            }
-        }
-        
-        let id: Shift.ID
+        let id: Item.ID
         
         @Resolve(state: \Main.State.details, action: Main.Action.details)
-        var store: Store
+        var store: Store<State, Action>
         
-        var body: some SwiftUI.View {
-            WithViewStore(store.scope(state: State.init(from:))) { store in
+        public var body: some SwiftUI.View {
+            Load(store, action: .load(id: id)) { details in
                 NavigationView {
                     Group {
                         VStack(alignment: .leading) {
-                            if let details = store.detailed {
-                                Text("Shift ID: \(details.id)")
-                                Text("Facility: \(details.facility)")
-                                Text("Skill: \(details.skill)")
-                                Text("Specialty: \(details.specialty)")
-                                Text("Kind: \(details.kind)")
-                                HStack {
-                                    Text(details.start, style: .date)
-                                    Spacer()
-                                    Text(details.end, style: .date)
-                                }
-                                .padding(.horizontal, 60.0)
+                            Text("Shift ID: \(details.id)")
+                            Text("Facility: \(details.facility)")
+                            Text("Skill: \(details.skill)")
+                            Text("Specialty: \(details.specialty)")
+                            Text("Kind: \(details.kind)")
+                            HStack {
+                                Text(details.start, style: .date)
                                 Spacer()
+                                Text(details.end, style: .date)
                             }
+                            .padding(.horizontal, 60.0)
+                            Spacer()
                         }
                     }
                     .navigationTitle("Shift details")
                 }
-                .onAppear {
-                    store.send(.load(id: id))
-                }
+            } progress: { store in
+                ProgressView(value: store.state?.value)
+            } recovery: { store in
+                ErrorAlert(store.state,
+                    dismiss: { store.send(.unload) },
+                    retry: { store.send(.load(id: id)) }
+                )
             }
         }
     }
@@ -65,7 +60,7 @@ struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
     static var previews: some SwiftUI.View {
         func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
             viewStore.send(.list(.load))
-            return viewStore.list.items?.first?.id ?? UUID()
+            return (try? viewStore.list.get()?.get().items.first?.id) ?? UUID()
         }
         
         return Details.View(id: firstItemID(viewStore: viewStore))
