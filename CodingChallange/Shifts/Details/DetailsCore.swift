@@ -33,7 +33,8 @@ public enum Details: Core {
 
     public enum Action {
         case load(id: Shift.ID)
-        case show(shift: Shift)
+        case progress(ratio: Ratio)
+        case show(item: Shift)
         case unload
     }
     
@@ -42,8 +43,8 @@ public enum Details: Core {
     public static var reducer: Details.Reducer {
         .effectless { state, action, environment in
             switch (action, state) {
-//            case (.show(let shift), .pending):
-//                state = .completed(shift)
+            case (.progress(let ratio), .pending):
+                state = .pending(ratio)
             case (.show, .pending):
                 state = .completed(.failure(.unknown(reason: "Operation couldn't be completed.")))
             case (.unload, _):
