@@ -33,6 +33,7 @@ public struct Main: Core {
     
     public static var reducer: Main.Reducer {
         .init { state, action, environment in
+            struct LoadDetailsId: Hashable {}
             switch action {
             case .list(.load):
                 state.list = .pending()
@@ -48,8 +49,12 @@ public struct Main: Core {
                         .delay(for: 5, scheduler: AnySchedulerOf<DispatchQueue>.main)
                         .eraseToEffect()
                 }
+                .cancellable(id: LoadDetailsId(), cancelInFlight: true)
             case .details(.unload):
-                return Effect(value: .list(.deselect))
+                return Effect<Action, Never>.merge(
+                    .init(value: .list(.deselect)),
+                    .cancel(id: LoadDetailsId())
+                )
             default:
                 break
             }
