@@ -24,7 +24,7 @@ public final class StoreResolver {
     public init() {
         appStore = .init(
             initialState: Self.appState,
-            reducer: StoreResolver.reducer.receive(on: .main),
+            reducer: StoreResolver.reducer,
             environment: Self.appEnvironment
         )
     }

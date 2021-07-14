@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import Combine
 
 import Common
 
@@ -17,6 +18,7 @@ public struct Main: Core {
     public struct State: BranchState, Equatable {
         var list: List.State = .idle
         var details: Details.State = .idle
+        
         public init() {
         }
     }
@@ -27,6 +29,8 @@ public struct Main: Core {
     }
     
     public struct Environment: BranchEnvironemnt {
+        let mainQueue = AnySchedulerOf<DispatchQueue>.main
+        
         public init() {
         }
     }
@@ -39,22 +43,26 @@ public struct Main: Core {
                 state.list = .pending()
                 // TODO: use fake data pool
                 return Effect(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
-            case .list(.deselect):
-                state.details = .idle
             case .details(.load(let id)):
-                state.details = .pending(0.60)
-                if let selected = try? state.list.get()?.get().items.first(by: id) {
-                    // TODO: use fake data pool
-                    return Effect(value: .details(.show(shift: selected)))
-                        .delay(for: 5, scheduler: AnySchedulerOf<DispatchQueue>.main)
-                        .eraseToEffect()
+                state.details = .pending(0.0)
+                guard let selected = try? state.list.get()?.get().items.first(by: id) else {
+                    return .none
                 }
-                .cancellable(id: LoadDetailsId(), cancelInFlight: true)
+                // TODO: use fake data pool
+                func progress(steps: Int = 10) -> [Ratio] {
+                    (0...steps).map { Ratio(floatLiteral: Float($0)/Float(steps)) }
+                }
+            
+                return Effect.timer(id: LoadDetailsId(), every: 0.1, on: environment.mainQueue)
+                    .zip(
+                        progress().publisher
+                            .map { Action.details(.progress(ratio: $0)) }
+                            .append(.details(.show(item: selected)))
+                    ) { $1 }
+                    .eraseToEffect()
+                    .cancellable(id: LoadDetailsId(), cancelInFlight: true)
             case .details(.unload):
-                return Effect<Action, Never>.merge(
-                    .init(value: .list(.deselect)),
-                    .cancel(id: LoadDetailsId())
-                )
+                return .cancel(id: LoadDetailsId())
             default:
                 break
             }
