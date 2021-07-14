@@ -21,7 +21,7 @@ extension List {
         var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, action: .load) { store in
+            Load(store, load: .load) { store in
                 NavigationView {
                     SwiftUI.List(store.items) { item in
                         List.ItemView(item: item)

@@ -22,7 +22,7 @@ extension Details {
         var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, action: .load(id: id)) { details in
+            Load(store, load: .load(id: id), unload: .unload) { details in
                 NavigationView {
                     Group {
                         VStack(alignment: .leading) {
@@ -43,7 +43,7 @@ extension Details {
                     .navigationTitle("Shift details")
                 }
             } progress: { store in
-                ProgressView(value: store.state?.value)
+                ProgressView(value: store.state?.value).animation(.linear)
             } recovery: { store in
                 ErrorAlert(store.state,
                     dismiss: { store.send(.unload) },
