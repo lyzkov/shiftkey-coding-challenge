@@ -11,11 +11,13 @@ import Common
 
 public enum List: Core {
     
-    public typealias State = Status<Result<SelectionList<Shift>, Never>>
+    // TODO: replace selection list?
+    // TODO: convenience failable status
+    public typealias State = Status<Result<SelectionList<Shift>, ShiftsError>>
     
     public enum Action {
         case load
-        case show(shifts: [Shift])
+        case show(Status<Result<[Shift], ShiftsError>>)
         case select(id: Shift.ID)
         case deselect
     }
@@ -23,17 +25,25 @@ public enum List: Core {
     public typealias Environment = Main.Environment
     
     public static var reducer: List.Reducer {
-        .effectless { state, action, environment in
-            switch (action, state) {
-            case (.show(let shifts), .pending):
-                state = .completed(.success(.init(items: shifts)))
-            case (.select(let id), .completed(.success(let list))):
-                state = .completed(.success(.init(items: list.items, selected: list.items.first(by: id))))
-            case (.deselect, .completed(.success(let list))):
-                state = .completed(.success(.init(items: list.items, selected: nil)))
-            default:
-                break
+        .init { state, action, environment in
+            switch action {
+            case .load:
+                state = .pending()
+                return environment.pool.shifts()
+                    .map(Action.show)
+                    .eraseToEffect()
+            case .show(let status):
+                state = status.map { SelectionList(items: $0) }
+            case .select(let id):
+                state = state.map { list in
+                    SelectionList(items: list.items, selected: list.items.first(by: id))
+                }
+            case .deselect:
+                state = state.map { list in
+                    SelectionList(items: list.items, selected: nil)
+                }
             }
+            return .none
         }
     }
     

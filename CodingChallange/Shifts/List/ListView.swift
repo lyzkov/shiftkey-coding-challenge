@@ -11,18 +11,18 @@ import Common
 
 import ComposableArchitecture
 
-extension List {
+extension Shifts.List {
     
     public struct View: ComposableView {
         
-        public typealias State = Status<Result<SelectionList<Item>, Never>>
+        public typealias State = Status<Result<SelectionList<Item>, Main.Error>>
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, load: .load) { store in
-                NavigationView {
+            NavigationView {
+                Load(store, load: .load) { store in
                     SwiftUI.List(store.items) { item in
                         List.ItemView(item: item)
                             .onTapGesture {
@@ -32,12 +32,12 @@ extension List {
                     .sheet(item: store.binding(get: \.selected, send: .deselect)) { item in
                         Details.View(id: item.id)
                     }
-                    .navigationTitle("Shifts")
+                } progress: { store in
+                    ProgressView(value: store.state)
+                } recovery: { _ in
+                    Text("Ooops")
                 }
-            } progress: { store in
-                ProgressView(value: store.state?.value)
-            } recovery: { _ in
-                Text("Ooops")
+                .navigationTitle("Shifts")
             }
         }
         

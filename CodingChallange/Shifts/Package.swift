@@ -8,6 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "Shifts",
+            type: .dynamic,
             targets: ["Shifts"]),
     ],
     dependencies: [
