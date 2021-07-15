@@ -10,8 +10,9 @@ import Foundation
 import CasePaths
 
 public enum Status<Completed> {
-    case idle
-    case pending(Ratio? = nil)
+    public typealias ProgressRatio = Float
+    case idle // TODO: Remove in favor of nil
+    case pending(ProgressRatio? = nil)
     case completed(Completed)
     
     @inlinable public func map<NewCompleted>(
@@ -20,8 +21,8 @@ public enum Status<Completed> {
         switch self {
         case .idle:
             return .idle
-        case .pending(let ratio):
-            return .pending(ratio)
+        case .pending(let progress):
+            return .pending(progress)
         case .completed(let completed):
             return .completed(transform(completed))
         }
@@ -36,14 +37,18 @@ public enum Status<Completed> {
 extension Status: Equatable where Completed: Equatable {
 }
 
-public struct Ratio: ExpressibleByFloatLiteral, Equatable {
-    public let value: Float
+extension Status {
     
-    public init(floatLiteral value: Float) {
-        precondition((0...1.0).contains(value),
-            "Value of ratio out of 0...1.0 bounds."
-        )
-        self.value = value
+    @inlinable public func map<Success, Failure, NewSuccess>(
+        _ transform: (Success) -> NewSuccess
+    ) -> Status<Result<NewSuccess, Failure>> where Completed == Result<Success, Failure> {
+        map { $0.map(transform) }
+    }
+    
+    public static func completed<Success, Failure>(
+        from success: Success
+    ) -> Self where Completed == Result<Success, Failure> {
+        .completed(.success(success))
     }
     
 }

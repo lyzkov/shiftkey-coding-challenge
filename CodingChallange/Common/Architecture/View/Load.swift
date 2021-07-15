@@ -21,7 +21,7 @@ public struct Load<
     let unload: Action?
     
     let delivery: (ViewStore<Item, Action>) -> Content
-    let progress: (ViewStore<Ratio?, Action>) -> Placeholder
+    let progress: (ViewStore<Float?, Action>) -> Placeholder
     let recovery: (ViewStore<Fault, Action>) -> Recovery
     
     public var body: some View {
@@ -47,7 +47,7 @@ public struct Load<
         load: Action,
         unload: Action? = nil,
         @ViewBuilder content delivery: @escaping (ViewStore<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (ViewStore<Ratio?, Action>) -> Placeholder,
+        @ViewBuilder progress: @escaping (ViewStore<Float?, Action>) -> Placeholder,
         @ViewBuilder recovery: @escaping (ViewStore<Fault, Action>) -> Recovery
     ) {
         self.store = store

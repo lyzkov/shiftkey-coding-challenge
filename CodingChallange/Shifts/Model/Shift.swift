@@ -7,6 +7,8 @@
 
 import Foundation
 
+import Common
+
 public struct Shift: Identifiable, Equatable {
     public let id: UUID
     public let kind: Kind

@@ -7,15 +7,19 @@
 
 import SwiftUI
 
-extension List {
+extension Shifts.List {
     
     struct ItemView: SwiftUI.View {
         let item: Item
         
         var body: some SwiftUI.View {
             VStack(alignment: .leading) {
-                Text("Shift ID: \n\t\(item.id)")
-                Text("Facility: \n\t\(item.facility)")
+                HStack {
+                    Text("Shift ID: ")
+                    Spacer()
+                }
+                Text("\(item.id)")
+                Text("Facility: \(item.facility)")
                 HStack {
                     Text(item.start, style: .date)
                     Spacer()
