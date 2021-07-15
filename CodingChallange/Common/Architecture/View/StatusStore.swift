@@ -16,7 +16,7 @@ struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
     let store: Store<State, Action>
     
     let delivery: (Store<Item, Action>) -> Content
-    let progress: (Store<Ratio?, Action>) -> Placeholder
+    let progress: (Store<Float?, Action>) -> Placeholder
     
     var body: some View {
         SwitchStore(store) {
@@ -31,7 +31,7 @@ struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
     public init(
         _ store: Store<State, Action>,
         @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (Store<Ratio?, Action>) -> Placeholder
+        @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
     ) {
         self.store = store
         self.delivery = delivery

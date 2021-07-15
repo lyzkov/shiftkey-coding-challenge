@@ -15,7 +15,7 @@ public protocol Viewable: Equatable {
     init(from entity: Core)
 }
 
-public protocol ViewableError: Viewable, Error {
+public protocol ViewableError: Viewable, Error where Core: Error {
 }
 
 public protocol ComposableView: View {

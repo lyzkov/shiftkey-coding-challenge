@@ -14,7 +14,8 @@ import ComposableArchitecture
 extension Details {
     
     public struct View: ComposableView {
-        public typealias State = Status<Result<Item, Error>>
+        
+        public typealias State = Status<Result<Item, Main.Error>>
         
         let id: Item.ID
         
@@ -43,7 +44,7 @@ extension Details {
                     .navigationTitle("Shift details")
                 }
             } progress: { store in
-                ProgressView(value: store.state?.value).animation(.linear)
+                ProgressView(value: store.state).animation(.linear)
             } recovery: { store in
                 ErrorAlert(store.state,
                     dismiss: { store.send(.unload) },
@@ -56,9 +57,10 @@ extension Details {
 }
 
 struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
+    typealias M = Main
     
     static var previews: some SwiftUI.View {
-        func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
+        func firstItemID(viewStore: ViewStore<M.State, M.Action>) -> UUID {
             viewStore.send(.list(.load))
             return (try? viewStore.list.get()?.get().items.first?.id) ?? UUID()
         }
