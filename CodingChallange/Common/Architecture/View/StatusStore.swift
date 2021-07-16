@@ -22,9 +22,6 @@ struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
         SwitchStore(store) {
             CaseLet(state: /State.completed, then: delivery)
             CaseLet(state: /State.pending, then: progress)
-            Default {
-                TransparentView()
-            }
         }
     }
     

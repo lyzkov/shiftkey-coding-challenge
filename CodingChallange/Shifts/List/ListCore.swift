@@ -12,12 +12,11 @@ import Common
 public enum List: Core {
     
     // TODO: replace selection list?
-    // TODO: convenience failable status
-    public typealias State = Status<Result<SelectionList<Shift>, ShiftsError>>
+    public typealias State = Loadable<SelectionList<Shift>, ShiftsError>
     
     public enum Action {
         case load
-        case show(Status<Result<[Shift], ShiftsError>>)
+        case show(Loadable<[Shift], ShiftsError>)
         case select(id: Shift.ID)
         case deselect
     }
@@ -33,16 +32,17 @@ public enum List: Core {
                     .map(Action.show)
                     .eraseToEffect()
             case .show(let status):
-                state = status.map { SelectionList(items: $0) }
+                state = status?.map { SelectionList(items: $0) }
             case .select(let id):
-                state = state.map { list in
+                state = state?.map { list in
                     SelectionList(items: list.items, selected: list.items.first(by: id))
                 }
             case .deselect:
-                state = state.map { list in
+                state = state?.map { list in
                     SelectionList(items: list.items, selected: nil)
                 }
             }
+            
             return .none
         }
     }
