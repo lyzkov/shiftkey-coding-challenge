@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Combine
 
 import Common
 
@@ -13,8 +14,12 @@ import ComposableArchitecture
 
 public enum Details: Core {
     
-    public typealias State = Status<Result<Shift, ShiftsError>>
+    public typealias State = Loadable<Shift, ShiftsError>
 
+    // TODO: separate trigger actions from modifier actions
+    // TODO: trigger actions with cancel handler
+    // TODO: termination action
+    
     public enum Action {
         case load(id: Shift.ID)
         case show(State)
@@ -33,7 +38,7 @@ public enum Details: Core {
                     .eraseToEffect()
                     .cancellable(id: LoadDetailsId(), cancelInFlight: true)
             case .unload:
-                state = .idle
+                state = .none
                 return .cancel(id: LoadDetailsId())
             case .show(let status):
                 state = status
@@ -44,3 +49,13 @@ public enum Details: Core {
     }
     
 }
+
+//struct LoadAction {
+//
+//    struct LoadId: Hashable {}
+//
+//    let cancelTrigger: AnyPublisher<Void, Never>
+//
+//    lazy var cancel = Effect<LoadAction, Never>.cancel(id: LoadId()).zip(cancelTrigger)
+//
+//}

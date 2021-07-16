@@ -12,8 +12,7 @@ import Common
 
 final class ShiftsPool {
     
-    typealias FailableStatus<Success, Failure: Error> = Status<Result<Success, Failure>>
-    typealias PoolPublisher<S, F: Error> = AnyPublisher<FailableStatus<S, F>, Never>
+    typealias PoolPublisher<S, F: Error> = AnyPublisher<Status<Result<S, F>>, Never>
     
     private let fakeShifts = (3...60).map { _ in Shift.fake() }
     

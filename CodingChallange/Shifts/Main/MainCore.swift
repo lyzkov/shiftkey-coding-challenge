@@ -32,8 +32,8 @@ public struct Main: Core {
     }
     
     public struct State: BranchState, Equatable {
-        var list: List.State = .idle
-        var details: Details.State = .idle
+        var list: List.State = .none
+        var details: Details.State = .none
         
         public init() {
         }
