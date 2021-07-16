@@ -15,7 +15,7 @@ extension Details {
     
     public struct View: ComposableView {
         
-        public typealias State = Status<Result<Item, Main.Error>>
+        public typealias State = Loadable<Item, Main.Error>
         
         let id: Item.ID
         
@@ -62,7 +62,7 @@ struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
     static var previews: some SwiftUI.View {
         func firstItemID(viewStore: ViewStore<M.State, M.Action>) -> UUID {
             viewStore.send(.list(.load))
-            return (try? viewStore.list.get()?.get().items.first?.id) ?? UUID()
+            return (try? viewStore.list?.get()?.get().items.first?.id) ?? UUID()
         }
         
         return Details.View(id: firstItemID(viewStore: viewStore))

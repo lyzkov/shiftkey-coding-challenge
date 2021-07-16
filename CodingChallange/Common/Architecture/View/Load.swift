@@ -14,7 +14,7 @@ public struct Load<
     Item: Viewable, Fault: Error & Equatable, Action,
     Placeholder: View, Recovery: View, Content: View
 >: View {
-    public typealias State = Status<Result<Item, Fault>>
+    public typealias State = Loadable<Item, Fault>
     
     let store: Store<State, Action>
     let load: Action // unified action for loading view?
@@ -25,14 +25,18 @@ public struct Load<
     let recovery: (ViewStore<Fault, Action>) -> Recovery
     
     public var body: some View {
-        StatusStore(store) { store in
-            ResultStore(store) { store in
-                WithViewStore(store, content: delivery)
-            } recovery: { store in
-                WithViewStore(store, content: recovery)
+        IfLetStore(store) { store in
+            StatusStore(store) { store in
+                ResultStore(store) { store in
+                    WithViewStore(store, content: delivery)
+                } recovery: { store in
+                    WithViewStore(store, content: recovery)
+                }
+            } progress: { store in
+                WithViewStore(store, content: progress)
             }
-        } progress: { store in
-            WithViewStore(store, content: progress)
+        } else: {
+            TransparentView()
         }.onAppear {
             ViewStore(store).send(load)
         }.onDisappear {
