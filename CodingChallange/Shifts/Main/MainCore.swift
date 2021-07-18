@@ -6,8 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
-import Combine
 
 import Common
 
@@ -15,41 +13,28 @@ import ComposableArchitecture
 
 public struct Main: Core {
     
-    public enum Error: ViewableError {
-        case unknown(reason: String)
-        
-        public init(from error: ShiftsError) {
-            self = .unknown(reason: error.localizedDescription)
-        }
-        
-        var localizedDescription: String {
-            switch self {
-            case .unknown(let reason):
-                return reason
-            }
-        }
-        
-    }
-    
-    public struct State: BranchState, Equatable {
+    public struct State: Resolvable, Equatable {
         var list: List.State = .none
         var details: Details.State = .none
         
-        public init() {
-        }
+        public init() {}
     }
     
-    public enum Action: BranchAction {
+    public enum Action: Resolvable {
         case list(List.Action)
         case details(Details.Action)
+        
+        public init() {
+            self = .list(.load(.none))
+        }
+        
     }
     
-    public struct Environment: BranchEnvironemnt {
+    public struct Environment: Resolvable {
         let mainQueue = AnySchedulerOf<DispatchQueue>.main
         let pool = ShiftsPool()
         
-        public init() {
-        }
+        public init() {}
     }
     
     public static var reducer: Main.Reducer {
@@ -58,7 +43,7 @@ public struct Main: Core {
     
 }
 
-extension Main: ModuleViewable {
+extension Main: Module {
     
     public static func register() {
         StoreResolver.register(reducer: Reducer.combine(
@@ -75,11 +60,5 @@ extension Main: ModuleViewable {
             )
         ))
     }
-    
-    static public func trunkView() -> some SwiftUI.View {
-        List.View()
-    }
-    
-    public typealias View = TransparentView<Main.State>
     
 }

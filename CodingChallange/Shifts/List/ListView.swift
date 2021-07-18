@@ -1,5 +1,5 @@
 //
-//  ShiftsListView.swift
+//  ListView.swift
 //  CodingChallenge
 //
 //  Created by lyzkov on 4/7/21.
@@ -15,32 +15,33 @@ extension Shifts.List {
     
     public struct View: ComposableView {
         
-        public typealias State = Loadable<SelectionList<Item>, Main.Error>
+        public typealias State = Loadable<[Item], Main.Error>
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         var store: Store<State, Action>
         
+        @SwiftUI.State var selected: Item? = nil
+        
         public var body: some SwiftUI.View {
-            NavigationView {
-                Load(store, load: .load) { store in
-                    SwiftUI.List(store.items) { item in
+            Load(store, load: .show) { store in
+                NavigationView {
+                    SwiftUI.List(store.state) { item in
                         List.ItemView(item: item)
                             .onTapGesture {
-                                store.send(.select(id: item.id))
+                                selected = item
                             }
                     }
-                    .sheet(item: store.binding(get: \.selected, send: .deselect)) { item in
+                    .sheet(item: $selected) { item in
                         Details.View(id: item.id)
                     }
-                } progress: { store in
-                    ProgressView(value: store.state)
-                } recovery: { _ in
-                    Text("Ooops")
+                    .navigationTitle("Shifts")
                 }
-                .navigationTitle("Shifts")
+            } progress: { store in
+                ProgressView(value: store.state)
+            } recovery: { _ in
+                Text("Ooops")
             }
         }
-        
     }
     
 }

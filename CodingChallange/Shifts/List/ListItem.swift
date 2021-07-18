@@ -1,46 +1,58 @@
 //
-//  ShiftItem.swift
+//  ShiftItemView.swift
 //  CodingChallange
 //
 //  Created by lyzkov on 10/06/2021.
 //
 
-import Foundation
+import SwiftUI
 
 import Common
 
-extension List {
+extension Shifts.List {
     
-    public struct Item: Identifiable {
+    public struct Item: Identifiable, Viewable {
         public let id: UUID
         public let start: Date
         public let end: Date
         public let facility: String
+        
+        public init(from entity: Shift) {
+            id = entity.id
+            start = entity.start
+            end = entity.end
+            facility = entity.facility.name
+        }
+        
+    }
+    
+    struct ItemView: SwiftUI.View {
+        let item: Item
+        
+        var body: some SwiftUI.View {
+            VStack(alignment: .leading) {
+                HStack {
+                    Text("Shift ID: ")
+                    Spacer()
+                }
+                Text("\(item.id)")
+                Text("Facility: \(item.facility)")
+                HStack {
+                    Text(item.start, style: .date)
+                    Spacer()
+                    Text(item.end, style: .date)
+                }
+                .padding(.horizontal, 60.0)
+            }
+        }
+        
     }
     
 }
 
-extension List.Item: Viewable {
-    
-    public init(from entity: Shift) {
-        id = entity.id
-        start = entity.start
-        end = entity.end
-        facility = entity.facility.name
+struct ListItemView_Previews: PreviewProvider {
+    static var previews: some SwiftUI.View {
+        List.ItemView(item: .init(from: .fake()))
     }
-    
-}
-
-extension List.Item: Fakeable {
-    
-    public static func fake() -> Self {
-        Self(
-            id: UUID(),
-            start: Date(),
-            end: Date().addingTimeInterval(5),
-            facility: "Skilled Nursing Facility"
-        )
-    }
-    
 }
 

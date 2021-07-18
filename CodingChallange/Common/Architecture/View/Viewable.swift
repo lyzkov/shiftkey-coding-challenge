@@ -59,3 +59,11 @@ extension Optional: Viewable where Wrapped: Viewable {
     }
     
 }
+
+extension Array: Viewable where Element: Viewable {
+    public typealias Core = [Element.Core]
+    
+    public init(from coreArray: [Element.Core]) {
+        self.init(coreArray.map(Element.init(from:)))
+    }
+}
