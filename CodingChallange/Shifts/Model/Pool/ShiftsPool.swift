@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  ShiftsPool.swift
 //  
 //
 //  Created by lyzkov on 15/07/2021.
@@ -12,15 +12,16 @@ import Common
 
 final class ShiftsPool {
     
-    typealias PoolPublisher<S, F: Error> = AnyPublisher<Status<Result<S, F>>, Never>
+    typealias PoolPublisher<Success, Fault> = AnyPublisher<Status<Result<Success, Fault>>, Never>
+        where Fault: Error
     
     private let fakeShifts = (3...60).map { _ in Shift.fake() }
     
-    func shifts() -> PoolPublisher<[Shift], ShiftsError> {
+    func shifts() -> PoolPublisher<[Shift], PoolError> {
         Just(.completed(.success(fakeShifts))).eraseToAnyPublisher()
     }
     
-    func shift(id: UUID) -> PoolPublisher<Shift, ShiftsError> {
+    func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
 //        Just(.completed(.success(fakeShifts.first(by: id)!))).eraseToAnyPublisher()
 //        progress(with: .success(fakeShifts.first(by: id)!))
         progress(with: .failure(.unknown))
