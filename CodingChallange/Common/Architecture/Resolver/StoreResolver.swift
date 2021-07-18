@@ -31,20 +31,20 @@ public final class StoreResolver {
     
     public static func register<State, Action, Environment>(
         reducer: Reducer<State, Action, Environment>
-    ) where State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt {
+    ) where State: Resolvable, Action: Resolvable, Environment: Resolvable {
         appState.register(State.self)
         appEnvironment.register(Environment.self)
         Self.reducer = Self.reducer.combined(with: reducer.pullbackToRoot())
     }
     
-    public func resolve<State: BranchState, Action: BranchAction>() -> Store<State, Action> {
+    public func resolve<State: Resolvable, Action: Resolvable>() -> Store<State, Action> {
         appStore.subscope()
     }
     
 }
 
 @propertyWrapper
-public struct Register<State: BranchState, Action: BranchAction, Environment: BranchEnvironemnt> {
+public struct Register<State: Resolvable, Action: Resolvable, Environment: Resolvable> {
     public var wrappedValue: Reducer<State, Action, Environment>
     
     public init(wrappedValue reducer: Reducer<State, Action, Environment>) {
@@ -59,7 +59,7 @@ public struct Resolve<ScopedState, ScopedAction> {
     
     public var wrappedValue: Store<ScopedState, ScopedAction>
     
-    public init() where ScopedState: BranchState, ScopedAction: BranchAction {
+    public init() where ScopedState: Resolvable, ScopedAction: Resolvable {
         wrappedValue = StoreResolver.shared.resolve()
     }
     
@@ -67,7 +67,7 @@ public struct Resolve<ScopedState, ScopedAction> {
 
 extension Resolve where ScopedState: Viewable {
     
-    public init<State: BranchState, Action: BranchAction>(
+    public init<State: Resolvable, Action: Resolvable>(
         state toState: @escaping (State) -> ScopedState.Core,
         action toAction: @escaping (ScopedAction) -> Action
     ) {

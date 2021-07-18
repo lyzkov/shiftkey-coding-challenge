@@ -7,6 +7,6 @@
 
 import Foundation
 
-public enum ShiftsError: Error, Equatable {
+public enum PoolError: Error, Equatable {
     case unknown
 }
