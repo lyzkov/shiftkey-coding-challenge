@@ -14,7 +14,7 @@ struct RootState: Resolving {
 }
 
 enum RootAction {
-    case node(BranchAction)
+    case node(Resolvable)
 }
 
 struct RootEnvironment: Resolving {

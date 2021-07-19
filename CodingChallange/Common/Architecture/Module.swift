@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol Module {
+public protocol Module: Core where State: Resolvable, Action: Resolvable, Environment: Resolvable {
     static func register()
 }

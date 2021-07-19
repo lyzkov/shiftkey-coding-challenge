@@ -1,10 +1,11 @@
 //
-//  ShiftDetailsView.swift
+//  DetailsView.swift
 //  CodingChallange
 //
 //  Created by lyzkov on 10/06/2021.
 //
 
+import Combine
 import SwiftUI
 
 import Common
@@ -14,7 +15,8 @@ import ComposableArchitecture
 extension Details {
     
     public struct View: ComposableView {
-        public typealias State = Status<Result<Item, Error>>
+        
+        public typealias State = Loadable<Item, Main.Error>
         
         let id: Item.ID
         
@@ -22,32 +24,19 @@ extension Details {
         var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, action: .load(id: id)) { details in
+            Load(store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
                     Group {
-                        VStack(alignment: .leading) {
-                            Text("Shift ID: \(details.id)")
-                            Text("Facility: \(details.facility)")
-                            Text("Skill: \(details.skill)")
-                            Text("Specialty: \(details.specialty)")
-                            Text("Kind: \(details.kind)")
-                            HStack {
-                                Text(details.start, style: .date)
-                                Spacer()
-                                Text(details.end, style: .date)
-                            }
-                            .padding(.horizontal, 60.0)
-                            Spacer()
-                        }
+                        ItemView(item: store.state)
                     }
                     .navigationTitle("Shift details")
                 }
             } progress: { store in
-                ProgressView(value: store.state?.value)
+                ProgressView(value: store.state).animation(.linear)
             } recovery: { store in
                 ErrorAlert(store.state,
-                    dismiss: { store.send(.unload) },
-                    retry: { store.send(.load(id: id)) }
+                    dismiss: { store.send(.load(.none)) },
+                    retry: { store.send(.show(id: id)) }
                 )
             }
         }
@@ -56,13 +45,15 @@ extension Details {
 }
 
 struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
+    typealias Module = Main
     
     static var previews: some SwiftUI.View {
-        func firstItemID(viewStore: ViewStore<State, Action>) -> UUID {
-            viewStore.send(.list(.load))
-            return (try? viewStore.list.get()?.get().items.first?.id) ?? UUID()
+        func firstItemID(viewStore: ViewStore<Module.State, Module.Action>) -> UUID {
+            viewStore.send(.list(.show))
+            return (try? viewStore.list?.get()?.get().first?.id) ?? UUID()
         }
         
+        Module.register()
         return Details.View(id: firstItemID(viewStore: viewStore))
     }
     
