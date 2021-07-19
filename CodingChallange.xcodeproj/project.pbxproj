@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A371CE6326A061CD00AB2DD4 /* Shifts in Frameworks */ = {isa = PBXBuildFile; productRef = A371CE6226A061CD00AB2DD4 /* Shifts */; };
+		A371CE6426A061CD00AB2DD4 /* Shifts in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A371CE6226A061CD00AB2DD4 /* Shifts */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A3D67A04267163A600B26AF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* App.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
 		A3D67A16267163A800B26AF2 /* CodingChallangeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A15267163A800B26AF2 /* CodingChallangeTests.swift */; };
 		A3D67A21267163A800B26AF2 /* CodingChallangeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A20267163A800B26AF2 /* CodingChallangeUITests.swift */; };
 		A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
-		A3D6898E2684F2930077081C /* Shifts in Frameworks */ = {isa = PBXBuildFile; productRef = A3D6898D2684F2930077081C /* Shifts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,20 @@
 			remoteInfo = CodingChallange;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A371CE6526A061CD00AB2DD4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				A371CE6426A061CD00AB2DD4 /* Shifts in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		A3D2359C2684EA580021015C /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Common; sourceTree = "<group>"; };
@@ -53,7 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3D6898E2684F2930077081C /* Shifts in Frameworks */,
+				A371CE6326A061CD00AB2DD4 /* Shifts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,6 +182,7 @@
 				A3D679FC267163A600B26AF2 /* Sources */,
 				A3D679FD267163A600B26AF2 /* Frameworks */,
 				A3D679FE267163A600B26AF2 /* Resources */,
+				A371CE6526A061CD00AB2DD4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -174,7 +190,7 @@
 			);
 			name = CodingChallange;
 			packageProductDependencies = (
-				A3D6898D2684F2930077081C /* Shifts */,
+				A371CE6226A061CD00AB2DD4 /* Shifts */,
 			);
 			productName = CodingChallange;
 			productReference = A3D67A00267163A600B26AF2 /* CodingChallange.app */;
@@ -378,7 +394,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -433,7 +449,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -453,7 +469,6 @@
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CodingChallange/Config/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,7 +490,6 @@
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = CodingChallange/Config/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,7 +509,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				INFOPLIST_FILE = CodingChallangeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,7 +530,6 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = WPZC96H3B4;
 				INFOPLIST_FILE = CodingChallangeTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -613,7 +625,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		A3D6898D2684F2930077081C /* Shifts */ = {
+		A371CE6226A061CD00AB2DD4 /* Shifts */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = Shifts;
 		};

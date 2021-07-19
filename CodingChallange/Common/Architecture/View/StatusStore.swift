@@ -16,29 +16,23 @@ struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
     let store: Store<State, Action>
     
     let delivery: (Store<Item, Action>) -> Content
-    let progress: (Store<Ratio?, Action>) -> Placeholder
-    let load: () -> Void
+    let progress: (Store<Float?, Action>) -> Placeholder
     
     var body: some View {
         SwitchStore(store) {
             CaseLet(state: /State.completed, then: delivery)
             CaseLet(state: /State.pending, then: progress)
-            Default {
-                TransparentView().onAppear(perform: load)
-            }
         }
     }
     
     public init(
         _ store: Store<State, Action>,
         @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (Store<Ratio?, Action>) -> Placeholder,
-        load: @escaping () -> Void
+        @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
     ) {
         self.store = store
         self.delivery = delivery
         self.progress = progress
-        self.load = load
     }
     
 }
