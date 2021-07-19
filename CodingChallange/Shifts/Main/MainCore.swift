@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 import Common
 
@@ -14,53 +13,37 @@ import ComposableArchitecture
 
 public struct Main: Core {
     
-    public struct State: BranchState, Equatable {
-        var list: List.State = .idle
-        var details: Details.State = .idle
-        public init() {
-        }
+    public struct State: Resolvable, Equatable {
+        var list: List.State = .none
+        var details: Details.State = .none
+        
+        public init() {}
     }
     
-    public enum Action: BranchAction {
+    public enum Action: Resolvable {
         case list(List.Action)
         case details(Details.Action)
+        
+        public init() {
+            self = .list(.load(.none))
+        }
+        
     }
     
-    public struct Environment: BranchEnvironemnt {
-        public init() {
-        }
+    public struct Environment: Resolvable {
+        let mainQueue = AnySchedulerOf<DispatchQueue>.main
+        let pool = ShiftsPool()
+        
+        public init() {}
     }
     
     public static var reducer: Main.Reducer {
-        .init { state, action, environment in
-            switch action {
-            case .list(.load):
-                state.list = .pending()
-                // TODO: use fake data pool
-                return Effect(value: .list(.show(shifts: (3...60).map { _ in .fake() })))
-            case .list(.deselect):
-                state.details = .idle
-            case .details(.load(let id)):
-                state.details = .pending(0.60)
-                if let selected = try? state.list.get()?.get().items.first(by: id) {
-                    // TODO: use fake data pool
-                    return Effect(value: .details(.show(shift: selected)))
-                        .delay(for: 5, scheduler: AnySchedulerOf<DispatchQueue>.main)
-                        .eraseToEffect()
-                }
-            case .details(.unload):
-                return Effect(value: .list(.deselect))
-            default:
-                break
-            }
-            
-            return .none
-        }
+        .empty
     }
     
 }
 
-extension Main: ModuleViewable {
+extension Main: Module {
     
     public static func register() {
         StoreResolver.register(reducer: Reducer.combine(
@@ -77,11 +60,5 @@ extension Main: ModuleViewable {
             )
         ))
     }
-    
-    static public func trunkView() -> some SwiftUI.View {
-        List.View()
-    }
-    
-    public typealias View = TransparentView<Main.State>
     
 }

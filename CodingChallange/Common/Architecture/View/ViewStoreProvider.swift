@@ -10,8 +10,17 @@ import Foundation
 import ComposableArchitecture
 
 public protocol ViewStoreProvider {
-    associatedtype State
-    associatedtype Action
+    associatedtype Module: Common.Module
+    typealias State = Module.State
+    typealias Action = Module.Action
     
     static var viewStore: ViewStore<State, Action> { get }
+}
+
+extension ViewStoreProvider {
+
+    public static var viewStore: ViewStore<State, Action> {
+        return ViewStore(StoreResolver.shared.resolve())
+    }
+
 }

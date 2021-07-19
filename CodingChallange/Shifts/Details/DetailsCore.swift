@@ -1,5 +1,5 @@
 //
-//  ShiftDetailsCore.swift
+//  DetailsCore.swift
 //  CodingChallange
 //
 //  Created by lyzkov on 23/06/2021.
@@ -9,48 +9,29 @@ import Foundation
 
 import Common
 
-import ComposableArchitecture
-
 public enum Details: Core {
     
-    public enum Error: ViewableError {
-        case unknown(reason: String)
-        
-        public init(from error: Swift.Error) {
-            self = .unknown(reason: error.localizedDescription)
-        }
-        
-        var localizedDescription: String {
-            switch self {
-            case .unknown(let reason):
-                return reason
-            }
-        }
-        
-    }
+    public typealias State = Loadable<Shift, PoolError>
     
-    public typealias State = Status<Result<Shift, Error>>
-
     public enum Action {
-        case load(id: Shift.ID)
-        case show(shift: Shift)
-        case unload
+        case show(id: Shift.ID)
+        case load(State)
     }
     
     public typealias Environment = Main.Environment
 
     public static var reducer: Details.Reducer {
-        .effectless { state, action, environment in
-            switch (action, state) {
-//            case (.show(let shift), .pending):
-//                state = .completed(shift)
-            case (.show, .pending):
-                state = .completed(.failure(.unknown(reason: "Operation couldn't be completed.")))
-            case (.unload, _):
-                state = .idle
-            default:
-                break
+        .init { state, action, environment in
+            switch action {
+            case .show(let id):
+                return environment.pool.shift(id: id)
+                    .map(Action.load)
+                    .eraseToEffect()
+            case .load(let status):
+                state = status
             }
+            
+            return .none
         }
     }
     
