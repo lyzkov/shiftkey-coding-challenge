@@ -27,7 +27,7 @@ extension Details {
             Load(store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
                     Group {
-                        ItemView(item: store.state)
+                        Details.ItemView(item: store.state)
                     }
                     .navigationTitle("Shift details")
                 }
@@ -44,17 +44,19 @@ extension Details {
     
 }
 
-struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
-    typealias Module = Main
+// TODO: fake view store provider for previews
+
+struct DetailsView_Previews: PreviewProvider {
     
     static var previews: some SwiftUI.View {
-        func firstItemID(viewStore: ViewStore<Module.State, Module.Action>) -> UUID {
-            viewStore.send(.list(.show))
-            return (try? viewStore.list?.get()?.get().first?.id) ?? UUID()
-        }
-        
-        Module.register()
-        return Details.View(id: firstItemID(viewStore: viewStore))
+        let fake = Shift.fake()
+        var view = Details.View(id: fake.id)
+        view.store = Store(
+            initialState: .init(from: .completed(.success(.fake()))),
+            reducer: .empty,
+            environment: Details.Environment()
+        )
+        return view
     }
     
 }
