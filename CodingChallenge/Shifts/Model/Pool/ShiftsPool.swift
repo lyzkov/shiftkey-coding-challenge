@@ -10,6 +10,8 @@ import Combine
 
 import Common
 
+import IdentifiedCollections
+
 class ShiftsPool {
     
     typealias PoolPublisher<Success, Fault> = AnyPublisher<Status<Result<Success, Fault>>, Never>
@@ -32,7 +34,7 @@ class ShiftsPool {
         return compomemets.url!
     }()
     
-    func shifts() -> PoolPublisher<[Shift], PoolError> {
+    func shifts() -> PoolPublisher<IdentifiedArrayOf<Shift>, PoolError> {
         client
             .decoded(from: URLRequest(url: url))
             .map { status in
@@ -47,7 +49,7 @@ class ShiftsPool {
         shifts()
             .map { status in
                 status.compactMap(replaceNil: .unknown) { shifts in
-                    shifts.first(by: id)
+                    shifts[id: id]
                 }
             }
             .eraseToAnyPublisher()

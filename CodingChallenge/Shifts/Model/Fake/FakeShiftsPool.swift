@@ -15,14 +15,14 @@ import ComposableArchitecture
 // TODO: inject to previews environment
 class FakeShiftsPool: ShiftsPool {
     
-    private static let fakeShifts = (3...60).map { _ in Shift.fake() }
+    private static let fakeShifts = IdentifiedArrayOf(uniqueElements: (3...60).map { _ in Shift.fake() })
     
-    override func shifts() -> PoolPublisher<[Shift], PoolError> {
+    override func shifts() -> PoolPublisher<IdentifiedArrayOf<Shift>, PoolError> {
         Just(.completed(.success(Self.fakeShifts))).eraseToAnyPublisher()
     }
     
     override func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
-//        Just(.completed(.success(fakeShifts.first(by: id)!))).eraseToAnyPublisher()
+//        Just(.completed(.success(fakeShifts.[id: id]!))).eraseToAnyPublisher()
         progress(with: .failure(.unknown))
     }
     
