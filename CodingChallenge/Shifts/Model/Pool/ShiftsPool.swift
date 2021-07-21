@@ -10,37 +10,46 @@ import Combine
 
 import Common
 
-final class ShiftsPool {
+class ShiftsPool {
     
     typealias PoolPublisher<Success, Fault> = AnyPublisher<Status<Result<Success, Fault>>, Never>
         where Fault: Error
     
-    private let fakeShifts = (3...60).map { _ in Shift.fake() }
+    lazy var client = Client()
+    
+    // TODO: Endpoint abstraction
+    let url: URL = {
+        // Notice: building URLs in NSSwift is so imperative and prone to type unsafe typos!
+        var compomemets = URLComponents()
+        compomemets.scheme = "https"
+        compomemets.host = "dev.shiftkey.com"
+        compomemets.path = "/api/v2/available_shifts"
+        compomemets.queryItems = []
+        compomemets.queryItems?.append(URLQueryItem(name: "address", value: "Dallas, Tx"))
+        compomemets.queryItems?.append(URLQueryItem(name: "start", value: "2021-07-19"))
+        compomemets.queryItems?.append(URLQueryItem(name: "type", value: "week"))
+        
+        return compomemets.url!
+    }()
     
     func shifts() -> PoolPublisher<[Shift], PoolError> {
-        Just(.completed(.success(fakeShifts))).eraseToAnyPublisher()
+        client
+            .decoded(from: URLRequest(url: url))
+            .map { status in
+                status.mapError { error in
+                    .unknown // TODO: convertible pool errors
+                }
+            }
+            .eraseToAnyPublisher()
     }
     
     func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
-//        Just(.completed(.success(fakeShifts.first(by: id)!))).eraseToAnyPublisher()
-//        progress(with: .success(fakeShifts.first(by: id)!))
-        progress(with: .failure(.unknown))
-    }
-    
-    private func progress(steps: Int) -> [Float] {
-        (0...steps).map { Float($0)/Float(steps) }
-    }
-    
-    private func progress<Success, Failure>(
-        with completed: Result<Success, Failure>,
-        steps: Int = 10
-    ) -> PoolPublisher<Success, Failure> {
-        Publishers.Timer(every: 0.1, scheduler: DispatchQueue.main).autoconnect()
-            .zip(
-                progress(steps: steps)
-                    .publisher.map(Status.pending)
-                    .append(.completed(completed))
-            ) { $1 }
+        shifts()
+            .map { status in
+                status.compactMap(replaceNil: .unknown) { shifts in
+                    shifts.first(by: id)
+                }
+            }
             .eraseToAnyPublisher()
     }
     

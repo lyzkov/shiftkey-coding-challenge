@@ -12,7 +12,7 @@ import Common
 extension Details {
     
     public struct Item: Identifiable, Equatable, Viewable {
-        public let id: UUID
+        public let id: String
         let facility: String
         let skill: String
         let specialty: String
@@ -25,7 +25,7 @@ extension Details {
             facility = entity.facility.name
             skill = entity.skill.name
             specialty = entity.specialty.name
-            kind = entity.kind.rawValue
+            kind = entity.kind?.rawValue ?? ""
             start = entity.start
             end = entity.end
         }

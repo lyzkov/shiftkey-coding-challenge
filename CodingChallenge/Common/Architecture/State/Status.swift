@@ -39,8 +39,33 @@ extension Status {
     
     @inlinable public func map<Success, Failure, NewSuccess>(
         _ transform: (Success) -> NewSuccess
-    ) -> Loadable<NewSuccess, Failure> where Completed == Result<Success, Failure> {
-        map { $0.map(transform) }
+    ) -> Status<Result<NewSuccess, Failure>> where Completed == Result<Success, Failure> {
+        map { completed in completed.map(transform) }
+    }
+    
+    @inlinable public func compactMap<Success, Failure, NewSuccess>(
+        replaceNil failure: Failure,
+        transform: (Success) -> NewSuccess?
+    ) -> Status<Result<NewSuccess, Failure>> where Completed == Result<Success, Failure> {
+        map { (completed: Completed) in
+            do {
+                if let newSuccess = transform(try completed.get()) {
+                    return .success(newSuccess)
+                } else {
+                    return .failure(failure)
+                }
+            } catch let error as Failure {
+                return .failure(error)
+            } catch _ {
+                return .failure(failure)
+            }
+        }
+    }
+    
+    @inlinable public func mapError<Success, Failure, NewFailure>(
+        _ transform: (Failure) -> NewFailure
+    ) -> Status<Result<Success, NewFailure>> where Completed == Result<Success, Failure> {
+        map { completed in completed.mapError(transform) }
     }
     
     public static func completed<Success, Failure>(
