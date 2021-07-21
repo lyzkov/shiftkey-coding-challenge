@@ -26,6 +26,7 @@ public enum Details: Core {
             case .show(let id):
                 return environment.pool.shift(id: id)
                     .map(Action.load)
+                    .receive(on: environment.mainQueue)
                     .eraseToEffect()
             case .load(let status):
                 state = status

@@ -12,7 +12,7 @@ import Common
 extension Shifts.List {
     
     public struct Item: Identifiable, Viewable {
-        public let id: UUID
+        public let id: String
         public let start: Date
         public let end: Date
         public let facility: String
@@ -33,10 +33,12 @@ extension Shifts.List {
             VStack(alignment: .leading) {
                 HStack {
                     Text("Shift ID: ")
-                    Spacer()
+                    Text("\(item.id)")
                 }
-                Text("\(item.id)")
-                Text("Facility: \(item.facility)")
+                HStack {
+                    Text("Facility: ")
+                    Text("\(item.facility)")
+                }
                 HStack {
                     Text(item.start, style: .date)
                     Spacer()
