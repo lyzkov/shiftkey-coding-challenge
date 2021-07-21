@@ -20,7 +20,7 @@ let package = Package(
             name: "Shifts",
             dependencies: [
                 "Common",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
             ],
             path: "./",
             exclude: ["./Package.swift"]

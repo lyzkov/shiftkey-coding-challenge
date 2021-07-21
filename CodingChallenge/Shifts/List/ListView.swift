@@ -15,7 +15,7 @@ extension Shifts.List {
     
     public struct View: ComposableView {
         
-        public typealias State = Loadable<[Item], Main.Error>
+        public typealias State = Loadable<IdentifiedArrayOf<Item>, Main.Error>
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         var store: Store<State, Action>
