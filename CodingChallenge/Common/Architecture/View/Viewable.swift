@@ -9,6 +9,8 @@ import Foundation
 
 import SwiftUI
 
+import IdentifiedCollections
+
 public protocol Viewable: Equatable {
     associatedtype Core
     
@@ -52,7 +54,6 @@ extension Status: Viewable where Completed: Viewable {
 }
 
 extension Optional: Viewable where Wrapped: Viewable {
-    public typealias Core = Wrapped.Core?
     
     public init(from coreOptional: Wrapped.Core?) {
         self = coreOptional.map(Wrapped.init(from:))
@@ -61,9 +62,16 @@ extension Optional: Viewable where Wrapped: Viewable {
 }
 
 extension Array: Viewable where Element: Viewable {
-    public typealias Core = [Element.Core]
     
     public init(from coreArray: [Element.Core]) {
         self.init(coreArray.map(Element.init(from:)))
+    }
+}
+
+extension IdentifiedArrayOf: Viewable
+    where Element: Viewable & Identifiable, ID == Element.ID, Element.Core: Identifiable {
+    
+    public init(from coreArray: IdentifiedArrayOf<Element.Core>) {
+        self.init(uniqueElements: coreArray.map(Element.init(from:)))
     }
 }

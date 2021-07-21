@@ -9,9 +9,11 @@ import Foundation
 
 import Common
 
+import IdentifiedCollections
+
 public enum List: Core {
     
-    public typealias State = Loadable<[Shift], PoolError>
+    public typealias State = Loadable<IdentifiedArrayOf<Shift>, PoolError>
     
     public enum Action {
         case show
@@ -24,7 +26,6 @@ public enum List: Core {
         .init { state, action, environment in
             switch action {
             case .show:
-                state = .pending()
                 return environment.pool.shifts()
                     .map(Action.load)
                     .receive(on: environment.mainQueue)
