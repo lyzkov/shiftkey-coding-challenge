@@ -27,6 +27,7 @@ public enum List: Core {
                 state = .pending()
                 return environment.pool.shifts()
                     .map(Action.load)
+                    .receive(on: environment.mainQueue)
                     .eraseToEffect()
             case .load(let status):
                 state = status
