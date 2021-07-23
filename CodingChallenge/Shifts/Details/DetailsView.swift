@@ -26,10 +26,8 @@ extension Details {
         public var body: some SwiftUI.View {
             Load(store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
-                    Group {
-                        Details.ItemView(item: store.state)
-                    }
-                    .navigationTitle("Shift details")
+                    Details.ItemView(item: store.state)
+                        .navigationTitle("Shift details")
                 }
             } progress: { store in
                 ProgressView(value: store.state).animation(.linear)
@@ -44,19 +42,30 @@ extension Details {
     
 }
 
-// TODO: fake view store provider for previews
+extension Details.View: FakeView {
+    
+    public static func fake(with state: State) -> Details.View {
+        let fake = Shift.fake()
+        var view = Details.View(id: fake.id)
+        view.store = Store(
+            initialState: state,
+            reducer: .empty,
+            environment: Details.Environment()
+        )
+        
+        return view
+    }
+    
+}
 
 struct DetailsView_Previews: PreviewProvider {
     
     static var previews: some SwiftUI.View {
-        let fake = Shift.fake()
-        var view = Details.View(id: fake.id)
-        view.store = Store(
-            initialState: .init(from: .completed(.success(.fake()))),
-            reducer: .empty,
-            environment: Details.Environment()
-        )
-        return view
+        Group {
+            Details.View.fake(with: .init(from: .completed(.success(.fake()))))
+            Details.View.fake(with: .init(from: .completed(.failure(.unknown))))
+            Details.View.fake(with: .init(from: .pending(0.60)))
+        }
     }
     
 }

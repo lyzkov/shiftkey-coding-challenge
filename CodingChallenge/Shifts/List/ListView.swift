@@ -46,11 +46,36 @@ extension Shifts.List {
     
 }
 
-struct ListView_Previews: PreviewProvider {
+extension Shifts.List.View: FakeView {
     
-    static var previews: some SwiftUI.View {
-        Main.register()
-        return List.View()
+    public static func fake(with state: State) -> Self {
+        var view = Self.init()
+        view.store = .init(
+            initialState: state,
+            reducer: .empty,
+            environment: Shifts.List.Environment()
+        )
+        
+        return view
     }
     
 }
+
+struct ListView_Previews: PreviewProvider {
+    
+    static var previews: some SwiftUI.View {
+        Shifts.List.View.fake(
+            with: .completed(
+                .success(
+                    IdentifiedArrayOf(
+                        uniqueElements: (3...60)
+                            .map { _ in
+                                Shifts.List.Item(from: .fake())
+                            }
+                    )
+                )
+            )
+        )
+    }
+    
+} // Nice parenthesis doom!

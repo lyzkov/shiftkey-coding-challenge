@@ -57,4 +57,3 @@ struct ListItemView_Previews: PreviewProvider {
         List.ItemView(item: .init(from: .fake()))
     }
 }
-
