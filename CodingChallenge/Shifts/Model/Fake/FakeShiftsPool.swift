@@ -12,7 +12,6 @@ import Common
 
 import ComposableArchitecture
 
-// TODO: inject to previews environment
 class FakeShiftsPool: ShiftsPool {
     
     private static let fakeShifts = IdentifiedArrayOf(uniqueElements: (3...60).map { _ in Shift.fake() })

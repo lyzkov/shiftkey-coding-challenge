@@ -11,7 +11,7 @@ import Common
 
 extension Details {
     
-    public struct Item: Identifiable, Equatable, Viewable {
+    public struct Item: Identifiable, Viewable {
         public let id: String
         let facility: String
         let skill: String
@@ -46,11 +46,18 @@ extension Details {
                     Text(item.start, style: .date)
                     Spacer()
                     Text(item.end, style: .date)
-                }
-                .padding(.horizontal, 60.0)
+                }.padding(.horizontal, 60.0)
                 Spacer()
             }
         }
+    }
+    
+}
+
+struct DetailsItemView_Previews: PreviewProvider {
+    
+    static var previews: some SwiftUI.View {
+        Details.ItemView(item: .init(from: .fake()))
     }
     
 }
