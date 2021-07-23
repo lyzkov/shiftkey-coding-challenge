@@ -24,6 +24,11 @@ public protocol ComposableView: View {
     associatedtype State: Viewable
 }
 
+
+public protocol FakeView: ComposableView {
+    static func fake(with state: State) -> Self
+}
+
 extension Result: Viewable where Success: Viewable, Failure: ViewableError {
     public typealias Core = Result<Success.Core, Failure.Core>
     
