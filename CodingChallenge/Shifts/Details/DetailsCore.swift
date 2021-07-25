@@ -11,7 +11,7 @@ import Common
 
 public enum Details: Core {
     
-    public typealias State = Loadable<Shift, PoolError>
+    public typealias State = Load<Shift, ShiftsError>?
     
     public enum Action {
         case show(id: Shift.ID)

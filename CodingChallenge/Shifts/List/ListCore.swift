@@ -13,7 +13,7 @@ import IdentifiedCollections
 
 public enum List: Core {
     
-    public typealias State = Loadable<IdentifiedArrayOf<Shift>, PoolError>
+    public typealias State = Load<IdentifiedArrayOf<Shift>, ShiftsError>?
     
     public enum Action {
         case show

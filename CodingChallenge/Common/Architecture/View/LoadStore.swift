@@ -10,11 +10,11 @@ import SwiftUI
 
 import ComposableArchitecture
 
-public struct Load<
+public struct LoadStore<
     Item: Viewable, Fault: Error & Equatable, Action,
     Placeholder: View, Recovery: View, Content: View
 >: View {
-    public typealias State = Loadable<Item, Fault>
+    public typealias State = Load<Item, Fault>?
     
     let store: Store<State, Action>
     let load: Action // unified action for loading view?

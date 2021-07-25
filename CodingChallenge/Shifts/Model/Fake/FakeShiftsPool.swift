@@ -14,13 +14,16 @@ import ComposableArchitecture
 
 class FakeShiftsPool: ShiftsPool {
     
-    private static let fakeShifts = IdentifiedArrayOf(uniqueElements: (3...60).map { _ in Shift.fake() })
+    private static let fakeShifts = IdentifiedArrayOf(
+        uniqueElements: (3...60)
+            .map { _ in Shift.fake() }
+    )
     
-    override func shifts() -> PoolPublisher<IdentifiedArrayOf<Shift>, PoolError> {
+    override func shifts() -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
         Just(.completed(.success(Self.fakeShifts))).eraseToAnyPublisher()
     }
     
-    override func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
+    override func shift(id: Shift.ID) -> LoadPublisher<Shift, ShiftsError> {
 //        Just(.completed(.success(fakeShifts.[id: id]!))).eraseToAnyPublisher()
         progress(with: .failure(.unknown))
     }
@@ -29,10 +32,10 @@ class FakeShiftsPool: ShiftsPool {
         (0...steps).map { Float($0)/Float(steps) }
     }
     
-    private func progress<Success, Failure>(
-        with completed: Result<Success, Failure>,
+    private func progress<Success>(
+        with completed: Result<Success, ShiftsError>,
         steps: Int = 10
-    ) -> PoolPublisher<Success, Failure> {
+    ) -> LoadPublisher<Success, ShiftsError> {
         Publishers.Timer(every: 0.1, scheduler: DispatchQueue.main).autoconnect()
             .zip(
                 progress(steps: steps)
