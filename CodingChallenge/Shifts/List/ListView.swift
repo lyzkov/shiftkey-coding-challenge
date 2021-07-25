@@ -15,7 +15,7 @@ extension Shifts.List {
     
     public struct View: ComposableView {
         
-        public typealias State = Loadable<IdentifiedArrayOf<Item>, Main.Error>
+        public typealias State = Load<IdentifiedArrayOf<Item>, Main.Error>?
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         var store: Store<State, Action>
@@ -23,7 +23,7 @@ extension Shifts.List {
         @SwiftUI.State var selected: Item? = nil
         
         public var body: some SwiftUI.View {
-            Load(store, load: .show) { store in
+            LoadStore(store, load: .show) { store in
                 NavigationView {
                     SwiftUI.List(store.state) { item in
                         List.ItemView(item: item)
