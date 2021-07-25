@@ -6,34 +6,25 @@
 //
 
 import Foundation
-import Combine
 
 public class Client {
     
-    let decoder: JSONDecoder
+    private let session: URLSession
     
-    // TODO: downloading progress
-    public func decoded<Core: Entity>(from request: URLRequest) -> AnyPublisher<Core, Error> {
-        URLSession.shared
-            .dataTaskPublisher(for: request)
-            .map(\.data)
-            .decode(type: Core.Raw.self, decoder: decoder)
-            .map(Core.init(from:))
-            .eraseToAnyPublisher()
-    }
+    private let decoder: JSONDecoder
     
-    public func decoded<Core: Entity>(from request: URLRequest) -> AnyPublisher<Status<Result<Core, Error>>, Never> {
-        decoded(from: request)
-            .map(Result.success)
-            .map(Status.completed)
-            .catch { error in
-                Just(.completed(.failure(error)))
-            }
-            .eraseToAnyPublisher()
-    }
-    
-    public init(decoder: JSONDecoder) {
+    public init(session: URLSession, decoder: JSONDecoder) {
+        self.session = session
         self.decoder = decoder
+    }
+    
+    public func decoded<Core: Entity>(
+        from request: URLRequest
+    ) -> LoadPublisher<Core, Error> {
+        session.dataTaskLoadPublisher(for: request)
+            .decode(type: Core.Raw.self, decoder: decoder)
+            .mapItem(Core.init(from:))
+            .eraseToLoadPublisher()
     }
     
 }

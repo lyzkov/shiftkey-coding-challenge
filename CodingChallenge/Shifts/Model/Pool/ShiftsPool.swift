@@ -14,13 +14,8 @@ import IdentifiedCollections
 
 class ShiftsPool {
     
-    typealias PoolPublisher<Success, Fault> = AnyPublisher<Status<Result<Success, Fault>>, Never>
-        where Fault: Error
-    
-    lazy var client = Client()
-    
     // TODO: Endpoint abstraction
-    let url: URL = {
+    private let url: URL = {
         // Notice: building URLs in NSSwift is so imperative and prone to type unsafe typos!
         var compomemets = URLComponents()
         compomemets.scheme = "https"
@@ -28,31 +23,33 @@ class ShiftsPool {
         compomemets.path = "/api/v2/available_shifts"
         compomemets.queryItems = []
         compomemets.queryItems?.append(URLQueryItem(name: "address", value: "Dallas, Tx"))
-        compomemets.queryItems?.append(URLQueryItem(name: "start", value: "2021-07-19"))
+        compomemets.queryItems?.append(URLQueryItem(name: "start", value: "2021-07-25"))
         compomemets.queryItems?.append(URLQueryItem(name: "type", value: "week"))
         
         return compomemets.url!
     }()
     
-    func shifts() -> PoolPublisher<IdentifiedArrayOf<Shift>, PoolError> {
-        client
-            .decoded(from: URLRequest(url: url))
-            .map { status in
-                status.mapError { error in
-                    .unknown // TODO: convertible pool errors
-                }
-            }
-            .eraseToAnyPublisher()
+    private lazy var request = URLRequest(url: url)
+    
+    private lazy var client = Client(session: .shared, decoder: .shiftsDecoder)
+    
+    func shifts() -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
+        client.decoded(from: request)
+            .mapFault(ShiftsError.init(from:))
+            .eraseToLoadPublisher()
     }
     
-    func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
-        shifts()
-            .map { status in
-                status.compactMap(replaceNil: .unknown) { shifts in
-                    shifts[id: id]
+    func shift(id: Shift.ID) -> LoadPublisher<Shift, ShiftsError> {
+        client.decoded(from: request)
+            .mapItem { (shifts: IdentifiedArrayOf<Shift>) in
+                guard let shift = shifts[id: id] else {
+                    throw ShiftsError.badIdentifier(id: id)
                 }
+                
+                return shift
             }
-            .eraseToAnyPublisher()
+            .mapFault(ShiftsError.init(from:))
+            .eraseToLoadPublisher()
     }
     
 }
