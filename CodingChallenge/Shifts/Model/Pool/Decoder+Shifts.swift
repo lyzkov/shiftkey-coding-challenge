@@ -9,17 +9,13 @@ import Foundation
 
 import Common
 
-extension Client {
+extension JSONDecoder {
     
-    private static let decoder: JSONDecoder = {
+    static let shiftsDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         
         return decoder
     }()
-    
-    public convenience init() {
-        self.init(decoder: Self.decoder)
-    }
     
 }

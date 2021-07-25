@@ -15,7 +15,7 @@ extension Main {
     public enum Error: ViewableError {
         case unknown(reason: String)
         
-        public init(from coreError: PoolError) {
+        public init(from coreError: ShiftsError) {
             self = .unknown(reason: coreError.localizedDescription)
         }
         

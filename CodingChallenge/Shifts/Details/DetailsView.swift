@@ -16,7 +16,7 @@ extension Details {
     
     public struct View: ComposableView {
         
-        public typealias State = Loadable<Item, Main.Error>
+        public typealias State = Load<Item, Main.Error>?
         
         let id: Item.ID
         
@@ -24,7 +24,7 @@ extension Details {
         var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, load: .show(id: id), unload: .load(.none)) { store in
+            LoadStore(store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
                     Details.ItemView(item: store.state)
                         .navigationTitle("Shift details")
