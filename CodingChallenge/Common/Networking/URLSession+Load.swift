@@ -10,7 +10,7 @@ import Combine
 
 public extension URLSession {
     
-    struct DataTaskLoad: Publisher {
+    struct DataTaskLoadPublisher: Publisher {
         public typealias Output = Load<Data, Error>
         public typealias Failure = Never
         
@@ -39,13 +39,13 @@ public extension URLSession {
         
     }
     
-    func dataTaskLoadPublisher(for request: URLRequest) -> DataTaskLoad {
+    func dataTaskLoadPublisher(for request: URLRequest) -> DataTaskLoadPublisher {
         .init(session: self, request: request)
     }
     
 }
 
-extension URLSession.DataTaskLoad {
+extension URLSession.DataTaskLoadPublisher {
     
     fileprivate class Subscription: Combine.Subscription {
         
