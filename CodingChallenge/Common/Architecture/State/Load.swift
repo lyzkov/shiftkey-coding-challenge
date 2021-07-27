@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Combine
 
 public typealias Load<Item, Fault: Error> = Status<Result<Item, Fault>>
 
@@ -47,46 +46,26 @@ extension Status {
     
 }
 
-public typealias LoadPublisher<Item, Fault: Error> = AnyPublisher<Load<Item, Fault>, Never>
-
-public extension Publisher where Failure == Never {
+extension Optional {
     
-    func decode<Item: Decodable, Coder: TopLevelDecoder>(
-        type: Item.Type,
-        decoder: Coder
-    ) -> Publishers.Map<Self, Load<Item, Error>>
-    where Output == Load<Data, Error>, Coder.Input == Data {
-        mapItem { data in
-            try decoder.decode(type, from: data)
+    public func succeeded<Item, Fault: Error>(
+    ) -> Bool where Wrapped == Status<Result<Item, Fault>> {
+        switch self {
+        case .some(.completed(.success)):
+            return true
+        default:
+            return false
         }
     }
     
-    func mapItem<Item, Transformed>(
-        _ transform: @escaping (Item) throws -> Transformed
-    ) -> Publishers.Map<Self, Load<Transformed, Error>>
-    where Output == Load<Item, Error> {
-        map { status in
-            do {
-                return try status.map(transform)
-            } catch let error {
-                return .failure(error)
-            }
+    public func isEmpty<Item, S: Collection, Fault: Error>(
+    ) -> Bool where Wrapped == Status<Result<S, Fault>>, S.Element == Item {
+        switch self {
+        case .some(.completed(.success(let items))):
+            return items.isEmpty
+        default:
+            return false
         }
-    }
-    
-    func mapFault<Item, Fault: Error>(
-        _ transform: @escaping (Error) -> Fault
-    ) -> Publishers.Map<Self, Load<Item, Fault>>
-    where Output == Load<Item, Error> {
-        map { status in
-            status.mapError(transform)
-        }
-    }
-    
-    func eraseToLoadPublisher<Item, Fault>(
-    ) -> LoadPublisher<Item, Fault>
-    where Output == Load<Item, Fault> {
-        eraseToAnyPublisher()
     }
     
 }
