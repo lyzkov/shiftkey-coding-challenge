@@ -30,7 +30,8 @@ public extension Endpoint {
         let base = Self.api.configuration
 
         var request = URLRequest(
-            url: base.url + path
+            url: base.url + path,
+            cachePolicy: .useProtocolCachePolicy
         )
         request.httpMethod = method.rawValue
         request.allHTTPHeaderFields = base.headers + headers

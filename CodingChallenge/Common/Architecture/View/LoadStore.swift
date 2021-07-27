@@ -37,8 +37,9 @@ public struct LoadStore<
             }
         } else: {
             TransparentView()
-        }.onAppear {
-            ViewStore(store).send(load)
+                .onAppear {
+                    ViewStore(store).send(load)
+                }
         }.onDisappear {
             if let unload = unload {
                 ViewStore(store).send(unload)

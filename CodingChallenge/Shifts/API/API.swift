@@ -14,14 +14,22 @@ enum API: Common.API {
     // TODO: base url from info property list
     static var configuration = APIConfiguration(url: "https://dev.shiftkey.com/api/v2")
     
-    static let availableShifts = Get<Raw.Shifts>(
-        path: "/available_shifts",
-        parameters: [
-            "address": "Dallas,%20Tx",
-            "start": "2021-07-25",
-            "type": "week",
-        ]
-    )
+    static let formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "YYYY-MM-dd"
+        return formatter
+    }()
+    
+    static func availableShifts(from start: Date) -> Get<Raw.Shifts> {
+            .init(
+                path: "/available_shifts",
+                parameters: [
+                    "address": "Dallas,%20Tx",
+                    "start": formatter.string(from: start),
+                    "type": "week",
+                ]
+            )
+    }
     
 }
 
