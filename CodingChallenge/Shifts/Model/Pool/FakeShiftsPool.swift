@@ -19,7 +19,7 @@ class FakeShiftsPool: ShiftsPool {
             .map { _ in Shift.fake() }
     )
     
-    override func shifts() -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
+    override func shifts(from start: Date) -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
         Just(.completed(.success(Self.fakeShifts))).eraseToAnyPublisher()
     }
     
