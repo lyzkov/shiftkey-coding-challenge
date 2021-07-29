@@ -46,10 +46,10 @@ extension Shift: Fakeable {
     
     public static func fake() -> Shift {
         Shift(
-            id: UUID().uuidString,
+            id: String(UUID().uuidString.prefix(8)),
             kind: .day,
             start: Date(),
-            end: Date(),
+            end: Date().advanced(by: 60*60*9),
             facility: Facility(name: "Skilled Nursing Facility"),
             skill: Skill(name: "Long Term Care"),
             specialty: Specialty(name: "Certified Nursing Aide")

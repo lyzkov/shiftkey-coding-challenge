@@ -33,18 +33,26 @@ extension Shifts.List {
             VStack(alignment: .leading) {
                 HStack {
                     Text("Shift ID: ")
+                    Spacer()
                     Text("\(item.id)")
                 }
                 HStack {
                     Text("Facility: ")
+                    Spacer()
                     Text("\(item.facility)")
                 }
                 HStack {
+                    Text("Starts: ")
+                    Spacer()
                     Text(item.start, style: .date)
+                    Text(item.start, style: .time)
+                }
+                HStack {
+                    Text("Ends: ")
                     Spacer()
                     Text(item.end, style: .date)
+                    Text(item.end, style: .time)
                 }
-                .padding(.horizontal, 60.0)
             }
         }
         
@@ -52,8 +60,12 @@ extension Shifts.List {
     
 }
 
+#if DEBUG
+
 struct ListItemView_Previews: PreviewProvider {
     static var previews: some SwiftUI.View {
         List.ItemView(item: .init(from: .fake()))
     }
 }
+
+#endif

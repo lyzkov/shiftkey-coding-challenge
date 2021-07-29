@@ -10,14 +10,12 @@ import SwiftUI
 
 import ComposableArchitecture
 
-public struct LoadStore<
-    Item: Viewable, Fault: Error & Equatable, Action,
-    Placeholder: View, Recovery: View, Content: View
->: View {
+public struct LoadView<Item, Fault, Action, Placeholder, Recovery, Content>: View
+where Item: Viewable, Fault: ViewableError, Placeholder: View, Recovery: View, Content: View {
     public typealias State = Load<Item, Fault>?
     
     let store: Store<State, Action>
-    let load: Action // unified action for loading view?
+    let load: Action
     let unload: Action?
     
     let delivery: (ViewStore<Item, Action>) -> Content
@@ -26,8 +24,8 @@ public struct LoadStore<
     
     public var body: some View {
         IfLetStore(store) { store in
-            StatusStore(store) { store in
-                ResultStore(store) { store in
+            StatusView(with: store) { store in
+                ResultView(with: store) { store in
                     WithViewStore(store, content: delivery)
                 } recovery: { store in
                     WithViewStore(store, content: recovery)
@@ -48,7 +46,7 @@ public struct LoadStore<
     }
     
     public init(
-        _ store: Store<State, Action>,
+        with store: Store<State, Action>,
         load: Action,
         unload: Action? = nil,
         @ViewBuilder content delivery: @escaping (ViewStore<Item, Action>) -> Content,

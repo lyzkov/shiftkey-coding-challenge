@@ -48,24 +48,13 @@ extension Status {
 
 extension Optional {
     
-    public func succeeded<Item, Fault: Error>(
-    ) -> Bool where Wrapped == Status<Result<Item, Fault>> {
-        switch self {
-        case .some(.completed(.success)):
-            return true
-        default:
-            return false
-        }
-    }
-    
     public func isEmpty<Item, S: Collection, Fault: Error>(
     ) -> Bool where Wrapped == Status<Result<S, Fault>>, S.Element == Item {
-        switch self {
-        case .some(.completed(.success(let items))):
-            return items.isEmpty
-        default:
-            return false
+        guard case .some(.completed(.success(let items))) = self else {
+            return true
         }
+        
+        return items.isEmpty
     }
     
 }
