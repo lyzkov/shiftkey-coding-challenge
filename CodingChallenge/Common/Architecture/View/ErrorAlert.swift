@@ -9,11 +9,12 @@ import Foundation
 import SwiftUI
 
 public struct ErrorAlert: View {
-    @State var isPresented: Bool = true
 
     let error: Error
     let dismiss: () -> Void
     let retry: () -> Void
+    
+    @State var isPresented: Bool = true
 
     public var body: some View {
         Text("Oooops... Something went wrong!")

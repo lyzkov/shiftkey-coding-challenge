@@ -21,10 +21,10 @@ extension Details {
         let id: Item.ID
         
         @Resolve(state: \Main.State.details, action: Main.Action.details)
-        var store: Store<State, Action>
+        public var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            LoadStore(store, load: .show(id: id), unload: .load(.none)) { store in
+            LoadView(with: store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
                     Details.ItemView(item: store.state)
                         .navigationTitle("Shift details")
@@ -41,6 +41,8 @@ extension Details {
     }
     
 }
+
+#if DEBUG
 
 extension Details.View: FakeView {
     
@@ -69,3 +71,5 @@ struct DetailsView_Previews: PreviewProvider {
     }
     
 }
+
+#endif

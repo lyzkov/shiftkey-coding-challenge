@@ -50,9 +50,12 @@ extension Details {
                 Spacer()
             }
         }
+        
     }
     
 }
+
+#if DEBUG
 
 struct DetailsItemView_Previews: PreviewProvider {
     
@@ -61,3 +64,5 @@ struct DetailsItemView_Previews: PreviewProvider {
     }
     
 }
+
+#endif

@@ -9,7 +9,7 @@ import Foundation
 
 import IdentifiedCollections
 
-public struct Page<Index: Hashable, Item: Identifiable, Fault: Error>: Identifiable {
+public struct Page<Item: Identifiable, Fault: Error, Index: Hashable>: Identifiable {
     public let index: Index
     public let items: Load<IdentifiedArrayOf<Item>, Fault>?
     
@@ -21,7 +21,7 @@ public struct Page<Index: Hashable, Item: Identifiable, Fault: Error>: Identifia
         nil
     }
     
-    public init(index: Index, items: Load<IdentifiedArrayOf<Item>, Fault>?) {
+    public init(index: Index, items: Load<IdentifiedArrayOf<Item>, Fault>? = .none) {
         self.index = index
         self.items = items
     }
@@ -33,7 +33,7 @@ extension Page: Equatable where Item: Equatable, Fault: Equatable {
 
 extension Page: Viewable where Item: Viewable, Fault: ViewableError, Item.Core: Identifiable {
     
-    public init(from corePage: Page<Index, Item.Core, Fault.Core>) {
+    public init(from corePage: Page<Item.Core, Fault.Core, Index>) {
         self.init(index: corePage.index, items: .init(from: corePage.items))
     }
     
