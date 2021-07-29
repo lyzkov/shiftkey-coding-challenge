@@ -16,7 +16,7 @@ class ShiftsPool {
     
     private lazy var client = Client(session: .shared, decoder: .shiftsDecoder)
     
-    private var buffer: CurrentValueSubject<IdentifiedArrayOf<Shift>, Never> = CurrentValueSubject([])
+    private var buffer = CurrentValueSubject<IdentifiedArrayOf<Shift>, Never>([])
     
     func shifts(from date: Date) -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
         client.decoded(from: API.availableShifts(from: date))

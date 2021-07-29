@@ -32,6 +32,6 @@ extension Main {
         List.View()
     }
     
-    public typealias View = TransparentView<Main.State>
+    public typealias View = TransparentView<Main.State, Void>
     
 }

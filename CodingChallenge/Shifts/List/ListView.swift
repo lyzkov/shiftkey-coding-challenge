@@ -15,54 +15,42 @@ extension Shifts.List {
     
     public struct View: ComposableView {
         
-        public typealias State = IdentifiedArrayOf<PageByDate<Item, Main.Error>>
+        public typealias State = Feed<Item, Main.Error, Date>
         
         @Resolve(state: \Main.State.list, action: Main.Action.list)
-        var store: Store<State, Action>
+        public var store: Store<State, Action>
         
         @SwiftUI.State var selected: Item? = nil
         
-        var forEachStore: Store<State, (Date, Action)> {
-            store.scope { state in
-                state
-            } action: { action in
-                Action.show(from: action.0)
-            }
-        }
-        
         public var body: some SwiftUI.View {
             NavigationView {
-                SwiftUI.List { // TODO: Paged List with store
-                    ForEachStore(forEachStore) { store in
-                        let date = ViewStore(store).currentDate
-                        LoadStore(store.scope(state: \.items), load: .show(from: date)) { items in
-                            if !items.isEmpty {
-                                Section {
-                                    ForEach(items.state) { item in
-                                        List.ItemView(item: item)
-                                            .onTapGesture {
-                                                selected = item
-                                            }
-                                    }
-                                }
+                FeedView(with: store, onAppearSend: .show()) { pageStore in
+                    PageView(with: pageStore, load: Shifts.List.Action.show) { itemStore in
+                        let item = itemStore.state
+                        List.ItemView(item: item)
+                            .onTapGesture {
+                                selected = item
                             }
-                        } progress: { store in
-                            ProgressView(value: store.state)
-                        } recovery: { _ in }
+                    } progress: { value in
+                        ProgressView(value: value)
+                    } header: { date in
+                        HStack {
+                            Text(date, style: .date)
+                            Text(date, style: .time)
+                        }
                     }
                 }
                 .sheet(item: $selected) { item in
                     Details.View(id: item.id)
                 }
                 .navigationTitle("Shifts")
-                .onAppear {
-                    ViewStore(store).send(.show())
-                }
             }
         }
     }
     
 }
+
+#if DEBUG
 
 extension Shifts.List.View: FakeView {
     
@@ -92,3 +80,5 @@ struct ListView_Previews: PreviewProvider {
     }
     
 } // Nice parenthesis doom!
+
+#endif

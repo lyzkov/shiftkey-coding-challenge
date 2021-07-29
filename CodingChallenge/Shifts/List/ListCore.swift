@@ -13,13 +13,10 @@ import ComposableArchitecture
 
 public enum List: Core {
     
-    public typealias PageByDate<Elememt, Error> = Page<Date, Elememt, Error>
-    where Elememt: Identifiable, Error: Swift.Error
-    
-    public typealias State = IdentifiedArrayOf<PageByDate<Shift, ShiftsError>>
+    public typealias State = Feed<Shift, ShiftsError, Date>
     
     public enum Action {
-        case show(from: Date = Date())
+        case show(from: Date = .currentStartOfWeekInDallas())
         case load(State.Element)
     }
     
@@ -30,7 +27,9 @@ public enum List: Core {
             switch action {
             case .show(let date):
                 return environment.pool.shifts(from: date)
-                    .map { items in PageByDate(index: date, items: items) }
+                    .map { items in
+                        Page(index: date, items: items)
+                    }
                     .map(Action.load)
                     .receive(on: environment.mainQueue)
                     .eraseToEffect()
@@ -40,6 +39,7 @@ public enum List: Core {
                     state.append(next)
                 }
             }
+            
             return .none
         }
     }
@@ -48,19 +48,11 @@ public enum List: Core {
 
 extension Page where Index == Date {
     
-    var currentDate: Date {
-        index
+    var next: Page? {
+        !isEmpty ? Page(index: index.nextWeek()) : nil
     }
     
-    var nextDate: Date {
-        index.advanced(by: 60*60*24*7) // TODO: declarative date interval (from third party?)
-    }
-    
-    public var next: Page? {
-        items.succeeded() && !isEmpty ? Page(index: nextDate, items: .none) : nil
-    }
-    
-    public var isEmpty: Bool {
+    var isEmpty: Bool {
         items.isEmpty()
     }
     
