@@ -36,4 +36,13 @@ where Item: Viewable, Fault: ViewableError, Recovery: View, Content: View {
         self.recovery = recovery
     }
     
+    init(
+        with store: Store<State, Action>,
+        @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content
+    ) where Recovery == EmptyView {
+        self.store = store
+        self.delivery = delivery
+        self.recovery = { _ in EmptyView() }
+    }
+    
 }

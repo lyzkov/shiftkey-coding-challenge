@@ -27,13 +27,14 @@ extension Details {
             LoadView(with: store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
                     Details.ItemView(item: store.state)
-                        .navigationTitle("Shift details")
+                        .navigationBarTitle("Shift details")
                 }
-            } progress: { store in
-                ProgressView(value: store.state).animation(.linear)
+                .navigationViewStyle(StackNavigationViewStyle())
+            } progress: { value in
+                ProgressView(value: value).animation(.linear)
             } recovery: { store in
                 ErrorAlert(store.state,
-                    dismiss: { store.send(.load(.none)) },
+                    dismiss: { },
                     retry: { store.send(.show(id: id)) }
                 )
             }
