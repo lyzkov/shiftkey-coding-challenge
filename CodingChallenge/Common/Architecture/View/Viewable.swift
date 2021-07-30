@@ -9,6 +9,8 @@ import Foundation
 
 import SwiftUI
 
+import ComposableArchitecture
+
 public protocol Viewable: Equatable {
     associatedtype Core
     
@@ -18,29 +20,15 @@ public protocol Viewable: Equatable {
 public protocol ViewableError: Viewable, Error where Core: Error {
 }
 
-public protocol ComposableView: View {
-    associatedtype State: Viewable
-}
-
 extension Result: Viewable where Success: Viewable, Failure: ViewableError {
     public typealias Core = Result<Success.Core, Failure.Core>
     
     public init(from coreResult: Core) {
-        switch coreResult {
-        case .success(let success):
-            self = .success(.init(from: success))
-        case .failure(let failure):
-            self = .failure(.init(from: failure))
-        }
+        self = coreResult
+            .map(Success.init(from:))
+            .mapError(Failure.init(from:))
     }
 
-}
-
-extension Result where Success: Viewable, Failure: Equatable {
-    
-    public init(from coreResult: Result<Success.Core, Failure>) {
-        self = coreResult.map(Success.init(from:))
-    }
 }
 
 extension Status: Viewable where Completed: Viewable {
@@ -52,7 +40,6 @@ extension Status: Viewable where Completed: Viewable {
 }
 
 extension Optional: Viewable where Wrapped: Viewable {
-    public typealias Core = Wrapped.Core?
     
     public init(from coreOptional: Wrapped.Core?) {
         self = coreOptional.map(Wrapped.init(from:))
@@ -60,10 +47,11 @@ extension Optional: Viewable where Wrapped: Viewable {
     
 }
 
-extension Array: Viewable where Element: Viewable {
-    public typealias Core = [Element.Core]
+extension IdentifiedArrayOf: Viewable
+    where Element: Viewable & Identifiable, ID == Element.ID, Element.Core: Identifiable {
     
-    public init(from coreArray: [Element.Core]) {
-        self.init(coreArray.map(Element.init(from:)))
+    public init(from coreArray: IdentifiedArrayOf<Element.Core>) {
+        self.init(uniqueElements: coreArray.map(Element.init(from:)))
     }
+    
 }

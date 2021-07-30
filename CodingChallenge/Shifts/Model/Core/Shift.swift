@@ -10,8 +10,8 @@ import Foundation
 import Common
 
 public struct Shift: Identifiable, Equatable {
-    public let id: UUID
-    public let kind: Kind
+    public let id: String
+    public let kind: Kind?
     public let start: Date
     public let end: Date
     public let facility: Facility
@@ -26,14 +26,30 @@ extension Shift {
     }
 }
 
+extension Shift: Entity {
+    
+    public init(from raw: Raw.Shift) {
+        self.init(
+            id: String(raw.shiftID),
+            kind: Kind(rawValue: raw.shiftKind),
+            start: raw.startTime,
+            end: raw.endTime,
+            facility: Facility(name: raw.facilityType.name),
+            skill: Skill(name: raw.skill.name),
+            specialty: Specialty(name: raw.localizedSpecialty.name)
+        )
+    }
+    
+}
+
 extension Shift: Fakeable {
     
     public static func fake() -> Shift {
         Shift(
-            id: UUID(),
-            kind: Kind.day,
+            id: String(UUID().uuidString.prefix(8)),
+            kind: .day,
             start: Date(),
-            end: Date(),
+            end: Date().advanced(by: 60*60*9),
             facility: Facility(name: "Skilled Nursing Facility"),
             skill: Skill(name: "Long Term Care"),
             specialty: Specialty(name: "Certified Nursing Aide")

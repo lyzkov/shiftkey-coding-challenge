@@ -11,7 +11,7 @@ import Common
 
 public enum Details: Core {
     
-    public typealias State = Loadable<Shift, PoolError>
+    public typealias State = Load<Shift, ShiftsError>?
     
     public enum Action {
         case show(id: Shift.ID)
@@ -26,6 +26,7 @@ public enum Details: Core {
             case .show(let id):
                 return environment.pool.shift(id: id)
                     .map(Action.load)
+                    .receive(on: environment.mainQueue)
                     .eraseToEffect()
             case .load(let status):
                 state = status
