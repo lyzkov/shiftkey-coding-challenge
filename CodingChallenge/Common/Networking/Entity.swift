@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  Entity.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 21/07/2021.
 //

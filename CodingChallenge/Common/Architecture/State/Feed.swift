@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  File
+//  Feed.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 29/07/2021.
 //
