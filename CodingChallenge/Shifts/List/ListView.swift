@@ -20,7 +20,7 @@ extension Shifts.List {
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         public var store: Store<State, Action>
         
-        @SwiftUI.State var selected: Item? = nil
+        @SwiftUI.State var selected: Item?
         
         public var body: some SwiftUI.View {
             NavigationView {
@@ -45,6 +45,7 @@ extension Shifts.List {
                 }
                 .navigationTitle("Shifts")
             }
+            .navigationViewStyle(StackNavigationViewStyle())
         }
     }
     
