@@ -69,8 +69,8 @@ extension URLSession.DataTaskLoadPublisher {
             
             progressObservation = dataTask.progress
                 .observe(\.fractionCompleted) { progress, _ in
-                _ = downstream.receive(.pending(Float(progress.fractionCompleted)))
-            }
+                    _ = downstream.receive(.pending(Float(progress.fractionCompleted)))
+                }
             
             dataTask.resume()
         }

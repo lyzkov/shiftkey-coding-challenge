@@ -50,14 +50,14 @@ where Item: Viewable, Fault: ViewableError, Placeholder: View, Recovery: View, C
         load: Action,
         unload: Action? = nil,
         @ViewBuilder content delivery: @escaping (ViewStore<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (ViewStore<Float?, Action>) -> Placeholder,
+        @ViewBuilder progress: @escaping (Float?) -> Placeholder,
         @ViewBuilder recovery: @escaping (ViewStore<Fault, Action>) -> Recovery
     ) {
         self.store = store
         self.load = load
         self.unload = unload
         self.delivery = delivery
-        self.progress = progress
+        self.progress = { store in progress(store.state) }
         self.recovery = recovery
     }
     
