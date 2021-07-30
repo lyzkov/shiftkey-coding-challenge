@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  MainView.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 19/07/2021.
 //
@@ -15,7 +15,7 @@ extension Main {
     public enum Error: ViewableError {
         case unknown(reason: String)
         
-        public init(from coreError: PoolError) {
+        public init(from coreError: ShiftsError) {
             self = .unknown(reason: coreError.localizedDescription)
         }
         
@@ -32,6 +32,6 @@ extension Main {
         List.View()
     }
     
-    public typealias View = TransparentView<Main.State>
+    public typealias View = TransparentView<Main.State, Void>
     
 }

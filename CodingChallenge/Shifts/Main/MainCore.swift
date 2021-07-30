@@ -14,20 +14,15 @@ import ComposableArchitecture
 public struct Main: Core {
     
     public struct State: Resolvable, Equatable {
-        var list: List.State = .none
+        var list: List.State = []
         var details: Details.State = .none
         
         public init() {}
     }
     
-    public enum Action: Resolvable {
+    public enum Action {
         case list(List.Action)
         case details(Details.Action)
-        
-        public init() {
-            self = .list(.load(.none))
-        }
-        
     }
     
     public struct Environment: Resolvable {

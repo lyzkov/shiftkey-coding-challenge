@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  StatusView.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 13/07/2021.
 //
@@ -10,7 +10,7 @@ import SwiftUI
 
 import ComposableArchitecture
 
-struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
+struct StatusView<Item: Viewable, Action, Placeholder: View, Content: View>: ComposableView {
     typealias State = Status<Item>
     
     let store: Store<State, Action>
@@ -25,14 +25,34 @@ struct StatusStore<Item, Action, Placeholder: View, Content: View>: View {
         }
     }
     
-    public init(
-        _ store: Store<State, Action>,
+    init(
+        with store: Store<State, Action>,
         @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content,
         @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
     ) {
         self.store = store
         self.delivery = delivery
         self.progress = progress
+    }
+    
+    init(
+        with store: Store<State, Action>,
+        @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
+    ) where Content == EmptyView {
+        self.store = store
+        self.delivery = { _ in EmptyView() }
+        self.progress = progress
+    }
+    
+    init(
+        with store: Store<State, Action>,
+        @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content
+    ) where Placeholder == EmptyView {
+        self.store = store
+        self.delivery = delivery
+        self.progress = { _ in
+            EmptyView()
+        }
     }
     
 }
