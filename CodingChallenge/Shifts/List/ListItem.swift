@@ -11,7 +11,7 @@ import Common
 
 extension Shifts.List {
     
-    public struct Item: Identifiable, Viewable {
+    public struct Item: Identifiable, Viewable, Hashable {
         public let id: String
         public let start: Date
         public let end: Date
@@ -54,6 +54,7 @@ extension Shifts.List {
                     Text(item.end, style: .time)
                 }
             }
+            .contentShape(Rectangle())
         }
         
     }
