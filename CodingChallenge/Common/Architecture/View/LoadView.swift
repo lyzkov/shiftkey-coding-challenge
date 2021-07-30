@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  LoadView.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 13/07/2021.
 //
