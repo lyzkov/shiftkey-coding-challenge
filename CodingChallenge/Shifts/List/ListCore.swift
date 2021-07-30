@@ -16,7 +16,7 @@ public enum List: Core {
     public typealias State = Feed<Shift, ShiftsError, Date>
     
     public enum Action {
-        case show(from: Date = .currentStartOfWeekInDallas())
+        case show(from: Date = .todayInDallas())
         case load(State.Element)
     }
     
@@ -49,7 +49,7 @@ public enum List: Core {
 extension Page where Index == Date {
     
     var next: Page? {
-        !isEmpty ? Page(index: index.nextWeek()) : nil
+        !isEmpty ? Page(index: index.nextWeek(using: .CST)) : nil
     }
     
     var isEmpty: Bool {
