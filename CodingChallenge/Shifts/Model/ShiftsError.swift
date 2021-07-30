@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  ShiftsError.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 15/07/2021.
 //

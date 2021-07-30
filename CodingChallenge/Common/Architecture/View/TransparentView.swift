@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  
+//  TransparentView.swift
+//  CodingChallenge
 //
 //  Created by lyzkov on 11/07/2021.
 //
