@@ -10,37 +10,36 @@ import Combine
 
 import Common
 
-final class ShiftsPool {
+import IdentifiedCollections
+
+class ShiftsPool {
     
-    typealias PoolPublisher<Success, Fault> = AnyPublisher<Status<Result<Success, Fault>>, Never>
-        where Fault: Error
+    private lazy var client = Client(session: .shared, decoder: .shiftsDecoder)
     
-    private let fakeShifts = (3...60).map { _ in Shift.fake() }
+    private var buffer = CurrentValueSubject<IdentifiedArrayOf<Shift>, Never>([])
     
-    func shifts() -> PoolPublisher<[Shift], PoolError> {
-        Just(.completed(.success(fakeShifts))).eraseToAnyPublisher()
+    func shifts(from date: Date) -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
+        client.decoded(from: API.availableShifts(from: date))
+            .mapFault(ShiftsError.init(from:))
+            .handleEvents(receiveOutput: { load in
+                if case .completed(.success(let items)) = load {
+                    for item in items {
+                        self.buffer.value[id: item.id] = item
+                    }
+                }
+            })
+            .eraseToLoadPublisher()
     }
     
-    func shift(id: Shift.ID) -> PoolPublisher<Shift, PoolError> {
-//        Just(.completed(.success(fakeShifts.first(by: id)!))).eraseToAnyPublisher()
-//        progress(with: .success(fakeShifts.first(by: id)!))
-        progress(with: .failure(.unknown))
-    }
-    
-    private func progress(steps: Int) -> [Float] {
-        (0...steps).map { Float($0)/Float(steps) }
-    }
-    
-    private func progress<Success, Failure>(
-        with completed: Result<Success, Failure>,
-        steps: Int = 10
-    ) -> PoolPublisher<Success, Failure> {
-        Publishers.Timer(every: 0.1, scheduler: DispatchQueue.main).autoconnect()
-            .zip(
-                progress(steps: steps)
-                    .publisher.map(Status.pending)
-                    .append(.completed(completed))
-            ) { $1 }
+    func shift(id: Shift.ID) -> LoadPublisher<Shift, ShiftsError> {
+        buffer
+            .map { shifts -> Load<Shift, ShiftsError> in
+                guard let shift = shifts[id: id] else {
+                    return .failure(ShiftsError.badIdentifier(id: id))
+                }
+
+                return .success(shift)
+            }
             .eraseToAnyPublisher()
     }
     

@@ -9,7 +9,7 @@ import Foundation
 
 import ComposableArchitecture
 
-extension Reducer where State: Resolvable, Action: Resolvable, Environment: Resolvable {
+extension Reducer where State: Resolvable, Environment: Resolvable {
     
     func pullbackToRoot() -> Reducer<RootState, RootAction, RootEnvironment> {
         .init { state, action, environment in
@@ -33,7 +33,7 @@ extension Reducer where State: Resolvable, Action: Resolvable, Environment: Reso
 
 extension Store where State == RootState, Action == RootAction {
     
-    func subscope<State: Resolvable, Action: Resolvable>() -> Store<State, Action> {
+    func subscope<State: Resolvable, Action>() -> Store<State, Action> {
         scope(state: { $0.resolve() ?? .init() }, action: RootAction.node)
     }
     

@@ -16,26 +16,25 @@ extension Details {
     
     public struct View: ComposableView {
         
-        public typealias State = Loadable<Item, Main.Error>
+        public typealias State = Load<Item, Main.Error>?
         
         let id: Item.ID
         
         @Resolve(state: \Main.State.details, action: Main.Action.details)
-        var store: Store<State, Action>
+        public var store: Store<State, Action>
         
         public var body: some SwiftUI.View {
-            Load(store, load: .show(id: id), unload: .load(.none)) { store in
+            LoadView(with: store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
-                    Group {
-                        ItemView(item: store.state)
-                    }
-                    .navigationTitle("Shift details")
+                    Details.ItemView(item: store.state)
+                        .navigationBarTitle("Shift details")
                 }
-            } progress: { store in
-                ProgressView(value: store.state).animation(.linear)
+                .navigationViewStyle(StackNavigationViewStyle())
+            } progress: { value in
+                ProgressView(value: value).animation(.linear)
             } recovery: { store in
                 ErrorAlert(store.state,
-                    dismiss: { store.send(.load(.none)) },
+                    dismiss: { },
                     retry: { store.send(.show(id: id)) }
                 )
             }
@@ -44,17 +43,34 @@ extension Details {
     
 }
 
-struct DetailsView_Previews: PreviewProvider, ViewStoreProvider {
-    typealias Module = Main
+#if DEBUG
+
+extension Details.View: FakeView {
     
-    static var previews: some SwiftUI.View {
-        func firstItemID(viewStore: ViewStore<Module.State, Module.Action>) -> UUID {
-            viewStore.send(.list(.show))
-            return (try? viewStore.list?.get()?.get().first?.id) ?? UUID()
-        }
+    public static func fake(with state: State) -> Details.View {
+        let fake = Shift.fake()
+        var view = Details.View(id: fake.id)
+        view.store = Store(
+            initialState: state,
+            reducer: .empty,
+            environment: Details.Environment()
+        )
         
-        Module.register()
-        return Details.View(id: firstItemID(viewStore: viewStore))
+        return view
     }
     
 }
+
+struct DetailsView_Previews: PreviewProvider {
+    
+    static var previews: some SwiftUI.View {
+        Group {
+            Details.View.fake(with: .init(from: .completed(.success(.fake()))))
+            Details.View.fake(with: .init(from: .completed(.failure(.unknown))))
+            Details.View.fake(with: .init(from: .pending(0.60)))
+        }
+    }
+    
+}
+
+#endif
