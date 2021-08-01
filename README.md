@@ -6,4 +6,4 @@
 - [ ] Modular design following hierarchy of state reducers
 - [ ] Command driven routable entry points triggering effects in reactors
 - [ ] Generic stores for Load and Feed eventual contexts of receiving items
-- [ ] Error pipelines or whatever you find challenging linguistic expression of Swift5 enough to make next step toward 0code app fusers
+- [ ] Error pipelines or whatever you find challenging linguistic expression of Swift5 enough to make next step toward near 0code app fusement

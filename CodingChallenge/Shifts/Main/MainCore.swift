@@ -26,8 +26,8 @@ public struct Main: Core {
     }
     
     public struct Environment: Resolvable {
-        let mainQueue = AnySchedulerOf<DispatchQueue>.main
-        let pool = ShiftsPool()
+        var mainQueue = AnySchedulerOf<DispatchQueue>.main
+        var pool: ShiftsPool = DefaultShiftsPool()
         
         public init() {}
     }
