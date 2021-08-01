@@ -12,7 +12,12 @@ import Common
 
 import IdentifiedCollections
 
-class ShiftsPool {
+protocol ShiftsPool {
+    func shifts(from date: Date) -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError>
+    func shift(id: Shift.ID) -> LoadPublisher<Shift, ShiftsError>
+}
+
+class DefaultShiftsPool: ShiftsPool {
     
     private lazy var client = Client(session: .shared, decoder: .shiftsDecoder)
     

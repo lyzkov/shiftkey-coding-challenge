@@ -15,7 +15,7 @@ public enum List: Core {
     
     public typealias State = Feed<Shift, ShiftsError, Date>
     
-    public enum Action {
+    public enum Action: Equatable {
         case show(from: Date = .todayInDallas())
         case load(State.Element)
     }

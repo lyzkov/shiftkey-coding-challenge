@@ -13,7 +13,7 @@ public enum Details: Core {
     
     public typealias State = Load<Shift, ShiftsError>?
     
-    public enum Action {
+    public enum Action: Equatable {
         case show(id: Shift.ID)
         case load(State)
     }
