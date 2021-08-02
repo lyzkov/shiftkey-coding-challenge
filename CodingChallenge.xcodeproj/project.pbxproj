@@ -11,12 +11,16 @@
 		A371CE6426A061CD00AB2DD4 /* Shifts in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A371CE6226A061CD00AB2DD4 /* Shifts */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		A3923F2126B6A3D600905706 /* Cuckoo in Frameworks */ = {isa = PBXBuildFile; productRef = A3923F2026B6A3D600905706 /* Cuckoo */; };
 		A3923F2626B6C9F500905706 /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F2426B6A7A800905706 /* GeneratedMocks.swift */; };
+		A3923F2926B6D36A00905706 /* Quick in Frameworks */ = {isa = PBXBuildFile; productRef = A3923F2826B6D36A00905706 /* Quick */; };
+		A3923F2C26B6D3D500905706 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = A3923F2B26B6D3D500905706 /* Nimble */; };
+		A3923F2E26B6D63300905706 /* DetailsCoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F2D26B6D63300905706 /* DetailsCoreSpec.swift */; };
+		A3923F3126B73D7B00905706 /* MainEnvironment+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */; };
+		A3923F3326B7431900905706 /* ClosedRange+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F3226B7431900905706 /* ClosedRange+Progress.swift */; };
 		A3D67A04267163A600B26AF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* App.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
 		A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
 		A3E1629226B5D7E90057BA3C /* Shifts in Frameworks */ = {isa = PBXBuildFile; productRef = A3E1629126B5D7E90057BA3C /* Shifts */; };
 		A3E1629426B5D7E90057BA3C /* Shifts in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A3E1629126B5D7E90057BA3C /* Shifts */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		A3E1629F26B69FA90057BA3C /* DetailsCoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E1629E26B69FA90057BA3C /* DetailsCoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,9 @@
 
 /* Begin PBXFileReference section */
 		A3923F2426B6A7A800905706 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
+		A3923F2D26B6D63300905706 /* DetailsCoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCoreSpec.swift; sourceTree = "<group>"; };
+		A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainEnvironment+Tests.swift"; sourceTree = "<group>"; };
+		A3923F3226B7431900905706 /* ClosedRange+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClosedRange+Progress.swift"; sourceTree = "<group>"; };
 		A3D2359C2684EA580021015C /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Common; sourceTree = "<group>"; };
 		A3D67A00267163A600B26AF2 /* CodingChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -65,7 +72,6 @@
 		A3D67A11267163A800B26AF2 /* CodingChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodingChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A17267163A800B26AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3D6898C2684F2880077081C /* Shifts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shifts; sourceTree = "<group>"; };
-		A3E1629E26B69FA90057BA3C /* DetailsCoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +87,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3923F2926B6D36A00905706 /* Quick in Frameworks */,
+				A3923F2C26B6D3D500905706 /* Nimble in Frameworks */,
 				A3923F2126B6A3D600905706 /* Cuckoo in Frameworks */,
 				A3E1629226B5D7E90057BA3C /* Shifts in Frameworks */,
 			);
@@ -89,6 +97,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A34427FC26B86E980078C70B /* Facility */ = {
+			isa = PBXGroup;
+			children = (
+				A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */,
+				A3923F3226B7431900905706 /* ClosedRange+Progress.swift */,
+			);
+			path = Facility;
+			sourceTree = "<group>";
+		};
 		A3923F2326B6A7A800905706 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
@@ -140,8 +157,9 @@
 		A3D67A14267163A800B26AF2 /* CodingChallengeTests */ = {
 			isa = PBXGroup;
 			children = (
+				A34427FC26B86E980078C70B /* Facility */,
 				A3923F2326B6A7A800905706 /* Generated */,
-				A3E1629E26B69FA90057BA3C /* DetailsCoreTests.swift */,
+				A3923F2D26B6D63300905706 /* DetailsCoreSpec.swift */,
 				A3D67A17267163A800B26AF2 /* Info.plist */,
 			);
 			path = CodingChallengeTests;
@@ -213,6 +231,8 @@
 			packageProductDependencies = (
 				A3E1629126B5D7E90057BA3C /* Shifts */,
 				A3923F2026B6A3D600905706 /* Cuckoo */,
+				A3923F2826B6D36A00905706 /* Quick */,
+				A3923F2B26B6D3D500905706 /* Nimble */,
 			);
 			productName = CodingChallengeTests;
 			productReference = A3D67A11267163A800B26AF2 /* CodingChallengeTests.xctest */;
@@ -247,6 +267,8 @@
 			mainGroup = A3D679F7267163A600B26AF2;
 			packageReferences = (
 				A3923F1F26B6A3D600905706 /* XCRemoteSwiftPackageReference "Cuckoo" */,
+				A3923F2726B6D36A00905706 /* XCRemoteSwiftPackageReference "Quick" */,
+				A3923F2A26B6D3D500905706 /* XCRemoteSwiftPackageReference "Nimble" */,
 			);
 			productRefGroup = A3D67A01267163A600B26AF2 /* Products */;
 			projectDirPath = "";
@@ -313,8 +335,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3923F3326B7431900905706 /* ClosedRange+Progress.swift in Sources */,
 				A3923F2626B6C9F500905706 /* GeneratedMocks.swift in Sources */,
-				A3E1629F26B69FA90057BA3C /* DetailsCoreTests.swift in Sources */,
+				A3923F3126B73D7B00905706 /* MainEnvironment+Tests.swift in Sources */,
+				A3923F2E26B6D63300905706 /* DetailsCoreSpec.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -573,6 +597,22 @@
 				minimumVersion = 1.5.1;
 			};
 		};
+		A3923F2726B6D36A00905706 /* XCRemoteSwiftPackageReference "Quick" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Quick.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
+		A3923F2A26B6D3D500905706 /* XCRemoteSwiftPackageReference "Nimble" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Quick/Nimble.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 9.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -584,6 +624,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A3923F1F26B6A3D600905706 /* XCRemoteSwiftPackageReference "Cuckoo" */;
 			productName = Cuckoo;
+		};
+		A3923F2826B6D36A00905706 /* Quick */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3923F2726B6D36A00905706 /* XCRemoteSwiftPackageReference "Quick" */;
+			productName = Quick;
+		};
+		A3923F2B26B6D3D500905706 /* Nimble */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A3923F2A26B6D3D500905706 /* XCRemoteSwiftPackageReference "Nimble" */;
+			productName = Nimble;
 		};
 		A3E1629126B5D7E90057BA3C /* Shifts */ = {
 			isa = XCSwiftPackageProductDependency;
