@@ -6,7 +6,7 @@ on:
 
 name: Code Analysis
 jobs:
-  code_analysis:
+  code_coverage:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
