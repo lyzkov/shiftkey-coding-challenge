@@ -9,7 +9,7 @@ import Foundation
 
 public extension Calendar {
     
-    static let GMT0: Self = {
+    static let gmt0: Self = {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         return calendar

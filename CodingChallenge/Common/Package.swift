@@ -20,10 +20,7 @@ let package = Package(
                 .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
             path: "./",
-            exclude: ["Tests", "Package.swift"]
+            exclude: ["Package.swift"]
         ),
-        .testTarget(
-            name: "CommonTests",
-            dependencies: ["Common"]),
     ]
 )

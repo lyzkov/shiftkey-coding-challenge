@@ -76,6 +76,7 @@ extension URLSession.DataTaskLoadPublisher {
         }
         
         func request(_ demand: Subscribers.Demand) {
+            // Subscriber receives updates to initial request as they come
         }
         
         func cancel() {

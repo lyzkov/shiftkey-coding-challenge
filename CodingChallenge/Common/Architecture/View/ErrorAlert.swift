@@ -28,7 +28,11 @@ public struct ErrorAlert: View {
             }
     }
     
-    public init(_ error: Error, dismiss: @escaping () -> Void, retry: @escaping () -> Void) {
+    public init(
+        _ error: Error,
+        dismiss: @escaping () -> Void = {},
+        retry: @escaping () -> Void
+    ) {
         self.error = error
         self.dismiss = dismiss
         self.retry = retry

@@ -16,8 +16,8 @@ public struct TransparentView<CoreState, Action>: ComposableView {
     
     public var store: Store<State, Action>
 
-    public struct State: Viewable, Equatable {
-        public init(from entity: CoreState) {
+    public struct State: ViewItem {
+        public init(from core: Void) {
         }
     }
 

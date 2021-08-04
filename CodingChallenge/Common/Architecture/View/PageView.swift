@@ -11,7 +11,7 @@ import SwiftUI
 import ComposableArchitecture
 
 public struct PageView<Index, Item, Fault, Action, Header, Placeholder, Content>: ComposableView
-where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, Fault: ViewableError,
+where Index: Hashable, Item: ViewItem & Identifiable, Item.Core: Identifiable, Fault: ViewError,
       Header: View, Placeholder: View, Content: View {
     public typealias State = Page<Item, Fault, Index>
     

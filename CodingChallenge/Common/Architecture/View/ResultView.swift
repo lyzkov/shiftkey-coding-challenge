@@ -11,7 +11,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct ResultView<Item, Fault, Action, Recovery, Content>: ComposableView
-where Item: Viewable, Fault: ViewableError, Recovery: View, Content: View {
+where Item: ViewItem, Fault: ViewError, Recovery: View, Content: View {
     typealias State = Result<Item, Fault>
     
     let store: Store<State, Action>

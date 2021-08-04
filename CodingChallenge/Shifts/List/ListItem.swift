@@ -11,7 +11,7 @@ import Common
 
 extension Shifts.List {
     
-    public struct Item: Identifiable, Viewable, Hashable {
+    public struct Item: Identifiable, ViewItem, Hashable {
         public let id: String
         public let start: Date
         public let end: Date

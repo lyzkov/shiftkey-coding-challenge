@@ -65,7 +65,7 @@ public struct Resolve<ScopedState, ScopedAction> {
     
 }
 
-extension Resolve where ScopedState: Viewable {
+extension Resolve where ScopedState: ViewItem {
     
     public init<State: Resolvable, Action>(
         state toState: @escaping (State) -> ScopedState.Core,
