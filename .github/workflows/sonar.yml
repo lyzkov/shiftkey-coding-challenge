@@ -16,7 +16,7 @@ jobs:
           default=$(echo $scheme_list | ruby -e "require 'json'; puts JSON.parse(STDIN.gets)['project']['targets'][0]")
           echo $default | cat >default
           echo Using default scheme: $default
-      - name: XCode Test with code coverage
+      - name: Build and Test Project with Code Coverage enabled
         env:
           scheme: ${{ 'default' }}
           platform: ${{ 'iOS Simulator' }}
