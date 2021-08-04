@@ -6,7 +6,7 @@ on:
 
 name: Code Analysis
 jobs:
-  code_coverage:
+  test:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -38,7 +38,7 @@ jobs:
         with:
           name: coverage
           path: CodingChallenge.coverage
-  sonarcloud:
+  scan:
     # TODO: Is it possible to run sonarcloud scan on macos-latest?
     runs-on: ubuntu-latest
     needs: [code_coverage]
