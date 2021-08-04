@@ -1,5 +1,5 @@
 //
-//  Viewable.swift
+//  ViewItem.swift
 //  CodingChallenge
 //
 //  Created by lyzkov on 17/06/2021.
@@ -11,16 +11,16 @@ import SwiftUI
 
 import ComposableArchitecture
 
-public protocol Viewable: Equatable {
+public protocol ViewItem: Equatable {
     associatedtype Core
     
     init(from core: Core)
 }
 
-public protocol ViewableError: Viewable, Error where Core: Error {
+public protocol ViewError: ViewItem, Error where Core: Error {
 }
 
-extension Result: Viewable where Success: Viewable, Failure: ViewableError {
+extension Result: ViewItem where Success: ViewItem, Failure: ViewError {
     public typealias Core = Result<Success.Core, Failure.Core>
     
     public init(from coreResult: Core) {
@@ -31,7 +31,7 @@ extension Result: Viewable where Success: Viewable, Failure: ViewableError {
 
 }
 
-extension Status: Viewable where Completed: Viewable {
+extension Status: ViewItem where Completed: ViewItem {
     
     public init(from coreStatus: Status<Completed.Core>) {
         self = coreStatus.map(Completed.init(from:))
@@ -39,7 +39,7 @@ extension Status: Viewable where Completed: Viewable {
     
 }
 
-extension Optional: Viewable where Wrapped: Viewable {
+extension Optional: ViewItem where Wrapped: ViewItem {
     
     public init(from coreOptional: Wrapped.Core?) {
         self = coreOptional.map(Wrapped.init(from:))
@@ -47,8 +47,8 @@ extension Optional: Viewable where Wrapped: Viewable {
     
 }
 
-extension IdentifiedArrayOf: Viewable
-    where Element: Viewable & Identifiable, ID == Element.ID, Element.Core: Identifiable {
+extension IdentifiedArrayOf: ViewItem
+    where Element: ViewItem & Identifiable, ID == Element.ID, Element.Core: Identifiable {
     
     public init(from coreArray: IdentifiedArrayOf<Element.Core>) {
         self.init(uniqueElements: coreArray.map(Element.init(from:)))

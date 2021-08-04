@@ -10,7 +10,7 @@ import SwiftUI
 
 import ComposableArchitecture
 
-struct StatusView<Item: Viewable, Action, Placeholder: View, Content: View>: ComposableView {
+struct StatusView<Item: ViewItem, Action, Placeholder: View, Content: View>: ComposableView {
     typealias State = Status<Item>
     
     let store: Store<State, Action>

@@ -11,7 +11,7 @@ import ComposableArchitecture
 
 extension Store {
     
-    public func scopeToView<ViewableState: Viewable>() -> Store<ViewableState, Action>
+    public func scopeToView<ViewableState: ViewItem>() -> Store<ViewableState, Action>
         where State == ViewableState.Core {
         scope { state in ViewableState(from: state) }
     }

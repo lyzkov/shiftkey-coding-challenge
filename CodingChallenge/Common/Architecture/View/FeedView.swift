@@ -11,7 +11,7 @@ import SwiftUI
 import ComposableArchitecture
 
 public struct FeedView<Index, Item, Fault, Action, Content>: ComposableView
-where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, Fault: ViewableError,
+where Index: Hashable, Item: ViewItem & Identifiable, Item.Core: Identifiable, Fault: ViewError,
       Content: View {
     public typealias State = Feed<Item, Fault, Index>
     

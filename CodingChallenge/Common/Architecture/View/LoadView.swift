@@ -11,7 +11,7 @@ import SwiftUI
 import ComposableArchitecture
 
 public struct LoadView<Item, Fault, Action, Placeholder, Recovery, Content>: View
-where Item: Viewable, Fault: ViewableError, Placeholder: View, Recovery: View, Content: View {
+where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Content: View {
     public typealias State = Load<Item, Fault>?
     
     let store: Store<State, Action>

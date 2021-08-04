@@ -11,7 +11,7 @@ import Common
 
 extension Details {
     
-    public struct Item: Identifiable, Viewable {
+    public struct Item: Identifiable, ViewItem {
         public let id: String
         let facility: String
         let skill: String

@@ -11,8 +11,9 @@ import Common
 
 enum API: Common.API {
     
-    // TODO: base url from info property list
-    static var configuration = APIConfiguration(url: "https://dev.shiftkey.com/api/v2")
+    static var configuration = APIConfiguration(
+            url: URL(string: Bundle.main.infoDictionary!["ShiftsAPI base URL"] as! String)!
+        )
     
     static let formatter: DateFormatter = {
         let formatter = DateFormatter()

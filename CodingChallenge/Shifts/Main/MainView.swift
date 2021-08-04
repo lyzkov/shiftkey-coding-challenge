@@ -12,7 +12,7 @@ import Common
 
 extension Main {
     
-    public enum Error: ViewableError {
+    public enum Error: ViewError {
         case unknown(reason: String)
         
         public init(from coreError: ShiftsError) {

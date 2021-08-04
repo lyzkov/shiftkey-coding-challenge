@@ -33,8 +33,8 @@ extension Details {
             } progress: { value in
                 ProgressView(value: value).animation(.linear)
             } recovery: { store in
-                ErrorAlert(store.state,
-                    dismiss: { },
+                ErrorAlert(
+                    store.state,
                     retry: { store.send(.show(id: id)) }
                 )
             }

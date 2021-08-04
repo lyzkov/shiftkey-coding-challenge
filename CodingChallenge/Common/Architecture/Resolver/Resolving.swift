@@ -17,8 +17,8 @@ extension Resolving {
         nodes[Node.typeId] as? Node
     }
     
-    mutating func register<Node: Resolvable>(_ type: Node.Type) {
-        set(Node())
+    mutating func register<Node: Resolvable>(_ nodeType: Node.Type) {
+        set(nodeType.init())
     }
     
     mutating func set<Node: Resolvable>(_ node: Node) {

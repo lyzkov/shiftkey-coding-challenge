@@ -31,7 +31,7 @@ public struct Page<Item: Identifiable, Fault: Error, Index: Hashable>: Identifia
 extension Page: Equatable where Item: Equatable, Fault: Equatable {
 }
 
-extension Page: Viewable where Item: Viewable, Fault: ViewableError, Item.Core: Identifiable {
+extension Page: ViewItem where Item: ViewItem, Fault: ViewError, Item.Core: Identifiable {
     
     public init(from corePage: Page<Item.Core, Fault.Core, Index>) {
         self.init(index: corePage.index, items: .init(from: corePage.items))
