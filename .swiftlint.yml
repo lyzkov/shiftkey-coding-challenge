@@ -1,0 +1,17 @@
+included:
+  - CodingChallenge
+excluded:
+  - CodingChallenge/Shifts/Model/Raw
+
+line_length: 110
+type_body_length:
+  warning: 300
+  error: 400
+file_length:
+  warning: 500
+  error: 1200
+identifier_name:
+  excluded:
+    - id
+nesting:
+  type_level: 3

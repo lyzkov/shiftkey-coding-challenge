@@ -27,7 +27,7 @@ extension Shift {
 }
 
 extension Shift: Entity {
-    
+
     public init(from raw: Raw.Shift) {
         self.init(
             id: String(raw.shiftID),
@@ -39,11 +39,11 @@ extension Shift: Entity {
             specialty: Specialty(name: raw.localizedSpecialty.name)
         )
     }
-    
+
 }
 
 extension Shift: Fakeable {
-    
+
     public static func fake() -> Shift {
         Shift(
             id: String(UUID().uuidString.prefix(8)),
@@ -55,5 +55,5 @@ extension Shift: Fakeable {
             specialty: Specialty(name: "Certified Nursing Aide")
         )
     }
-    
+
 }

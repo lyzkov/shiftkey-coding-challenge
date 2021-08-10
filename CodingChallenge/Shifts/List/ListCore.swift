@@ -12,16 +12,16 @@ import Common
 import ComposableArchitecture
 
 public enum List: Core {
-    
+
     public typealias State = Feed<Shift, ShiftsError, Date>
-    
+
     public enum Action: Equatable {
         case show(from: Date = .todayInDallas())
         case load(State.Element)
     }
-    
+
     public typealias Environment = Main.Environment
-    
+
     public static var reducer: List.Reducer {
         .init { state, action, environment in
             switch action {
@@ -39,21 +39,21 @@ public enum List: Core {
                     state.append(next)
                 }
             }
-            
+
             return .none
         }
     }
-    
+
 }
 
 extension Page where Index == Date {
-    
+
     var next: Page? {
         !isEmpty ? Page(index: index.nextWeek(using: .CST)) : nil
     }
-    
+
     var isEmpty: Bool {
         items.isEmpty()
     }
-    
+
 }

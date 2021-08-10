@@ -13,7 +13,7 @@ import ComposableArchitecture
 public protocol ComposableView: View {
     associatedtype State: Viewable
     associatedtype Action
-    
+
     var store: Store<State, Action> { get }
 }
 

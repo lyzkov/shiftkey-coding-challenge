@@ -13,7 +13,7 @@ public struct ErrorAlert: View {
     let error: Error
     let dismiss: () -> Void
     let retry: () -> Void
-    
+
     @State var isPresented: Bool = true
 
     public var body: some View {
@@ -27,7 +27,7 @@ public struct ErrorAlert: View {
                 )
             }
     }
-    
+
     public init(_ error: Error, dismiss: @escaping () -> Void, retry: @escaping () -> Void) {
         self.error = error
         self.dismiss = dismiss

@@ -10,25 +10,25 @@ import SwiftUI
 import Common
 
 extension Shifts.List {
-    
+
     public struct Item: Identifiable, Viewable, Hashable {
         public let id: String
         public let start: Date
         public let end: Date
         public let facility: String
-        
+
         public init(from entity: Shift) {
             id = entity.id
             start = entity.start
             end = entity.end
             facility = entity.facility.name
         }
-        
+
     }
-    
+
     struct ItemView: SwiftUI.View {
         let item: Item
-        
+
         var body: some SwiftUI.View {
             VStack(alignment: .leading) {
                 HStack {
@@ -56,9 +56,9 @@ extension Shifts.List {
             }
             .contentShape(Rectangle())
         }
-        
+
     }
-    
+
 }
 
 #if DEBUG

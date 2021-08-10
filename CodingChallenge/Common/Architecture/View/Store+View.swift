@@ -10,10 +10,10 @@ import Foundation
 import ComposableArchitecture
 
 extension Store {
-    
+
     public func scopeToView<ViewableState: Viewable>() -> Store<ViewableState, Action>
         where State == ViewableState.Core {
         scope { state in ViewableState(from: state) }
     }
-    
+
 }

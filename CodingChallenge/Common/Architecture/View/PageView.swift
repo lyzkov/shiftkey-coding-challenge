@@ -14,14 +14,14 @@ public struct PageView<Index, Item, Fault, Action, Header, Placeholder, Content>
 where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, Fault: ViewableError,
       Header: View, Placeholder: View, Content: View {
     public typealias State = Page<Item, Fault, Index>
-    
+
     public let store: Store<State, Action>
     let load: (Index) -> Action
-    
+
     let delivery: (ViewStore<Item, Action>) -> Content
     let progress: (Store<Float?, Action>) -> Placeholder
     let header: (ViewStore<Index, Action>) -> Header
-    
+
     public var body: some View {
         IfLetStore(store.scope(state: \.items)) { itemsStore in
             Section(
@@ -46,7 +46,7 @@ where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, F
             }
         }
     }
-    
+
     public init(
         with store: Store<State, Action>,
         load: @escaping (Index) -> Action,
@@ -60,5 +60,5 @@ where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, F
         self.progress = { store in progress(ViewStore(store).state) }
         self.header = { store in header(store.state) }
     }
-    
+
 }

@@ -14,12 +14,12 @@ public struct FeedView<Index, Item, Fault, Action, Content>: ComposableView
 where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, Fault: ViewableError,
       Content: View {
     public typealias State = Feed<Item, Fault, Index>
-    
+
     public let store: Store<State, Action>
     let onAppear: Action?
-    
+
     let section: (Store<Page<Item, Fault, Index>, Action>) -> Content
-    
+
     public var body: some View {
         List {
             ForEachStore(store.scope(state: { $0 }, action: { $1 }), content: section)
@@ -30,7 +30,7 @@ where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, F
             }
         }
     }
-    
+
     public init(
         with store: Store<State, Action>,
         onAppearSend onAppear: Action? = nil,
@@ -40,5 +40,5 @@ where Index: Hashable, Item: Viewable & Identifiable, Item.Core: Identifiable, F
         self.onAppear = onAppear
         self.section = section
     }
-    
+
 }

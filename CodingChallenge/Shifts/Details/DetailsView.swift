@@ -13,16 +13,16 @@ import Common
 import ComposableArchitecture
 
 extension Details {
-    
+
     public struct View: ComposableView {
-        
+
         public typealias State = Load<Item, Main.Error>?
-        
+
         let id: Item.ID
-        
+
         @Resolve(state: \Main.State.details, action: Main.Action.details)
         public var store: Store<State, Action>
-        
+
         public var body: some SwiftUI.View {
             LoadView(with: store, load: .show(id: id), unload: .load(.none)) { store in
                 NavigationView {
@@ -40,13 +40,13 @@ extension Details {
             }
         }
     }
-    
+
 }
 
 #if DEBUG
 
 extension Details.View: FakeView {
-    
+
     public static func fake(with state: State) -> Details.View {
         let fake = Shift.fake()
         var view = Details.View(id: fake.id)
@@ -55,14 +55,14 @@ extension Details.View: FakeView {
             reducer: .empty,
             environment: Details.Environment()
         )
-        
+
         return view
     }
-    
+
 }
 
 struct DetailsView_Previews: PreviewProvider {
-    
+
     static var previews: some SwiftUI.View {
         Group {
             Details.View.fake(with: .init(from: .completed(.success(.fake()))))
@@ -70,7 +70,7 @@ struct DetailsView_Previews: PreviewProvider {
             Details.View.fake(with: .init(from: .pending(0.60)))
         }
     }
-    
+
 }
 
 #endif
