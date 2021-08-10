@@ -10,7 +10,7 @@ import Combine
 public typealias LoadPublisher<Item, Fault: Error> = AnyPublisher<Load<Item, Fault>, Never>
 
 public extension Publisher where Failure == Never {
-    
+
     func decode<Item: Decodable, Coder: TopLevelDecoder>(
         type: Item.Type,
         decoder: Coder
@@ -20,7 +20,7 @@ public extension Publisher where Failure == Never {
             try decoder.decode(type, from: data)
         }
     }
-    
+
     func mapItem<Item, Transformed>(
         _ transform: @escaping (Item) throws -> Transformed
     ) -> Publishers.Map<Self, Load<Transformed, Error>>
@@ -33,7 +33,7 @@ public extension Publisher where Failure == Never {
             }
         }
     }
-    
+
     func mapFault<Item, Fault: Error>(
         _ transform: @escaping (Error) -> Fault
     ) -> Publishers.Map<Self, Load<Item, Fault>>
@@ -42,11 +42,11 @@ public extension Publisher where Failure == Never {
             status.mapError(transform)
         }
     }
-    
+
     func eraseToLoadPublisher<Item, Fault>(
     ) -> LoadPublisher<Item, Fault>
     where Output == Load<Item, Fault> {
         eraseToAnyPublisher()
     }
-    
+
 }

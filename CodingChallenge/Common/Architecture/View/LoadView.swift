@@ -13,15 +13,15 @@ import ComposableArchitecture
 public struct LoadView<Item, Fault, Action, Placeholder, Recovery, Content>: View
 where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Content: View {
     public typealias State = Load<Item, Fault>?
-    
+
     let store: Store<State, Action>
     let load: Action
     let unload: Action?
-    
+
     let delivery: (ViewStore<Item, Action>) -> Content
     let progress: (ViewStore<Float?, Action>) -> Placeholder
     let recovery: (ViewStore<Fault, Action>) -> Recovery
-    
+
     public var body: some View {
         IfLetStore(store) { store in
             StatusView(with: store) { store in
@@ -44,7 +44,7 @@ where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Conte
             }
         }
     }
-    
+
     public init(
         with store: Store<State, Action>,
         load: Action,
@@ -60,5 +60,5 @@ where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Conte
         self.progress = { store in progress(store.state) }
         self.recovery = recovery
     }
-    
+
 }

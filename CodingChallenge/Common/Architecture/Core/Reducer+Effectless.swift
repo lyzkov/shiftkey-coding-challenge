@@ -10,7 +10,7 @@ import Foundation
 import ComposableArchitecture
 
 extension Reducer {
-    
+
     public static func effectless(
         _ reducer: @escaping (inout State, Action, Environment) -> Void
     ) -> Self {
@@ -19,5 +19,5 @@ extension Reducer {
             return .none
         }
     }
-    
+
 }

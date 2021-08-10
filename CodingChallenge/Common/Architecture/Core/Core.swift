@@ -13,9 +13,9 @@ public protocol Core {
     associatedtype State: Equatable
     associatedtype Action
     associatedtype Environment
-    
+
     typealias Store = ComposableArchitecture.Store<State, Action>
     typealias Reducer = ComposableArchitecture.Reducer<State, Action, Environment>
-    
+
     static var reducer: Reducer { get }
 }

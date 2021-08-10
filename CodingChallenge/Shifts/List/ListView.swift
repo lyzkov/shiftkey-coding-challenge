@@ -12,16 +12,16 @@ import Common
 import ComposableArchitecture
 
 extension Shifts.List {
-    
+
     public struct View: ComposableView {
-        
+
         public typealias State = Feed<Item, Main.Error, Date>
-        
+
         @Resolve(state: \Main.State.list, action: Main.Action.list)
         public var store: Store<State, Action>
-        
+
         @SwiftUI.State var selected: Item?
-        
+
         public var body: some SwiftUI.View {
             NavigationView {
                 FeedView(with: store, onAppearSend: .show()) { pageStore in
@@ -48,13 +48,13 @@ extension Shifts.List {
             .navigationViewStyle(StackNavigationViewStyle())
         }
     }
-    
+
 }
 
 #if DEBUG
 
 extension Shifts.List.View: FakeView {
-    
+
     public static func fake(with state: State) -> Self {
         var view = Self.init()
         view.store = .init(
@@ -62,16 +62,16 @@ extension Shifts.List.View: FakeView {
             reducer: .empty,
             environment: Shifts.List.Environment()
         )
-        
+
         return view
     }
-    
+
 }
 
 struct ListView_Previews: PreviewProvider {
-    
+
     static let fakes = (3...60).map { _ in Shifts.List.Item(from: .fake()) }
-    
+
     static var previews: some SwiftUI.View {
         Shifts.List.View.fake(
             with: [
@@ -79,7 +79,7 @@ struct ListView_Previews: PreviewProvider {
             ]
         )
     }
-    
+
 } // Nice parenthesis doom!
 
 #endif

@@ -8,10 +8,10 @@ let package = Package(
     products: [
         .library(
             name: "Common",
-            targets: ["Common"]),
+            targets: ["Common"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.18.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.18.0")
     ],
     targets: [
         .target(
@@ -21,6 +21,6 @@ let package = Package(
             ],
             path: "./",
             exclude: ["Package.swift"]
-        ),
+        )
     ]
 )

@@ -195,6 +195,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A3D67A25267163A800B26AF2 /* Build configuration list for PBXNativeTarget "CodingChallenge" */;
 			buildPhases = (
+				A340AD0026C3287200D8E563 /* Lint Sources */,
 				A3D679FC267163A600B26AF2 /* Sources */,
 				A3D679FD267163A600B26AF2 /* Frameworks */,
 				A3D679FE267163A600B26AF2 /* Resources */,
@@ -216,7 +217,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A3D67A28267163A800B26AF2 /* Build configuration list for PBXNativeTarget "CodingChallengeTests" */;
 			buildPhases = (
-				A3923F2226B6A55F00905706 /* Mocks Generation */,
+				A3923F2226B6A55F00905706 /* Generate Mocks */,
+				A340ACFF26C3010200D8E563 /* Lint Sources */,
 				A3D67A0D267163A800B26AF2 /* Sources */,
 				A3D67A0E267163A800B26AF2 /* Frameworks */,
 				A3D67A0F267163A800B26AF2 /* Resources */,
@@ -300,7 +302,43 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		A3923F2226B6A55F00905706 /* Mocks Generation */ = {
+		A340ACFF26C3010200D8E563 /* Lint Sources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Lint Sources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		A340AD0026C3287200D8E563 /* Lint Sources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Lint Sources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint autocorrect && swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		A3923F2226B6A55F00905706 /* Generate Mocks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 12;
 			files = (
@@ -310,7 +348,7 @@
 			inputPaths = (
 				"${INPUT_DIR}/Shifts/Model/Pool/ShiftsPool.swift",
 			);
-			name = "Mocks Generation";
+			name = "Generate Mocks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
