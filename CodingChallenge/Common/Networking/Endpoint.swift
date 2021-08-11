@@ -17,7 +17,7 @@ public protocol Endpoint: URLRequestConvertible {
 }
 
 public extension Endpoint {
-    
+
     var headers: Headers {
         return [:]
     }

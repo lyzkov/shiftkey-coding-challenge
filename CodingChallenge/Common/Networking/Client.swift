@@ -9,16 +9,16 @@ import Foundation
 import Combine
 
 public class Client {
-    
+
     private let session: URLSession
-    
+
     private let decoder: JSONDecoder
-    
+
     public init(session: URLSession, decoder: JSONDecoder) {
         self.session = session
         self.decoder = decoder
     }
-    
+
     public func decoded<Core: Entity, Endpoint: Resource>(
         from endpoint: Endpoint
     ) -> LoadPublisher<Core, Error> where Endpoint.Raw == Core.Raw {
@@ -30,7 +30,7 @@ public class Client {
         } catch let error {
             return Just(.failure(error)).eraseToLoadPublisher()
         }
-        
+
     }
-    
+
 }

@@ -10,14 +10,14 @@ import Foundation
 import Common
 
 public enum Details: Core {
-    
+
     public typealias State = Load<Shift, ShiftsError>?
-    
+
     public enum Action: Equatable {
         case show(id: Shift.ID)
         case load(State)
     }
-    
+
     public typealias Environment = Main.Environment
 
     public static var reducer: Details.Reducer {
@@ -31,9 +31,9 @@ public enum Details: Core {
             case .load(let status):
                 state = status
             }
-            
+
             return .none
         }
     }
-    
+
 }
