@@ -13,7 +13,7 @@ public protocol ViewStoreProvider {
     associatedtype Module: Common.Module
     typealias State = Module.State
     typealias Action = Module.Action
-    
+
     static var viewStore: ViewStore<State, Action> { get }
 }
 

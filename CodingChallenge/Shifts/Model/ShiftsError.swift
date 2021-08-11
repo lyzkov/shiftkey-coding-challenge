@@ -10,7 +10,7 @@ import Foundation
 public enum ShiftsError: Error, Equatable {
     case unknown
     case badIdentifier(id: Shift.ID)
-    
+
     init(from error: Error) {
         if let error = error as? Self {
             self = error
@@ -18,5 +18,5 @@ public enum ShiftsError: Error, Equatable {
             self = .unknown
         }
     }
-    
+
 }

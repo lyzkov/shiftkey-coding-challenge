@@ -8,33 +8,33 @@
 import Foundation
 
 public extension Calendar {
-    
+
     static let gmt0: Self = {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         return calendar
     }()
-    
+
     static let CST: Self = {
         var calendar = Calendar.current
         calendar.timeZone = TimeZone(abbreviation: "CST")!
         return calendar
     }()
-    
+
 }
 
 public extension Date {
-    
+
     func startOfWeek(using calendar: Calendar = .current) -> Date {
         calendar.dateComponents([.calendar, .yearForWeekOfYear, .weekOfYear], from: self).date!
     }
-    
+
     func nextWeek(using calendar: Calendar = .current) -> Date {
         calendar.date(byAdding: .day, value: 7, to: startOfWeek(using: calendar))!
     }
-    
+
     static func todayInDallas() -> Date {
-        // FIXME: Should be GMT0 but ShiftKey API expects from start
+        // Should be GMT0 but ShiftKey API expects from start
         // parameter to be a date converted to local timezone
         Calendar.current
             .date(from: Calendar.CST.dateComponents(
@@ -42,5 +42,5 @@ public extension Date {
                 from: Date()
             ))!
     }
-    
+
 }

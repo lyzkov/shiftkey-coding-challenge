@@ -11,15 +11,15 @@ import Shifts
 
 @main
 struct App: SwiftUI.App {
-    
+
     var body: some Scene {
         WindowGroup {
             Shifts.Main.trunkView()
         }
     }
-    
+
     init() {
         Shifts.Main.register()
     }
-    
+
 }

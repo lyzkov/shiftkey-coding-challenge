@@ -9,7 +9,7 @@ let package = Package(
         .library(
             name: "Shifts",
             type: .dynamic,
-            targets: ["Shifts"]),
+            targets: ["Shifts"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.18.0"),
@@ -20,10 +20,10 @@ let package = Package(
             name: "Shifts",
             dependencies: [
                 "Common",
-                .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
             ],
             path: "./",
             exclude: ["./Package.swift"]
-        ),
+        )
     ]
 )

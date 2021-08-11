@@ -8,12 +8,12 @@
 import Foundation
 
 extension URL: ExpressibleByStringLiteral {
-    
+
     public init(stringLiteral value: String) {
         guard let url = URL(string: value) else {
             preconditionFailure("Unable to convert address \(value) to valid URL")
         }
-        
+
         self = url
     }
 }

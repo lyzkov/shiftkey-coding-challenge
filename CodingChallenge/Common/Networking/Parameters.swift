@@ -18,7 +18,7 @@ public enum HTTPRequestParametersEncoder {
 }
 
 extension HTTPRequestParametersEncoder: ParametersEncoding {
-    
+
     public func encode(
         _ urlRequest: URLRequest,
         with parameters: Parameters?
@@ -28,11 +28,11 @@ extension HTTPRequestParametersEncoder: ParametersEncoding {
             return try QueryURLParameterEncoder().encode(urlRequest, with: parameters)
         }
     }
-    
+
 }
 
 struct QueryURLParameterEncoder: ParametersEncoding {
-    
+
     func encode(_ urlRequest: URLRequest, with parameters: Parameters?) throws -> URLRequest {
         var request = urlRequest
 
@@ -47,11 +47,11 @@ struct QueryURLParameterEncoder: ParametersEncoding {
                 return pathComponents + "&\(name)=\(value)"
             }
             .dropFirst()
-        
+
         url = "\(url)?\(pathComponents)"
         request.url = URL(string: url)
 
         return request
     }
-    
+
 }

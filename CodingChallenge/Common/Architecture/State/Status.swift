@@ -12,12 +12,12 @@ import CasePaths
 public enum Status<Completed> {
     case pending(Fraction? = nil)
     case completed(Completed)
-    
+
     public typealias Fraction = Float
 }
 
 extension Status {
-    
+
     @inlinable public func map<Transformed>(
         _ transform: (Completed) throws -> Transformed
     ) rethrows -> Status<Transformed> {
@@ -28,11 +28,11 @@ extension Status {
             return .completed(try transform(completed))
         }
     }
-    
+
     @inlinable public func get() -> Completed? {
         (/Self.completed).extract(from: self)
     }
-    
+
 }
 
 extension Status: Equatable where Completed: Equatable {

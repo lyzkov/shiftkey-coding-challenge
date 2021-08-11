@@ -18,11 +18,11 @@ protocol ShiftsPool {
 }
 
 class DefaultShiftsPool: ShiftsPool {
-    
+
     private lazy var client = Client(session: .shared, decoder: .shiftsDecoder)
-    
+
     private var buffer = CurrentValueSubject<IdentifiedArrayOf<Shift>, Never>([])
-    
+
     func shifts(from date: Date) -> LoadPublisher<IdentifiedArrayOf<Shift>, ShiftsError> {
         client.decoded(from: API.availableShifts(from: date))
             .mapFault(ShiftsError.init(from:))
@@ -35,7 +35,7 @@ class DefaultShiftsPool: ShiftsPool {
             })
             .eraseToLoadPublisher()
     }
-    
+
     func shift(id: Shift.ID) -> LoadPublisher<Shift, ShiftsError> {
         buffer
             .map { shifts -> Load<Shift, ShiftsError> in
@@ -47,5 +47,5 @@ class DefaultShiftsPool: ShiftsPool {
             }
             .eraseToAnyPublisher()
     }
-    
+
 }

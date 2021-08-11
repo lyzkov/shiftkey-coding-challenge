@@ -13,9 +13,9 @@ public protocol Resolvable {
 }
 
 public extension Resolvable {
-    
+
     static var typeId: String {
         String(describing: Self.self)
     }
-    
+
 }

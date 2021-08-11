@@ -12,7 +12,7 @@ import Common
 import IdentifiedCollections
 
 extension Array: Entity where Element == Shift {
-    
+
     public init(from rawShifts: Raw.Shifts) {
         self.init(
             rawShifts.data
@@ -20,11 +20,11 @@ extension Array: Entity where Element == Shift {
                 .map(Shift.init(from:))
         )
     }
-    
+
 }
 
 extension IdentifiedArrayOf: Entity where Element == Shift, ID == Element.ID {
-    
+
     public init(from rawShifts: Raw.Shifts) {
         self.init(
             uniqueElements: rawShifts.data
@@ -32,5 +32,5 @@ extension IdentifiedArrayOf: Entity where Element == Shift, ID == Element.ID {
                 .map(Shift.init(from:))
         )
     }
-    
+
 }

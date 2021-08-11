@@ -10,28 +10,30 @@ import Foundation
 import Common
 
 enum API: Common.API {
-    
+
+    // swiftlint:disable force_cast
     static var configuration = APIConfiguration(
             url: URL(string: Bundle.main.infoDictionary!["ShiftsAPI base URL"] as! String)!
         )
-    
+    // swiftlint:enable force_cast
+
     static let formatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "YYYY-MM-dd"
         return formatter
     }()
-    
+
     static func availableShifts(from start: Date) -> Get<Raw.Shifts> {
             .init(
                 path: "/available_shifts",
                 parameters: [
                     "address": "Dallas,%20Tx",
                     "start": formatter.string(from: start),
-                    "type": "week",
+                    "type": "week"
                 ]
             )
     }
-    
+
 }
 
 extension Endpoint {
@@ -39,12 +41,12 @@ extension Endpoint {
 }
 
 extension API {
-    
+
     struct Get<Raw: Decodable>: Resource {
         let method: HTTPMethod = .get
         let encoding: HTTPRequestParametersEncoder = .queryURL
         let path: String
         let parameters: Parameters
     }
-    
+
 }

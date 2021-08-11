@@ -10,12 +10,12 @@ import Foundation
 import Common
 
 extension JSONDecoder {
-    
+
     static let shiftsDecoder: JSONDecoder = {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        
+
         return decoder
     }()
-    
+
 }
