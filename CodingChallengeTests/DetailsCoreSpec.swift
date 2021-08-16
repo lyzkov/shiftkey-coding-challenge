@@ -7,15 +7,14 @@
 
 import Foundation
 import Combine
-import Quick
-import Nimble
 
 @testable import CodingChallenge
 import Shifts
-import Common
 
-import ComposableArchitecture
 import Cuckoo
+import Quick
+import Nimble
+import ComposableArchitecture
 
 class DetailsCoreSpec: QuickSpec {
     
@@ -30,6 +29,20 @@ class DetailsCoreSpec: QuickSpec {
             
             let steps = 1...3
             let stepsValues = steps.map { value in Float(value) / Float(steps.count) }
+
+            func expectStore(toReceive completed: Result<Shift, ShiftsError>) {
+                scheduler.advance(by: 4)
+                for value in stepsValues {
+                    let pending: State = .pending(value)
+                    store.receive(.load(pending)) { state in
+                        state = pending
+                    }
+                }
+                let succeeded: State = .completed(completed)
+                store.receive(.load(succeeded)) { state in
+                    state = succeeded
+                }
+            }
             
             beforeEach {
                 store = TestStore(
@@ -41,64 +54,38 @@ class DetailsCoreSpec: QuickSpec {
                     )
                 )
             }
-            
-            context("when identifier is unknown") {
-                let unknown = Shift.fake()
-                it("shows progress completing with unknown error") {
-                    // Arrange
-                    stub(pool) { stub in
-                        when(stub.shift(id: unknown.id)).then { _ in
-                            steps
-                                .progressPublisher(
-                                    completedWith: .failure(.unknown),
-                                    scheduler: scheduler.eraseToAnyScheduler()
-                                )
-                        }
-                    }
-                    // Act
-                    store.send(.show(id: unknown.id))
-                    scheduler.advance(by: 4)
-                    // Assert
-                    for value in stepsValues {
-                        let pending: State = .pending(value)
-                        store.receive(.load(pending)) { state in
-                            state = pending
-                        }
-                    }
-                    let failed: State = .completed(.failure(.unknown))
-                    store.receive(.load(failed)) { state in
-                        state = failed
-                    }
+
+            let fake = Shift.fake()
+            stub(pool) { stub in
+                when(stub.shift(id: fake.id)).then { _ in
+                    steps
+                        .progressPublisher(
+                            completedWith: .success(fake),
+                            scheduler: scheduler.eraseToAnyScheduler()
+                        )
                 }
             }
-            // TODO: provide method to arrange any test case that depends upon loading progress
+
             it("shows progress completed with success") {
-                // Arrange
-                let fake = Shift.fake()
+                store.send(.show(id: fake.id))
+                expectStore(toReceive: .success(fake))
+            }
+
+            context("when identifier is unknown") {
+                let unknown = Shift.fake()
                 stub(pool) { stub in
-                    when(stub.shift(id: fake.id)).then { _ in
+                    when(stub.shift(id: unknown.id)).then { _ in
                         steps
                             .progressPublisher(
-                                completedWith: .success(fake),
+                                completedWith: .failure(.unknown),
                                 scheduler: scheduler.eraseToAnyScheduler()
                             )
                     }
                 }
-                // Act
-                store.send(.show(id: fake.id)) {
-                    $0 = .none
-                }
-                scheduler.advance(by: 4)
-                // Assert
-                for value in stepsValues {
-                    let pending: State = .pending(value)
-                    store.receive(.load(pending)) { state in
-                        state = pending
-                    }
-                }
-                let succeeded: State = .completed(.success(fake))
-                store.receive(.load(succeeded)) { state in
-                    state = succeeded
+
+                it("shows progress completing with unknown error") {
+                    store.send(.show(id: unknown.id))
+                    expectStore(toReceive: .failure(.unknown))
                 }
             }
         }
