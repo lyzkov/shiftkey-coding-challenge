@@ -1,5 +1,7 @@
 # Shiftkey Coding Challenge
 
+[![Code Analysis](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/code-analysis.yml)
+
 ## Introduction
 
 This repository contains prototype framework that demonstrates usage of [The Composable Architecture](https://github.com/pointfreeco/swift-composable-architecture) along with layered data-driven design and modular feature-driven structure, empowered by Combine and SwiftUI native extensions to Apple Core Foundation.
