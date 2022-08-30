@@ -22,6 +22,25 @@ At the middle, effective core model is reshaped according to the mobile domain t
 
 At the end, view item is completed and ready to present in user space. The user space layer reflects unrendered input demanded by the frontend.
 
+## Networking
+
+Networking service fetches entities from Shiftkey Web API. Shiftkey API client inherits most of its internal structure from prototype inspired by [RxStorm](https://github.com/lyzkov/RxStorm) library. 
+
+Networking client invokes `NSURLSession` reactive extensions to wrap HTTP response with decoded JSON item inside `Load` enum:
+
+```Swift
+public typealias Load<Item, Fault: Error> = Status<Result<Item, Fault>>
+
+public enum Status<Completed> {
+    case pending(Fraction? = nil)
+    case completed(Completed)
+
+    public typealias Fraction = Float
+}
+```
+
+Load publishers enable client to publish progress status in background while resource is busy fetching data from requested endpoint.
+
 ### For further investigation:
 - Domain Specific Language descriptor transcribing OpenAPI manifest to dev readable networking client
 - Code generator for Raw Data model with endpoints
