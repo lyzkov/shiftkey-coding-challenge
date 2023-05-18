@@ -20,9 +20,9 @@ I have introduced custom layout for unidirectional data flow here. Each entity p
 
 At the beginning, raw data from web service is transformed to networking model in system space. The system space layer reflects untoched response from the backend.
 
-At the middle, effective core model is reshaped according to the mobile domain that rules application space. The application space layer reflects unprecedented inset to the midend.
+At the midway, effective core model is reshaped according to the mobile domain that rules application space. The application space layer reflects unprecedented inset to the midend.
 
-At the end, view item is completed and ready to present in user space. The user space layer reflects unrendered input demanded by the frontend.
+At the final, the view item is completed and ready to present in the user space. The user space layer reflects yet-to-be-rendered input demanded by the frontend.
 
 ## Networking
 
@@ -44,9 +44,9 @@ public enum Status<Completed> {
 Load publishers enable client to publish progress status in background while resource is busy fetching data from requested endpoint.
 
 ### For further investigation:
-- Domain Specific Language descriptor transcribing OpenAPI manifest to dev readable networking client
+- Domain Specific Language descriptor transcribing from OpenAPI manifest to dev readable networking client spec tree
 - Code generator for Raw Data model with endpoints
 - Modular design following hierarchy of state reducers
-- Command driven routable entry points triggering effects in reactors
-- Generic stores for Load and Feed eventual contexts of receiving items
-- Error pipelines
+- Command-driven, routable entry points triggering effects in reactors
+- Generic stores for Load and Feed eventual contexts of receiving items from remote data source
+- Error dedicated pipelines
