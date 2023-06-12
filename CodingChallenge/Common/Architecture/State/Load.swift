@@ -9,7 +9,7 @@ import Foundation
 
 public typealias Load<Item, Fault: Error> = Status<Result<Item, Fault>>
 
-extension Status {
+extension Status where Fraction == Double {
 
     public static func success<Item, Fault>(
         _ success: Item
