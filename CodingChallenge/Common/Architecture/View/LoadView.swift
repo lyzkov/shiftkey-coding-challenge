@@ -19,7 +19,7 @@ where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Conte
     let unload: Action?
 
     let delivery: (ViewStore<Item, Action>) -> Content
-    let progress: (ViewStore<Float?, Action>) -> Placeholder
+    let progress: (ViewStore<Double?, Action>) -> Placeholder
     let recovery: (ViewStore<Fault, Action>) -> Recovery
 
     public var body: some View {
@@ -50,7 +50,7 @@ where Item: ViewItem, Fault: ViewError, Placeholder: View, Recovery: View, Conte
         load: Action,
         unload: Action? = nil,
         @ViewBuilder content delivery: @escaping (ViewStore<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (Float?) -> Placeholder,
+        @ViewBuilder progress: @escaping (Double?) -> Placeholder,
         @ViewBuilder recovery: @escaping (ViewStore<Fault, Action>) -> Recovery
     ) {
         self.store = store

@@ -16,7 +16,7 @@ struct StatusView<Item: ViewItem, Action, Placeholder: View, Content: View>: Com
     let store: Store<State, Action>
 
     let delivery: (Store<Item, Action>) -> Content
-    let progress: (Store<Float?, Action>) -> Placeholder
+    let progress: (Store<Double?, Action>) -> Placeholder
 
     var body: some View {
         SwitchStore(store) {
@@ -28,7 +28,7 @@ struct StatusView<Item: ViewItem, Action, Placeholder: View, Content: View>: Com
     init(
         with store: Store<State, Action>,
         @ViewBuilder content delivery: @escaping (Store<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
+        @ViewBuilder progress: @escaping (Store<Double?, Action>) -> Placeholder
     ) {
         self.store = store
         self.delivery = delivery
@@ -37,7 +37,7 @@ struct StatusView<Item: ViewItem, Action, Placeholder: View, Content: View>: Com
 
     init(
         with store: Store<State, Action>,
-        @ViewBuilder progress: @escaping (Store<Float?, Action>) -> Placeholder
+        @ViewBuilder progress: @escaping (Store<Double?, Action>) -> Placeholder
     ) where Content == EmptyView {
         self.store = store
         self.delivery = { _ in EmptyView() }

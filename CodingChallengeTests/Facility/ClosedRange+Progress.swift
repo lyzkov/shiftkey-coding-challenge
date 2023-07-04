@@ -15,11 +15,11 @@ import CombineSchedulers
 
 extension ClosedRange where Self.Bound == Int {
     
-    func progressPublisher<Success>(
+    func progressPublisher<Item, Fault: Error>(
         every interval: DispatchTimeInterval = .seconds(1),
-        completedWith completed: Result<Success, ShiftsError>,
+        completedWith completed: Result<Item, Fault>,
         scheduler: AnySchedulerOf<DispatchQueue>
-    ) -> LoadPublisher<Success, ShiftsError> {
+    ) -> LoadPublisher<Item, Fault> {
         Publishers.Timer(every: .init(interval), scheduler: scheduler).autoconnect()
                 .zip(
                     self.map { Float($0)/Float(count) }

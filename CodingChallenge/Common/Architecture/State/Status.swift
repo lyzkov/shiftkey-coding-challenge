@@ -9,18 +9,18 @@ import Foundation
 
 import CasePaths
 
-public enum Status<Completed> {
+public enum StatusFraction<Completed, Fraction: FloatingPoint> {
     case pending(Fraction? = nil)
     case completed(Completed)
-
-    public typealias Fraction = Float
 }
+
+public typealias Status<Completed> = StatusFraction<Completed, Double>
 
 extension Status {
 
     @inlinable public func map<Transformed>(
         _ transform: (Completed) throws -> Transformed
-    ) rethrows -> Status<Transformed> {
+    ) rethrows -> StatusFraction<Transformed, Fraction> {
         switch self {
         case .pending(let progress):
             return .pending(progress)

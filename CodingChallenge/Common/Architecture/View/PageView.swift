@@ -19,7 +19,7 @@ where Index: Hashable, Item: ViewItem & Identifiable, Item.Core: Identifiable, F
     let load: (Index) -> Action
 
     let delivery: (ViewStore<Item, Action>) -> Content
-    let progress: (Store<Float?, Action>) -> Placeholder
+    let progress: (Store<Double?, Action>) -> Placeholder
     let header: (ViewStore<Index, Action>) -> Header
 
     public var body: some View {
@@ -51,7 +51,7 @@ where Index: Hashable, Item: ViewItem & Identifiable, Item.Core: Identifiable, F
         with store: Store<State, Action>,
         load: @escaping (Index) -> Action,
         @ViewBuilder content delivery: @escaping (ViewStore<Item, Action>) -> Content,
-        @ViewBuilder progress: @escaping (Float?) -> Placeholder,
+        @ViewBuilder progress: @escaping (Double?) -> Placeholder,
         @ViewBuilder header: @escaping (Index) -> Header
     ) {
         self.store = store

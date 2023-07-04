@@ -1,5 +1,4 @@
-// MARK: - Mocks generated from file: CodingChallenge/Shifts/Model/Pool/ShiftsPool.swift at 2021-08-10 22:07:18 +0000
-
+// MARK: - Mocks generated from file: CodingChallenge/Shifts/Model/Pool/ShiftsPool.swift
 //
 //  ShiftsPool.swift
 //  

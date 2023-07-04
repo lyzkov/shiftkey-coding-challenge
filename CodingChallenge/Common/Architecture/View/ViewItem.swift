@@ -31,7 +31,7 @@ extension Result: ViewItem where Success: ViewItem, Failure: ViewError {
 
 }
 
-extension Status: ViewItem where Completed: ViewItem {
+extension Status: ViewItem where Completed: ViewItem, Fraction == Double {
 
     public init(from coreStatus: Status<Completed.Core>) {
         self = coreStatus.map(Completed.init(from:))

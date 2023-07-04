@@ -15,12 +15,15 @@
 		A3923F2C26B6D3D500905706 /* Nimble in Frameworks */ = {isa = PBXBuildFile; productRef = A3923F2B26B6D3D500905706 /* Nimble */; };
 		A3923F2E26B6D63300905706 /* DetailsCoreSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F2D26B6D63300905706 /* DetailsCoreSpec.swift */; };
 		A3923F3126B73D7B00905706 /* MainEnvironment+Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */; };
-		A3923F3326B7431900905706 /* ClosedRange+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F3226B7431900905706 /* ClosedRange+Progress.swift */; };
+		A3923F3326B7431900905706 /* Load+FakeProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3923F3226B7431900905706 /* Load+FakeProgress.swift */; };
 		A3D67A04267163A600B26AF2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D67A03267163A600B26AF2 /* App.swift */; };
 		A3D67A0B267163A700B26AF2 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A0A267163A700B26AF2 /* Preview Assets.xcassets */; };
 		A3D67A30267233ED00B26AF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3D67A07267163A700B26AF2 /* Assets.xcassets */; };
 		A3E1629226B5D7E90057BA3C /* Shifts in Frameworks */ = {isa = PBXBuildFile; productRef = A3E1629126B5D7E90057BA3C /* Shifts */; };
 		A3E1629426B5D7E90057BA3C /* Shifts in Embed Frameworks */ = {isa = PBXBuildFile; productRef = A3E1629126B5D7E90057BA3C /* Shifts */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		A3E9222A2A378C1D00CF632D /* ProgressTestScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E922292A378C1D00CF632D /* ProgressTestScheduler.swift */; };
+		A3E9222C2A378CBA00CF632D /* StubFunctionThenTrait+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9222B2A378CBA00CF632D /* StubFunctionThenTrait+Progress.swift */; };
+		A3E9222E2A378D8F00CF632D /* TestStore+Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E9222D2A378D8F00CF632D /* TestStore+Progress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +65,7 @@
 		A3923F2426B6A7A800905706 /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
 		A3923F2D26B6D63300905706 /* DetailsCoreSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsCoreSpec.swift; sourceTree = "<group>"; };
 		A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MainEnvironment+Tests.swift"; sourceTree = "<group>"; };
-		A3923F3226B7431900905706 /* ClosedRange+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClosedRange+Progress.swift"; sourceTree = "<group>"; };
+		A3923F3226B7431900905706 /* Load+FakeProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Load+FakeProgress.swift"; sourceTree = "<group>"; };
 		A3D2359C2684EA580021015C /* Common */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Common; sourceTree = "<group>"; };
 		A3D67A00267163A600B26AF2 /* CodingChallenge.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CodingChallenge.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A03267163A600B26AF2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -72,6 +75,9 @@
 		A3D67A11267163A800B26AF2 /* CodingChallengeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CodingChallengeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3D67A17267163A800B26AF2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3D6898C2684F2880077081C /* Shifts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Shifts; sourceTree = "<group>"; };
+		A3E922292A378C1D00CF632D /* ProgressTestScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTestScheduler.swift; sourceTree = "<group>"; };
+		A3E9222B2A378CBA00CF632D /* StubFunctionThenTrait+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StubFunctionThenTrait+Progress.swift"; sourceTree = "<group>"; };
+		A3E9222D2A378D8F00CF632D /* TestStore+Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestStore+Progress.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,8 +106,8 @@
 		A34427FC26B86E980078C70B /* Facility */ = {
 			isa = PBXGroup;
 			children = (
+				A3E9222F2A379AC100CF632D /* LoadingProgress */,
 				A3923F3026B73D7B00905706 /* MainEnvironment+Tests.swift */,
-				A3923F3226B7431900905706 /* ClosedRange+Progress.swift */,
 			);
 			path = Facility;
 			sourceTree = "<group>";
@@ -186,6 +192,17 @@
 			children = (
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A3E9222F2A379AC100CF632D /* LoadingProgress */ = {
+			isa = PBXGroup;
+			children = (
+				A3E9222D2A378D8F00CF632D /* TestStore+Progress.swift */,
+				A3E9222B2A378CBA00CF632D /* StubFunctionThenTrait+Progress.swift */,
+				A3E922292A378C1D00CF632D /* ProgressTestScheduler.swift */,
+				A3923F3226B7431900905706 /* Load+FakeProgress.swift */,
+			);
+			path = LoadingProgress;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,7 +373,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/Generated/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PROJECT_DIR}/bin/cuckoo/run\" --download generate --testable \"${PROJECT_NAME},Shifts\" \\\n--output \"${OUTPUT_FILE}\" \\\n\"${INPUT_DIR}/Shifts/Model/Pool/ShiftsPool.swift\"\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
+			shellScript = "# Define output file. Change \"${PROJECT_DIR}/${PROJECT_NAME}Tests\" to your test's root source folder, if it's not the default name.\nOUTPUT_FILE=\"${PROJECT_DIR}/${PROJECT_NAME}Tests/Generated/GeneratedMocks.swift\"\necho \"Generated Mocks File = ${OUTPUT_FILE}\"\n\n# Define input directory. Change \"${PROJECT_DIR}/${PROJECT_NAME}\" to your project's root source folder, if it's not the default name.\nINPUT_DIR=\"${PROJECT_DIR}/${PROJECT_NAME}\"\necho \"Mocks Input Directory = ${INPUT_DIR}\"\n\n# Generate mock files, include as many input files as you'd like to create mocks for.\n\"${PROJECT_DIR}/bin/cuckoo/run\" --download generate --testable \"${PROJECT_NAME},Shifts\" \\\n--output \"${OUTPUT_FILE}\" --no-timestamp \\\n\"${INPUT_DIR}/Shifts/Model/Pool/ShiftsPool.swift\"\n# ... and so forth, the last line should never end with a backslash\n\n# After running once, locate `GeneratedMocks.swift` and drag it into your Xcode test target group.\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -373,10 +390,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A3923F3326B7431900905706 /* ClosedRange+Progress.swift in Sources */,
+				A3E9222A2A378C1D00CF632D /* ProgressTestScheduler.swift in Sources */,
+				A3923F3326B7431900905706 /* Load+FakeProgress.swift in Sources */,
 				A3923F2626B6C9F500905706 /* GeneratedMocks.swift in Sources */,
 				A3923F3126B73D7B00905706 /* MainEnvironment+Tests.swift in Sources */,
+				A3E9222C2A378CBA00CF632D /* StubFunctionThenTrait+Progress.swift in Sources */,
 				A3923F2E26B6D63300905706 /* DetailsCoreSpec.swift in Sources */,
+				A3E9222E2A378D8F00CF632D /* TestStore+Progress.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,15 +7,14 @@
 
 import Foundation
 import Combine
-import Quick
-import Nimble
 
 @testable import CodingChallenge
 import Shifts
-import Common
 
-import ComposableArchitecture
+import Quick
+import Nimble
 import Cuckoo
+import ComposableArchitecture
 
 class DetailsCoreSpec: QuickSpec {
     
@@ -24,13 +23,13 @@ class DetailsCoreSpec: QuickSpec {
             typealias State = Details.State
             typealias Action = Details.Action
             typealias Environment = Details.Environment
+
+            let progress = [0.1, 0.3, 0.5, 0.7, 1.0]
+
             var store: TestStore<State, State, Action, Action, Environment>!
-            let scheduler = DispatchQueue.test
+            let scheduler = DispatchQueue.test(with: progress)
             let pool = MockShiftsPool()
-            
-            let steps = 1...3
-            let stepsValues = steps.map { value in Float(value) / Float(steps.count) }
-            
+
             beforeEach {
                 store = TestStore(
                     initialState: .none,
@@ -43,65 +42,51 @@ class DetailsCoreSpec: QuickSpec {
             }
             
             context("when identifier is unknown") {
-                let unknown = Shift.fake()
-                it("shows progress completing with unknown error") {
-                    // Arrange
-                    stub(pool) { stub in
-                        when(stub.shift(id: unknown.id)).then { _ in
-                            steps
-                                .progressPublisher(
-                                    completedWith: .failure(.unknown),
-                                    scheduler: scheduler.eraseToAnyScheduler()
-                                )
-                        }
-                    }
-                    // Act
-                    store.send(.show(id: unknown.id))
-                    scheduler.advance(by: 4)
-                    // Assert
-                    for value in stepsValues {
-                        let pending: State = .pending(value)
-                        store.receive(.load(pending)) { state in
-                            state = pending
-                        }
-                    }
-                    let failed: State = .completed(.failure(.unknown))
-                    store.receive(.load(failed)) { state in
-                        state = failed
-                    }
+                let unknownShift = Shift.fake()
+                stub(pool) { pool in
+                    when(pool.shift(id: unknownShift.id))
+                        .then(
+                            completedWith: .failure(.unknown),
+                            scheduler: scheduler
+                        )
+                }
+                it("loads progress completing with unknown error") {
+                    store.send(.show(id: unknownShift.id))
+                    store.expectLoad(with: .failure(.unknown), scheduler: scheduler)
                 }
             }
-            // TODO: provide method to arrange any test case that depends upon loading progress
-            it("shows progress completed with success") {
-                // Arrange
-                let fake = Shift.fake()
-                stub(pool) { stub in
-                    when(stub.shift(id: fake.id)).then { _ in
-                        steps
-                            .progressPublisher(
-                                completedWith: .success(fake),
-                                scheduler: scheduler.eraseToAnyScheduler()
-                            )
-                    }
+
+            context("when identifier is well known") {
+                let fakeShift = Shift.fake()
+                stub(pool) { pool in
+                    when(pool.shift(id: fakeShift.id))
+                        .then(
+                            completedWith: .success(fakeShift),
+                            scheduler: scheduler
+                        )
                 }
-                // Act
-                store.send(.show(id: fake.id)) {
-                    $0 = .none
-                }
-                scheduler.advance(by: 4)
-                // Assert
-                for value in stepsValues {
-                    let pending: State = .pending(value)
-                    store.receive(.load(pending)) { state in
-                        state = pending
-                    }
-                }
-                let succeeded: State = .completed(.success(fake))
-                store.receive(.load(succeeded)) { state in
-                    state = succeeded
+                it("loads progress completed with success") {
+                    store.send(.show(id: fakeShift.id))
+                    store.expectLoad(with: .success(fakeShift), scheduler: scheduler)
                 }
             }
         }
     }
     
+}
+
+fileprivate extension TestStore where LocalState == Details.State, Action == Details.Action {
+
+    func expectLoad(with completed: LocalState, scheduler: ProgressTestSchedulerOf<DispatchQueue>) {
+        scheduler.advance(of: .finalStep)
+        receive(progress: scheduler.fractions) { fraction in
+            .load(.pending(fraction))
+        } update: { state, fraction in
+            state = .pending(fraction)
+        }
+        receive(.load(completed)) { state in
+            state = completed
+        }
+    }
+
 }
