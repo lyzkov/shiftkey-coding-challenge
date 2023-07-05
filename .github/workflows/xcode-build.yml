@@ -1,11 +1,13 @@
 name: Build Xcode Project
 on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+  workflow_call:
+    inputs:
+      project:
+        required: true
+        type: string
+      scheme:
+        required: true
+        type: string
 jobs:
   build:
     runs-on: macos-latest
@@ -14,7 +16,7 @@ jobs:
       - name: Build Xcode Project
         uses: sersoft-gmbh/xcodebuild-action@v2
         with:
-          project: CodingChallenge.xcodeproj
-          scheme: CodingChallenge
+          project: ${{ inputs.project }}
+          scheme: ${{ inputs.scheme }}
           sdk: iphonesimulator
           action: build-for-testing
