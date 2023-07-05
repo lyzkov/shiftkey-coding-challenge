@@ -1,0 +1,30 @@
+name: Build code and run tests
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build:
+    name: Build and Test ${{ vars.XCODE_BUILD_SCHEME }} scheme using iPhone Simulator
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build Xcode Project
+        uses: sersoft-gmbh/xcodebuild-action@v2
+        with:
+          project: ${{ vars.XCODE_BUILD_PROJECT }}
+          scheme: ${{ vars.XCODE_BUILD_SCHEME }}
+          destination: ${{ vars.XCODE_BUILD_DESTINATION }}
+          action: build-for-testing
+      - name: Test Xcode Project
+        uses: sersoft-gmbh/xcodebuild-action@v2
+        with:
+          project: ${{ vars.XCODE_BUILD_PROJECT }}
+          scheme: ${{ vars.XCODE_BUILD_SCHEME }}
+          destination: ${{ vars.XCODE_BUILD_DESTINATION }}
+          action: test-without-building
