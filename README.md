@@ -1,6 +1,6 @@
 # Shiftkey Coding Challenge
 
-[![Code Analysis](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/code-analysis.yml)
+[![Code Analysis](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/codeql.yml/badge.svg)](https://github.com/lyzkov/shiftkey-coding-challenge/actions/workflows/codeql.yml)
 
 ## Introduction
 
