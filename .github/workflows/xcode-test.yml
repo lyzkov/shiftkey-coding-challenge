@@ -17,12 +17,12 @@ jobs:
         with:
           project: CodingChallenge.xcodeproj
           scheme: CodingChallenge
-          sdk: iphonesimulator
+          destination: platform=iOS Simulator,name=iPhone 13
           action: build-for-testing
       - name: Test Xcode Project
         uses: sersoft-gmbh/xcodebuild-action@v2
         with:
           project: CodingChallenge.xcodeproj
           scheme: CodingChallenge
-          sdk: iphonesimulator
+          destination: platform=iOS Simulator,name=iPhone 13
           action: test-without-building
