@@ -19,8 +19,8 @@ jobs:
       - name: Build Xcode Project
         uses: sersoft-gmbh/xcodebuild-action@v2
         with:
-          project: ${{ inputs.project }}
-          scheme: ${{ inputs.scheme }}
+          project: CodingChallenge.xcodeproj
+          scheme: CodingChallenge
           sdk: iphonesimulator
           action: build-for-testing
   test:
