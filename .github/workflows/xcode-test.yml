@@ -7,15 +7,29 @@ on:
     branches:
       - main
 jobs:
-  build:
-    uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
-    with:
-      project: CodingChallenge.xcodeproj
-      scheme: CodingChallenge
+#  build:
+#    uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
+#    with:
+#      project: CodingChallenge.xcodeproj
+#      scheme: CodingChallenge
+#  build:
+#    runs-on: macos-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - name: Build Xcode Project
+#        uses: sersoft-gmbh/xcodebuild-action@v2
+#        with:
+#          project: ${{ inputs.project }}
+#          scheme: ${{ inputs.scheme }}
+#          sdk: iphonesimulator
+#          action: build-for-testing
   test:
-    needs: build
     runs-on: macos-latest
     steps:
+      - uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflow
+        with:
+          project: CodingChallenge.xcodeproj
+          scheme: CodingChallenge
       - name: Test Xcode Project
         uses: sersoft-gmbh/xcodebuild-action@v2
         with:
