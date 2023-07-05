@@ -12,8 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Xcode Project
-        uses: apple-actions/xcode@v3
+        uses: sersoft-gmbh/xcodebuild-action@v2
         with:
-          actions: build-for-testing
-          scheme: MyScheme
+          project: CodingChallenge.xcodeproj
+          scheme: CodingChallenge
           sdk: iphonesimulator
+          action: build-for-testing
