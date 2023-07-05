@@ -12,21 +12,14 @@ jobs:
 #    with:
 #      project: CodingChallenge.xcodeproj
 #      scheme: CodingChallenge
-  build:
+  test:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v2
       - name: Build Xcode Project
-        uses: sersoft-gmbh/xcodebuild-action@v2
+        uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
         with:
           project: CodingChallenge.xcodeproj
           scheme: CodingChallenge
-          sdk: iphonesimulator
-          action: build-for-testing
-  test:
-    needs: build
-    runs-on: macos-latest
-    steps:
       - name: Test Xcode Project
         uses: sersoft-gmbh/xcodebuild-action@v2
         with:
