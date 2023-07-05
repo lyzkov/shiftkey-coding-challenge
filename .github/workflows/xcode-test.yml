@@ -1,0 +1,22 @@
+name: Test Xcode Project
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
+  test:
+    needs: build
+    runs-on: macos-latest
+    steps:
+      - name: Test Xcode Project
+        uses: sersoft-gmbh/xcodebuild-action@v2
+        with:
+          project: CodingChallenge.xcodeproj
+          scheme: CodingChallenge
+          sdk: iphonesimulator
+          action: test-without-building
