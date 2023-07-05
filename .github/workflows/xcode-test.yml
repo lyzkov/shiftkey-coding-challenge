@@ -15,8 +15,10 @@ jobs:
   test:
     runs-on: macos-latest
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
       - name: Build Xcode Project
-        uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
+        uses: ./.github/workflows/xcode-build.yml
         with:
           project: CodingChallenge.xcodeproj
           scheme: CodingChallenge
