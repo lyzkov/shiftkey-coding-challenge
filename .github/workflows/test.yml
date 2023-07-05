@@ -2,13 +2,13 @@ name: Build code and run tests
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
-    name: Build and Test ${{ vars.XCODE_BUILD_SCHEME }} scheme using ${{ vars.XCODE_BUILD_DESTINATION }}
+    name: Build and Test ${{ vars.XCODE_BUILD_SCHEME }} scheme using iPhone Simulator
     runs-on: macos-latest
 
     steps:
