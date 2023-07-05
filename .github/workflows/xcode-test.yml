@@ -9,6 +9,9 @@ on:
 jobs:
   build:
     uses: lyzkov/shiftkey-coding-challenge/.github/workflows/xcode-build.yml@feature/xcode-workflows
+    with:
+      project: CodingChallenge.xcodeproj
+      scheme: CodingChallenge
   test:
     needs: build
     runs-on: macos-latest
